@@ -5,7 +5,6 @@ import Message from "../../components/Message";
 import ProductInfo from "./ProductInfo";
 import ProductActions from "./ProductActions";
 import ProductTabs from "./ProductTabs";
-import HeartIcon from "./HeartIcon";
 import {
   useCreateReviewMutation,
   useGetProductByIdQuery,
@@ -13,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/features/cartSlice";
+import HeartIcon from "../Favourites/HeartIcon";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
