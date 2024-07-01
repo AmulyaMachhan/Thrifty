@@ -4,8 +4,8 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import HeartIcon from "./HeartIcon";
 import { addToCart } from "../../redux/features/cartSlice";
+import HeartIcon from "../Favourites/HeartIcon";
 
 const ProductCard = ({ p }) => {
   const dispatch = useDispatch();
