@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Card, Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import HeartIcon from "./HeartIcon";
 import Ratings from "./Ratings";
+import HeartIcon from "../Favourites/HeartIcon";
 
 const Product = ({ product }) => {
   return (
