@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import HeartIcon from "./HeartIcon";
+import HeartIcon from "../Favourites/HeartIcon";
 
 const SmallProduct = ({ product }) => {
   return (
