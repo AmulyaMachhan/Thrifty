@@ -117,15 +117,15 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
 });
 
 const updateCurrentUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user?._id);
+  const user = await User.findById(req.user._id);
 
   if (!user) {
     res.status(401).send("User not found");
   }
 
   try {
-    user.username = req.body?.username || user.username;
-    user.email = req.body?.email || user.email;
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
 
     if (req.body.password) {
       user.password = req.body.password;

@@ -13,7 +13,7 @@ const authenticate = asyncHandler(async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decodedToken.userID).select("-password");
-    s;
+
     if (!user) {
       res.status(401).send("User not found");
     }
