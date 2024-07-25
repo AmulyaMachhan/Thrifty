@@ -4,6 +4,7 @@ import {
   logoutUser,
   registerUser,
   getAllUsers,
+  getCurrentUserProfile,
 } from "../controllers/user.controller.js";
 import {
   authenticate,
@@ -19,5 +20,7 @@ router
 
 router.post("/auth", loginUser);
 router.post("/logout", logoutUser);
+
+router.route("/profile").get(authenticate, getCurrentUserProfile);
 
 export default router;
