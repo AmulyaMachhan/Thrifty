@@ -54,24 +54,31 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
+  //Extract fields from request body
   const { email, password } = req.body;
 
+  //Validate fields
   if (!email || !password) {
     throw new Error("Email and password required");
   }
 
+  //Find if there is an existing user
   const existingUser = await User.findOne({ email });
 
+  //Throw error if not
   if (!existingUser) {
     throw new Error("User not registered");
   }
 
+  //Validate if the password is correct
   const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
+  //Throw if incorrect password
   if (!isPasswordValid) {
     throw new Error("Password Invalid");
   }
 
+  //Create Token
   createToken(res, existingUser._id);
 
   // Return response
@@ -82,4 +89,14 @@ const loginUser = asyncHandler(async (req, res) => {
     isAdmin: existingUser.isAdmin,
   });
 });
-export { registerUser, loginUser };
+
+const logoutUser = asyncHandler((req, res) => {
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "User Successfully Logged Out" });
+});
+
+export { registerUser, loginUser, logoutUser };
