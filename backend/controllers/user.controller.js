@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //Validate data
   if (username == "" || password == "" || email == "") {
-    res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   //Find if there is an existing user
@@ -17,7 +17,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //Throw Error is there is an existing user
   if (existingUser) {
-    res.status(400).send("User Already Registered");
+    return res.status(400).send("User Already Registered");
   }
 
   //Generate salt rounds for bcrypt
@@ -41,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
     createToken(res, user._id);
 
     // Return response
-    res.status(200).json({
+    return res.status(200).json({
       _id: user._id,
       email: user.email,
       username: user.username,
@@ -120,7 +120,7 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
-    res.status(401).send("User not found");
+    return res.status(401).send("User not found");
   }
 
   try {
@@ -138,14 +138,14 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
 
     const updatedUser = await user.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       _id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
     });
   } catch (error) {
-    res.status(401);
+    res.status(500);
     throw new Error("Error while updating user profile");
   }
 });
@@ -157,6 +157,21 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return res.status(401).send("User not found");
+  }
+
+  if (user.isAdmin) {
+    return res.status(400).send("Admin cannot be deleted");
+  }
+
+  await User.deleteOne(user._id);
+  return res.status(200).json({ message: "User Deleted Successfully" });
+});
+
 export {
   registerUser,
   loginUser,
@@ -164,4 +179,5 @@ export {
   getCurrentUserProfile,
   getAllUsers,
   updateCurrentUserProfile,
+  deleteUser,
 };
