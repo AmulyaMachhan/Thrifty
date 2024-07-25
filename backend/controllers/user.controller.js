@@ -183,6 +183,27 @@ const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
+const updateUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  user.username = req.body.username || user.username;
+  user.email = req.body.email || user.email;
+  user.isAdmin = Boolean(req.body.isAdmin) || user.isAdmin;
+
+  const updatedUser = await user.save();
+
+  return res.status(200).json({
+    _id: updatedUser._id,
+    username: updatedUser.username,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin,
+  });
+});
+
 export {
   registerUser,
   loginUser,
@@ -192,4 +213,5 @@ export {
   updateCurrentUserProfile,
   deleteUser,
   getUserById,
+  updateUserById,
 };
