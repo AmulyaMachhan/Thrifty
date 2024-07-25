@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //Validate data
   if (username == "" || password == "" || email == "") {
-    throw new Error("All fields are required");
+    res.status(400).json({ message: "All fields are required" });
   }
 
   //Find if there is an existing user
@@ -116,6 +116,29 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const updateCurrentUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user?._id);
+
+  if (!user) {
+    res.status(401).send("User not found");
+  }
+
+  user.username = req.body?.username || user.username;
+  user.email = req.body?.email || user.email;
+
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    _id: updatedUser._id,
+    username: updatedUser.username,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin,
+  });
+});
 //Admin controller
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});

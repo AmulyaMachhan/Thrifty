@@ -6,16 +6,16 @@ const authenticate = asyncHandler(async (req, res, next) => {
   let token = req.cookies?.jwt;
 
   if (!token) {
-    throw new Error("Unauthorized Access");
+    res.status(400).send("Unauthorized Access");
   }
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decodedToken.userID).select("-password");
-
+    s;
     if (!user) {
-      throw new Error("User not found");
+      res.status(401).send("User not found");
     }
 
     req.user = user;
