@@ -48,3 +48,5 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error(error.message || "Invalid User Data");
   }
 });
+
+export { registerUser };
