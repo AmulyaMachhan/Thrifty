@@ -128,7 +128,12 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
 
     if (req.body.password) {
-      user.password = req.body.password;
+      //Generate salt rounds for bcrypt
+      const salt = await bcrypt.genSalt(10);
+
+      //Hash password for secrecy
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      user.password = hashedPassword;
     }
 
     const updatedUser = await user.save();
