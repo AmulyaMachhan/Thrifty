@@ -53,4 +53,33 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    throw new Error("Email and password required");
+  }
+
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    throw new Error("User not registered");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+  if (!isPasswordValid) {
+    throw new Error("Password Invalid");
+  }
+
+  createToken(res, existingUser._id);
+
+  // Return response
+  res.status(200).json({
+    _id: existingUser._id,
+    email: existingUser.email,
+    username: existingUser.username,
+    isAdmin: existingUser.isAdmin,
+  });
+});
+export { registerUser, loginUser };
