@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import { asyncHandler } from "../utils/asyncHandler";
-import { User } from "../models/user.model";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { User } from "../models/user.model.js";
 
 const authenticate = asyncHandler(async (req, res, next) => {
-  let token = req.cookies?.cookies;
+  let token = req.cookies?.jwt;
 
   if (!token) {
     throw new Error("Unauthorized Access");

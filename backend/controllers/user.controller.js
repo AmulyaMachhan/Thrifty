@@ -101,4 +101,11 @@ const logoutUser = asyncHandler((req, res) => {
   res.status(200).json({ message: "User Successfully Logged Out" });
 });
 
-export { registerUser, loginUser, logoutUser };
+//Admin controller
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+
+  res.status(200).json(users);
+});
+
+export { registerUser, loginUser, logoutUser, getAllUsers };
