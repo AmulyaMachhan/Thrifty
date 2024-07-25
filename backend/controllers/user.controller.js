@@ -91,11 +91,13 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler((req, res) => {
+  //Remove cookies set
   res.clearCookie("jwt", {
     httpOnly: true,
     expires: new Date(0),
   });
 
+  //Return a response
   res.status(200).json({ message: "User Successfully Logged Out" });
 });
 
