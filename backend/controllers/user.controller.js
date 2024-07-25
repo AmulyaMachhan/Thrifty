@@ -123,22 +123,28 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
     res.status(401).send("User not found");
   }
 
-  user.username = req.body?.username || user.username;
-  user.email = req.body?.email || user.email;
+  try {
+    user.username = req.body?.username || user.username;
+    user.email = req.body?.email || user.email;
 
-  if (req.body.password) {
-    user.password = req.body.password;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } catch (error) {
+    res.status(401);
+    throw new Error("Error while updating user profile");
   }
-
-  const updatedUser = await user.save();
-
-  res.status(200).json({
-    _id: updatedUser._id,
-    username: updatedUser.username,
-    email: updatedUser.email,
-    isAdmin: updatedUser.isAdmin,
-  });
 });
+
 //Admin controller
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
@@ -152,4 +158,5 @@ export {
   logoutUser,
   getCurrentUserProfile,
   getAllUsers,
+  updateCurrentUserProfile,
 };

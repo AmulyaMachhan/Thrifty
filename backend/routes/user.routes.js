@@ -5,6 +5,7 @@ import {
   registerUser,
   getAllUsers,
   getCurrentUserProfile,
+  updateCurrentUserProfile,
 } from "../controllers/user.controller.js";
 import {
   authenticate,
@@ -21,6 +22,9 @@ router
 router.post("/auth", loginUser);
 router.post("/logout", logoutUser);
 
-router.route("/profile").get(authenticate, getCurrentUserProfile);
+router
+  .route("/profile")
+  .get(authenticate, getCurrentUserProfile)
+  .put(authenticate, updateCurrentUserProfile);
 
 export default router;
