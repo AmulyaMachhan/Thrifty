@@ -14,3 +14,5 @@ const createToken = (res, userID) => {
 
   return token;
 };
+
+export default createToken;

@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import bcrypt from "bcryptjs";
+import createToken from "../utils/createToken.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   //Extract data from request
@@ -35,6 +36,9 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     // Save user model
     await user.save();
+
+    //Creating and for storing token in the cookies
+    createToken(res, user._id);
 
     // Return response
     res.status(200).json({
