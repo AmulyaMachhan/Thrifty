@@ -1,7 +1,11 @@
+import { ToastContainer } from "react-toastify";
+import { Outlet } from "react-router-dom";
+import Navigation from "./pages/Auth/Navigation.jsx";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      <h1 className="text-6xl text-gray-500">Hello</h1>
+      <ToastContainer />
     </>
   );
 }
