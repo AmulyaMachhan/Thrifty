@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/api/userApiSlice";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
-import { setCredentials } from "../../redux/features/auth/authSlice";
+import { setCredentials } from "../../redux/features/authSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
