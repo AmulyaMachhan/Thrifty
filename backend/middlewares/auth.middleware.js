@@ -6,7 +6,7 @@ const authenticate = asyncHandler(async (req, res, next) => {
   let token = req.cookies?.jwt;
 
   if (!token) {
-    res.status(400).send("Unauthorized Access");
+    res.status(400).json({ message: "Unauthorized Access" });
   }
 
   try {
@@ -15,13 +15,13 @@ const authenticate = asyncHandler(async (req, res, next) => {
     const user = await User.findById(decodedToken.userID).select("-password");
 
     if (!user) {
-      res.status(401).send("User not found");
+      res.status(401).json({ message: "User not found" });
     }
 
     req.user = user;
     next();
   } catch (error) {
-    res.status(401);
+    res.status(401).json({ message: "Unauthorized access" });
     throw new Error("Unauthorized access");
   }
 });

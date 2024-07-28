@@ -5,7 +5,7 @@ import createToken from "../utils/createToken.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   //Extract data from request
-  const { username, password, email } = req.body;
+  const { username, email, password } = req.body;
 
   //Validate data
   if (username == "" || password == "" || email == "") {
@@ -17,7 +17,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //Throw Error is there is an existing user
   if (existingUser) {
-    return res.status(400).send("User Already Registered");
+    return res.status(400).json({ message: "User Already Registered" });
   }
 
   //Generate salt rounds for bcrypt
@@ -58,8 +58,8 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   //Validate fields
-  if (!email || !password) {
-    throw new Error("Email and password required");
+  if (email === "" || password === "") {
+    return res.status(400).json({ message: "Email and password required" });
   }
 
   //Find if there is an existing user
@@ -67,7 +67,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //Throw error if not
   if (!existingUser) {
-    throw new Error("User not registered");
+    return res.status(404).json({ message: "User not registered" });
   }
 
   //Validate if the password is correct
@@ -75,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //Throw if incorrect password
   if (!isPasswordValid) {
-    throw new Error("Password Invalid");
+    return res.status(401).json({ message: "Password Invalid" });
   }
 
   //Create Token
