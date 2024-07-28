@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/api/userApiSlice";
 import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
+import { setCredentials } from "../../redux/features/authSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,8 +14,8 @@ function Login() {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const dispatch = useDispatch;
-  const navigate = useNavigate;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { search } = useLocation;
   const sp = new URLSearchParams(search);
@@ -25,13 +27,25 @@ function Login() {
     }
   }, [userInfo, redirect, navigate]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await login({ email, password }).unwrap();
+
+      dispatch(setCredentials({ ...res }));
+      toast.success(res.message);
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+    }
+  };
   return (
     <div>
       <section className="pl-[10rem] flex flex-wrap">
         <div className="mr-[4rem] mt-[5rem]">
           <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
 
-          <form className="container w-[40rem]">
+          <form className="container w-[40rem]" onSubmit={handleSubmit}>
             <div className="my-[2rem]">
               <label
                 htmlFor="email"
@@ -76,6 +90,18 @@ function Login() {
 
             {isLoading && <Loader />}
           </form>
+
+          <div className="mt-4">
+            <p className="text-white">
+              New Customer ?{" "}
+              <Link
+                to={redirect ? `/register?redirect=${redirect}` : "/register"}
+                className="text-pink-500 hover:underline"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
     </div>
