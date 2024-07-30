@@ -39,7 +39,7 @@ function Register() {
         const res = await register({ username, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate(redirect);
-        toast.success(res.message);
+        toast.success("User Registered Successfully");
       } catch (error) {
         toast.error(error?.data?.message || error.message);
       }
