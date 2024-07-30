@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProfileMutation } from "../../redux/api/userApiSlice";
+import { toast } from "react-toastify";
+import { setCredentials } from "../../redux/features/authSlice";
+import Loader from "../../components/Loader";
 
 function Profile() {
   const [username, setUsername] = useState("");
@@ -20,6 +23,27 @@ function Profile() {
     setUsername(userInfo.username);
   }, [userInfo.username, userInfo.email]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords Do Not Match");
+    } else {
+      try {
+        const res = await updateProfile({
+          _id: userInfo._id,
+          username,
+          email,
+          password,
+        }).unwrap();
+
+        dispatch(setCredentials({ ...res }));
+        toast.success(res.message);
+      } catch (error) {
+        toast.error(error?.data?.message || error.message);
+      }
+    }
+  };
   return (
     <div className="container mx-auto mt-[10rem]">
       <div className="flex justify-center align-center md:flex md:space-x-4">
@@ -79,6 +103,8 @@ function Profile() {
               Update
             </button>
           </div>
+
+          {loadingUpdatedProfile && <Loader />}
         </form>
       </div>
     </div>
