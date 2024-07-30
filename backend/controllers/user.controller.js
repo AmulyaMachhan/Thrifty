@@ -161,11 +161,11 @@ const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return res.status(401).send("User not found");
+    return res.status(401).json({ message: "User not found" });
   }
 
   if (user.isAdmin) {
-    return res.status(400).send("Admin cannot be deleted");
+    return res.status(400).json({ message: "Admin cannot be deleted" });
   }
 
   await User.deleteOne(user._id);
