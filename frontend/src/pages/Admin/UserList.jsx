@@ -44,16 +44,18 @@ function UserList() {
                 <td className="px-4 py-2 text-left"></td>
               </tr>
             </tHead>
+
             {users.map((user) => (
               <tr key={user._id}>
                 <td className="px-4 py-2">{user._id}</td>
+
                 <td className="px-4 py-2">
                   {editableUserID === user._id ? (
                     <div className="flex items-center">
                       <input
                         type="text"
-                        value={editableUserID}
-                        onChange={(e) => setEditableUserID(e.target.value)}
+                        value={editableUsername}
+                        onChange={(e) => setEditableUsername(e.target.value)}
                         className="w-full p-2 border-rounded-lg"
                       />
                       <button
@@ -65,7 +67,8 @@ function UserList() {
                     </div>
                   ) : (
                     <div className="flex items-center">
-                      {user.username} {"   "}
+                      {user.username}
+                      {"   "}
                       <button
                         onClick={() =>
                           toggleEdit(user._id, user.username, user.email)
@@ -74,6 +77,44 @@ function UserList() {
                         <FaEdit className="ml[1rem]" />
                       </button>
                     </div>
+                  )}
+                </td>
+
+                <td className="px-4 py-2">
+                  {editableUserID === user._id ? (
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        value={editableUserEmail}
+                        onChange={(e) => setEditableUserEmail(e.target.value)}
+                        className="w-full p-2 border-rounded-lg"
+                      />
+                      <button
+                        onClick={() => updateHandler(user._id)}
+                        className="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg "
+                      >
+                        <FaCheck />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center">
+                      <a href={`mailto:${user.email}`}>{user.email}</a> {"   "}
+                      <button
+                        onClick={() =>
+                          toggleEdit(user._id, user.username, user.email)
+                        }
+                      >
+                        <FaEdit className="ml[1rem]" />
+                      </button>
+                    </div>
+                  )}
+                </td>
+
+                <td className="px-4 py-2">
+                  {user.isAdmin ? (
+                    <FaCheck style={{ color: "green" }} />
+                  ) : (
+                    <FaTimes style={{ color: "red" }} />
                   )}
                 </td>
               </tr>
