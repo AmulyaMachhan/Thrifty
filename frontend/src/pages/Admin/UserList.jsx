@@ -58,7 +58,7 @@ function UserList() {
   };
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4">Users</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-center">Users</h1>
 
       {isLoading ? (
         <Loader />
