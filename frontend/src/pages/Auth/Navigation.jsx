@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   AiOutlineHome,
   AiOutlineShopping,
   AiOutlineLogin,
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
+  AiOutlineMenu,
 } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -19,9 +20,14 @@ const Navigation = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const dropdownRef = useRef(null); // Ref for the dropdown
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false);
   };
 
   const dispatch = useDispatch();
@@ -39,6 +45,11 @@ const Navigation = () => {
     }
   };
 
+  // Close dropdown when navigating to another link
+  const handleLinkClick = () => {
+    setDropdownOpen(false);
+  };
+
   return (
     <div
       style={{ zIndex: 9999 }}
@@ -47,10 +58,17 @@ const Navigation = () => {
       } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh]  fixed `}
       id="navigation-container"
     >
-      <div className="flex flex-col justify-center space-y-4">
+      <div className="flex flex-col justify-center space-y-4 transition-all duration-500 ease-in-out">
+        <button
+          className="xl:hidden lg:hidden md:block"
+          onClick={() => setShowSidebar(!showSidebar)}
+        >
+          <AiOutlineMenu className="mr-2 mt-[1rem]" size={22} />
+        </button>
         <Link
           to="/"
           className="flex items-center transition-transform transform hover:translate-x-2"
+          onClick={handleLinkClick}
         >
           <AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
           <span className="hidden nav-item-name mt-[3rem]">HOME</span>{" "}
@@ -59,19 +77,24 @@ const Navigation = () => {
         <Link
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2"
+          onClick={handleLinkClick}
         >
           <AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
           <span className="hidden nav-item-name mt-[3rem]">SHOP</span>{" "}
         </Link>
 
-        <Link to="/cart" className="flex relative">
+        <Link to="/cart" className="flex relative" onClick={handleLinkClick}>
           <div className="flex items-center transition-transform transform hover:translate-x-2">
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
             <span className="hidden nav-item-name mt-[3rem]">Cart</span>
           </div>
         </Link>
 
-        <Link to="/favorite" className="flex relative">
+        <Link
+          to="/favorite"
+          className="flex relative"
+          onClick={handleLinkClick}
+        >
           <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
             <FaHeart className="mt-[3rem] mr-2" size={20} />
             <span className="hidden nav-item-name mt-[3rem]">Favorites</span>
@@ -79,11 +102,13 @@ const Navigation = () => {
         </Link>
       </div>
 
-      <div className="relative">
-        <button
-          onClick={toggleDropdown}
-          className="flex items-center text-gray-800 focus:outline-none"
-        >
+      <div
+        className="relative"
+        ref={dropdownRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <button className="flex items-center text-gray-800 focus:outline-none">
           {userInfo ? (
             <span className="text-white">{userInfo.username}</span>
           ) : (
@@ -111,7 +136,7 @@ const Navigation = () => {
 
         {dropdownOpen && userInfo && (
           <ul
-            className={`absolute right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
+            className={`absolute bottom-0 mt-2 mr-14 pb-4 space-y-2 bg-white text-gray-600 ${
               !userInfo.isAdmin ? "-top-20" : "-top-80"
             } `}
           >
@@ -121,6 +146,7 @@ const Navigation = () => {
                   <Link
                     to="/admin/dashboard"
                     className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLinkClick}
                   >
                     Dashboard
                   </Link>
@@ -129,6 +155,7 @@ const Navigation = () => {
                   <Link
                     to="/admin/productlist"
                     className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLinkClick}
                   >
                     Products
                   </Link>
@@ -137,6 +164,7 @@ const Navigation = () => {
                   <Link
                     to="/admin/categorylist"
                     className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLinkClick}
                   >
                     Category
                   </Link>
@@ -145,6 +173,7 @@ const Navigation = () => {
                   <Link
                     to="/admin/orderlist"
                     className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLinkClick}
                   >
                     Orders
                   </Link>
@@ -153,6 +182,7 @@ const Navigation = () => {
                   <Link
                     to="/admin/userlist"
                     className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLinkClick}
                   >
                     Users
                   </Link>
@@ -161,13 +191,20 @@ const Navigation = () => {
             )}
 
             <li>
-              <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+              <Link
+                to="/profile"
+                className="block px-4 py-2 hover:bg-gray-100"
+                onClick={handleLinkClick}
+              >
                 Profile
               </Link>
             </li>
             <li>
               <button
-                onClick={logoutHandler}
+                onClick={() => {
+                  logoutHandler();
+                  handleLinkClick();
+                }}
                 className="block w-full px-4 py-2 text-left hover:bg-gray-100"
               >
                 Logout
@@ -181,6 +218,7 @@ const Navigation = () => {
               <Link
                 to="/login"
                 className="flex items-center mt-5 transition-transform transform hover:translate-x-2"
+                onClick={handleLinkClick}
               >
                 <AiOutlineLogin className="mr-2 mt-[4px]" size={26} />
                 <span className="hidden nav-item-name">LOGIN</span>
@@ -190,6 +228,7 @@ const Navigation = () => {
               <Link
                 to="/register"
                 className="flex items-center mt-5 transition-transform transform hover:translate-x-2"
+                onClick={handleLinkClick}
               >
                 <AiOutlineUserAdd size={26} />
                 <span className="hidden nav-item-name">REGISTER</span>
