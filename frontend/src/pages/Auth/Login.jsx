@@ -34,6 +34,7 @@ function Login() {
       const res = await login({ email, password }).unwrap();
 
       dispatch(setCredentials({ ...res }));
+      navigate(redirect);
       toast.success(res.message);
     } catch (error) {
       toast.error(error?.data?.message || error.message);
