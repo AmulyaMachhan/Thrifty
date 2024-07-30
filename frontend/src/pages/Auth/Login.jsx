@@ -35,7 +35,7 @@ function Login() {
 
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-      toast.success(res.message);
+      toast.success("User Signed In Successfully");
     } catch (error) {
       toast.error(error?.data?.message || error.message);
     }
