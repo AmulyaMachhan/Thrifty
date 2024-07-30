@@ -117,6 +117,19 @@ function UserList() {
                     <FaTimes style={{ color: "red" }} />
                   )}
                 </td>
+
+                <td className="px-4 py-2">
+                  {!user.isAdmin && (
+                    <div className="flex">
+                      <button
+                        onClick={() => deleteHandler(user._id)}
+                        className="bg-red-600 hover-bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  )}
+                </td>
               </tr>
             ))}
           </table>
