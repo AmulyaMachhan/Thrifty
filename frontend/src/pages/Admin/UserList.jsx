@@ -5,6 +5,7 @@ import {
   useGetUsersQuery,
   useUpdateUserDetailsMutation,
 } from "../../redux/api/userApiSlice";
+import { Table } from "flowbite-react";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { toast } from "react-toastify";
@@ -56,8 +57,9 @@ function UserList() {
       }
     }
   };
+
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col justify-center overflow-x-auto">
       <h1 className="text-2xl font-semibold mb-4 text-center">Users</h1>
 
       {isLoading ? (
@@ -67,26 +69,21 @@ function UserList() {
           {error?.data?.message || error.message}
         </Message>
       ) : (
-        <div className="flex flex-col md:flex-row">
-          {/* Admin Menu */}
-          <table className="w-full md:w-4/5 mx-auto">
-            <tHead>
-              <tr>
-                <td className="px-4 py-2 text-left">ID</td>
-                <td className="px-4 py-2 text-left">NAME</td>
-                <td className="px-4 py-2 text-left">EMAIL</td>
-                <td className="px-4 py-2 text-left">ADMIN</td>
-                <td className="px-4 py-2 text-left"></td>
-              </tr>
-            </tHead>
+        <div className="flex justify-center w-full">
+          <Table className="hoverable text-[1rem]">
+            <Table.Head className="text-lg">
+              <Table.HeadCell>ID</Table.HeadCell>
+              <Table.HeadCell>NAME</Table.HeadCell>
+              <Table.HeadCell>EMAIL</Table.HeadCell>
+              <Table.HeadCell>ADMIN</Table.HeadCell>
+              <Table.HeadCell>ACTIONS</Table.HeadCell>
+            </Table.Head>
 
-            <tbody>
-              {" "}
+            <Table.Body>
               {users.map((user) => (
-                <tr key={user._id}>
-                  <td className="px-4 py-2">{user._id}</td>
-
-                  <td className="px-4 py-2">
+                <Table.Row key={user._id} className="bg-black-">
+                  <Table.Cell>{user._id}</Table.Cell>
+                  <Table.Cell>
                     {editableUserID === user._id ? (
                       <div className="flex items-center">
                         <input
@@ -115,9 +112,8 @@ function UserList() {
                         </button>
                       </div>
                     )}
-                  </td>
-
-                  <td className="px-4 py-2">
+                  </Table.Cell>
+                  <Table.Cell>
                     {editableUserID === user._id ? (
                       <div className="flex items-center">
                         <input
@@ -146,17 +142,15 @@ function UserList() {
                         </button>
                       </div>
                     )}
-                  </td>
-
-                  <td className="px-4 py-2">
+                  </Table.Cell>
+                  <Table.Cell>
                     {user.isAdmin ? (
                       <FaCheck style={{ color: "green" }} />
                     ) : (
                       <FaTimes style={{ color: "red" }} />
                     )}
-                  </td>
-
-                  <td className="px-4 py-2">
+                  </Table.Cell>
+                  <Table.Cell>
                     {!user.isAdmin && (
                       <div className="flex">
                         <button
@@ -167,11 +161,11 @@ function UserList() {
                         </button>
                       </div>
                     )}
-                  </td>
-                </tr>
+                  </Table.Cell>
+                </Table.Row>
               ))}
-            </tbody>
-          </table>
+            </Table.Body>
+          </Table>
         </div>
       )}
     </div>
