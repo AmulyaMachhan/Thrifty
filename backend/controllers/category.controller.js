@@ -2,7 +2,7 @@ import { Category } from "../models/category.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createCategory = asyncHandler(async (req, res) => {
-  const name = req.body;
+  const { name } = req.body;
 
   if (!name) {
     return res.status(401).json({ message: "Undefined category" });
@@ -25,4 +25,36 @@ const createCategory = asyncHandler(async (req, res) => {
   return res.status(200).json(category);
 });
 
-export { createCategory };
+const updateCategory = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(401).json({ message: "Category name required" });
+  }
+
+  const { categoryID } = req.params;
+
+  if (!categoryID) {
+    return res.status(400).json({ message: "Invalid request" });
+  }
+
+  const category = await Category.findById({ _id: categoryID });
+
+  if (!category) {
+    return res.status(404).json({ message: "Category does not exist" });
+  }
+
+  category.name = name;
+
+  const updatedCategory = await category.save();
+
+  if (!updatedCategory) {
+    return res
+      .status(500)
+      .json({ message: "Category not updated in the database" });
+  }
+
+  return res.status(200).json(updatedCategory);
+});
+
+export { createCategory, updateCategory };
