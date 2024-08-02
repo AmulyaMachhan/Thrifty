@@ -57,4 +57,20 @@ const updateCategory = asyncHandler(async (req, res) => {
   return res.status(200).json(updatedCategory);
 });
 
-export { createCategory, updateCategory };
+const removeCategory = asyncHandler(async (req, res) => {
+  const { categoryID } = req.params;
+
+  if (!categoryID) {
+    return res.status(400).json({ message: "Invalid request" });
+  }
+
+  try {
+    await Category.findByIdAndDelete(categoryID);
+
+    res.status(200).json({ message: "Category Deleted Successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error while deleting category" });
+  }
+});
+
+export { createCategory, updateCategory, removeCategory };
