@@ -66,11 +66,20 @@ const removeCategory = asyncHandler(async (req, res) => {
 
   try {
     await Category.findByIdAndDelete(categoryID);
-
     res.status(200).json({ message: "Category Deleted Successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server Error while deleting category" });
+    res.status(500).json(error.message);
   }
 });
 
-export { createCategory, updateCategory, removeCategory };
+const readCategories = asyncHandler(async (req, res) => {
+  try {
+    const categories = await Category.find({});
+    return res
+      .status(200)
+      .json({ ...categories, message: "Categories fetched successfully" });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
+export { createCategory, updateCategory, removeCategory, readCategories };
