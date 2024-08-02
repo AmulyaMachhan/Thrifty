@@ -72,7 +72,7 @@ const removeCategory = asyncHandler(async (req, res) => {
   }
 });
 
-const readCategories = asyncHandler(async (req, res) => {
+const listCategories = asyncHandler(async (req, res) => {
   try {
     const categories = await Category.find({});
     return res
@@ -82,4 +82,28 @@ const readCategories = asyncHandler(async (req, res) => {
     res.status(500).json(error.message);
   }
 });
-export { createCategory, updateCategory, removeCategory, readCategories };
+
+const readCategory = asyncHandler(async (req, res) => {
+  const { categoryID } = req.params;
+
+  if (!categoryID) {
+    return res.status(400).json({ message: "Invalid request" });
+  }
+
+  try {
+    const category = await Category.findById({ _id: categoryID });
+    return res
+      .status(200)
+      .json({ ...category, message: "Category fetched successfully" });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
+
+export {
+  createCategory,
+  updateCategory,
+  removeCategory,
+  listCategories,
+  readCategory,
+};
