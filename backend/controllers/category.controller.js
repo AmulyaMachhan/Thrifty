@@ -14,7 +14,7 @@ const createCategory = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Category already exists" });
   }
 
-  const category = await new Category({ category: name }).save();
+  const category = await new Category({ name }).save();
 
   if (!category) {
     return res
@@ -75,26 +75,22 @@ const removeCategory = asyncHandler(async (req, res) => {
 const listCategories = asyncHandler(async (req, res) => {
   try {
     const categories = await Category.find({});
-    return res
-      .status(200)
-      .json({ ...categories, message: "Categories fetched successfully" });
+    return res.status(200).json(categories);
   } catch (error) {
     res.status(500).json(error.message);
   }
 });
 
 const readCategory = asyncHandler(async (req, res) => {
-  const { categoryID } = req.params;
+  const { ID } = req.params;
 
-  if (!categoryID) {
+  if (!ID) {
     return res.status(400).json({ message: "Invalid request" });
   }
 
   try {
-    const category = await Category.findById({ _id: categoryID });
-    return res
-      .status(200)
-      .json({ ...category, message: "Category fetched successfully" });
+    const category = await Category.findById({ _id: ID });
+    return res.status(200).json(category);
   } catch (error) {
     res.status(500).json(error.message);
   }

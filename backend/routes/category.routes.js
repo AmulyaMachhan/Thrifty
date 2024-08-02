@@ -19,6 +19,6 @@ router
   .put(authenticate, authorizeAdmin, updateCategory)
   .delete(authenticate, authorizeAdmin, removeCategory);
 router.route("/categories").get(authenticate, authorizeAdmin, listCategories);
-router.route("/:categoryID").get(authenticate, authorizeAdmin, readCategory);
+router.route("/:ID").get(authenticate, authorizeAdmin, readCategory);
 
 export default router;
