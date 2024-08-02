@@ -1,7 +1,8 @@
 import express from "express";
 import {
   createCategory,
-  readCategories,
+  listCategories,
+  readCategory,
   removeCategory,
   updateCategory,
 } from "../controllers/category.controller.js";
@@ -17,6 +18,7 @@ router
   .route("/:categoryID")
   .put(authenticate, authorizeAdmin, updateCategory)
   .delete(authenticate, authorizeAdmin, removeCategory);
-router.route("/categories").get(authenticate, authorizeAdmin, readCategories);
+router.route("/categories").get(authenticate, authorizeAdmin, listCategories);
+router.route("/:categoryID").get(authenticate, authorizeAdmin, readCategory);
 
 export default router;
