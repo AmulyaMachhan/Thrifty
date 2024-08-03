@@ -47,6 +47,35 @@ function CategoryList() {
     }
   };
 
+  const handleUpdateCategory = async (e) => {
+    e.preventDefault();
+
+    if (!updatingName) {
+      toast.error("Name feild required");
+      return;
+    }
+
+    try {
+      const updatedCategory = await updateCategory({
+        categoryID: selectedCategory._id,
+        updatedCategory: { name: updatingName },
+      }).unwrap();
+
+      if (!updatedCategory) {
+        toast.error("Updating category error");
+        return;
+      } else {
+        toast.success("Category Updated Successully");
+        setUpdatingName("");
+        setSelectedCategory(null);
+        setModalVisible(false);
+        refetch();
+      }
+    } catch (error) {
+      toast.error("Error while Updating the category List");
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <div>
@@ -64,6 +93,10 @@ function CategoryList() {
           </button>
         </div>
       ))}
+
+      <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
+        <CategoryForm />
+      </Modal>
     </div>
   );
 }
