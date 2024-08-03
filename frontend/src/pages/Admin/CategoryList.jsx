@@ -23,9 +23,39 @@ function CategoryList() {
     refetch();
   }, [refetch]);
 
+  const handleCreateCategory = async (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      toast.error("Category Name Required");
+      return;
+    }
+
+    try {
+      const result = await createCategory({ name }).unwrap();
+
+      if (!result) {
+        toast.error(result.message);
+        return;
+      } else {
+        toast.success(result.message || "Category Created Successfully");
+        setName("");
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+    }
+  };
+
   return (
     <div className="flex justify-center">
-      <div></div>
+      <div>
+        <CategoryForm
+          value={name}
+          setValue={(value) => setName(value)}
+          handleSubmit={handleCreateCategory}
+        />
+      </div>
       {categories?.map((category) => (
         <div key={category._id} className="text-white">
           <button onClick={() => setModalVisible(true)}>
