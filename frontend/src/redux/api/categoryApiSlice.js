@@ -21,4 +21,5 @@ const categoryApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateCategoryMutation } = categoryApiSlice;
+export const { useCreateCategoryMutation, useUpdateCategoryMutation } =
+  categoryApiSlice;
