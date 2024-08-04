@@ -21,10 +21,12 @@ app.use(cors());
 //Routes Import
 import userRouter from "./routes/user.routes.js";
 import categoryRouter from "./routes/category.routes.js";
+import productRouter from "./routes/product.routes.js";
 
 //Routes Declaration
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/products", productRouter);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("SERVER RUNNING ON PORT :" + process.env.PORT);
