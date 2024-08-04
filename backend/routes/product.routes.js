@@ -6,6 +6,7 @@ import {
 } from "../middlewares/auth.middleware.js";
 import {
   addProduct,
+  removeProduct,
   updateProductDetails,
 } from "../controllers/product.controller.js";
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.route("/").post(authenticate, authorizeAdmin, formidable(), addProduct);
 router
   .route("/:id")
-  .put(authenticate, authorizeAdmin, formidable(), updateProductDetails);
+  .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
+  .delete(authenticate, authorizeAdmin, removeProduct);
 
 export default router;
