@@ -90,7 +90,7 @@ const fetchProducts = asyncHandler(async (req, res) => {
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
-    res.json({
+    return res.status(200).res.json({
       products,
       page,
       pages: Math.ceil(count / pageSize),
@@ -98,8 +98,29 @@ const fetchProducts = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server Error" });
+    res.status(500).json({ error: "Error while fetching products" });
   }
 });
 
-export { addProduct, updateProductDetails, removeProduct, fetchProducts };
+const fetchProductById = asyncHandler(async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product Not Found" });
+    }
+
+    return res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error while fetching the product" });
+  }
+});
+
+export {
+  addProduct,
+  updateProductDetails,
+  removeProduct,
+  fetchProducts,
+  fetchProductById,
+};
