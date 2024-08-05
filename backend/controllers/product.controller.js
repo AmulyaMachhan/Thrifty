@@ -117,10 +117,28 @@ const fetchProductById = asyncHandler(async (req, res) => {
   }
 });
 
+const fetchAllProducts = asyncHandler(async (req, res) => {
+  try {
+    const products = await Product.find({})
+      .populate("category")
+      .limit(12)
+      .sort({ createAt: -1 });
+
+    if (!products) {
+      return res.status(404).json({ message: "Products Not Found" });
+    }
+    res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error while fetching all products" });
+  }
+});
+
 export {
   addProduct,
   updateProductDetails,
   removeProduct,
   fetchProducts,
   fetchProductById,
+  fetchAllProducts,
 };
