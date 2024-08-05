@@ -6,6 +6,7 @@ import {
 } from "../middlewares/auth.middleware.js";
 import {
   addProduct,
+  fetchProductById,
   fetchProducts,
   removeProduct,
   updateProductDetails,
@@ -19,6 +20,7 @@ router
   .post(authenticate, authorizeAdmin, formidable(), addProduct);
 router
   .route("/:id")
+  .get(fetchProductById)
   .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
   .delete(authenticate, authorizeAdmin, removeProduct);
 
