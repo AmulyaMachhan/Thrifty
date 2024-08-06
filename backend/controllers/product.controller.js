@@ -191,6 +191,17 @@ const addProductReview = asyncHandler(async (req, res) => {
   }
 });
 
+const fetchTopProducts = asyncHandler(async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(6);
+
+    return res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error while Fetching Top Products" });
+  }
+});
+
 export {
   addProduct,
   updateProductDetails,
@@ -199,4 +210,5 @@ export {
   fetchProductById,
   fetchAllProducts,
   addProductReview,
+  fetchTopProducts,
 };
