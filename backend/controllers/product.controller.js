@@ -1,4 +1,3 @@
-import { response } from "express";
 import { Product } from "../models/product.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
@@ -24,12 +23,14 @@ const addProduct = asyncHandler(async (req, res) => {
   }
 
   try {
-    const product = new Product({ ...req.fields });
+    const product = await new Product({ ...req.fields });
     await product.save();
 
     return res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error while creating the product" });
+    res
+      .status(500)
+      .json({ message: error.message || "Error while creating the product" });
   }
 });
 
@@ -61,7 +62,9 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
     return res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error while updating the product" });
+    res
+      .status(500)
+      .json({ message: error.message || "Error while updating the product" });
   }
 });
 
@@ -71,7 +74,9 @@ const removeProduct = asyncHandler(async (req, res) => {
 
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error while Deleting the product" });
+    res
+      .status(500)
+      .json({ message: error.message || "Error while Deleting the product" });
   }
 });
 
@@ -102,7 +107,9 @@ const fetchProducts = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error while fetching products" });
+    res
+      .status(500)
+      .json({ error: error.message || "Error while fetching products" });
   }
 });
 
@@ -117,7 +124,9 @@ const fetchProductById = asyncHandler(async (req, res) => {
     return res.status(200).json(product);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error while fetching the product" });
+    res
+      .status(500)
+      .json({ error: error.message || "Error while fetching the product" });
   }
 });
 
@@ -134,7 +143,9 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error while fetching all products" });
+    res
+      .status(500)
+      .json({ error: error.message || "Error while fetching all products" });
   }
 });
 
@@ -190,7 +201,9 @@ const addProductReview = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Review Added" });
   } catch (error) {
     console.error(error);
-    return res.status(200).json({ error: "Error while adding product review" });
+    return res
+      .status(200)
+      .json({ error: error.message || "Error while adding product review" });
   }
 });
 
@@ -201,7 +214,9 @@ const fetchTopProducts = asyncHandler(async (req, res) => {
     return res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error while Fetching Top Products" });
+    return res
+      .status(500)
+      .json({ error: error.message || "Error while Fetching Top Products" });
   }
 });
 
@@ -212,7 +227,9 @@ const fetchNewProducts = asyncHandler(async (req, res) => {
     return res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error while Fetching New Products" });
+    return res
+      .status(500)
+      .json({ error: error.message || "Error while Fetching New Products" });
   }
 });
 

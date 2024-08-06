@@ -1,4 +1,4 @@
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const imageUpload = asyncHandler(async (req, res) => {
   const image = req.file;
