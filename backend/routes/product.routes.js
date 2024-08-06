@@ -8,6 +8,7 @@ import {
   addProduct,
   addProductReview,
   fetchAllProducts,
+  fetchNewProducts,
   fetchProductById,
   fetchProducts,
   fetchTopProducts,
@@ -32,5 +33,6 @@ router.route("/:id/review").post(authenticate, checkId, addProductReview);
 
 router.route("/allproducts").get(fetchAllProducts);
 router.route("/top").get(fetchTopProducts);
+router.route("/new").get(fetchNewProducts);
 
 export default router;
