@@ -3,7 +3,8 @@ import { Product } from "../models/product.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const addProduct = asyncHandler(async (req, res) => {
-  const { name, brand, description, quantity, price, category } = req.fields;
+  const { name, brand, description, quantity, price, category, image } =
+    req.fields;
 
   switch (true) {
     case !name:
@@ -18,6 +19,8 @@ const addProduct = asyncHandler(async (req, res) => {
       return res.status(401).res.json({ message: "Price is required" });
     case !category:
       return res.status(401).res.json({ message: "Category is required" });
+    case !image:
+      return res.status(401).res.json({ message: "Image is required" });
   }
 
   try {
@@ -212,6 +215,7 @@ const fetchNewProducts = asyncHandler(async (req, res) => {
     return res.status(500).json({ error: "Error while Fetching New Products" });
   }
 });
+
 export {
   addProduct,
   updateProductDetails,
