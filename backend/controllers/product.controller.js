@@ -123,7 +123,7 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
     const products = await Product.find({})
       .populate("category")
       .limit(12)
-      .sort({ createAt: -1 });
+      .sort({ createdAt: -1 });
 
     if (!products) {
       return res.status(404).json({ message: "Products Not Found" });
@@ -202,6 +202,16 @@ const fetchTopProducts = asyncHandler(async (req, res) => {
   }
 });
 
+const fetchNewProducts = asyncHandler(async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ _id: -1 }).limit(6);
+
+    return res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error while Fetching New Products" });
+  }
+});
 export {
   addProduct,
   updateProductDetails,
@@ -211,4 +221,5 @@ export {
   fetchAllProducts,
   addProductReview,
   fetchTopProducts,
+  fetchNewProducts,
 };
