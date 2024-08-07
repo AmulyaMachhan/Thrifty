@@ -29,7 +29,7 @@ import uploadRouter from "./routes/upload.routes.js";
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/products", productRouter);
-app.use("/api/v1/upload", uploadRouter);
+app.use("/api/v1/uploads", uploadRouter);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("SERVER RUNNING ON PORT :" + process.env.PORT);
