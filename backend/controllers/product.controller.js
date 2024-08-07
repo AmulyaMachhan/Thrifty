@@ -23,6 +23,12 @@ const addProduct = asyncHandler(async (req, res) => {
   }
 
   try {
+    const existingProduct = await Product.findOne({ name });
+
+    if (existingProduct) {
+      return res.status(401).json({ error: "Product already exists!!" });
+    }
+
     const product = await new Product({ ...req.fields });
     await product.save();
 
@@ -72,7 +78,9 @@ const removeProduct = asyncHandler(async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
 
-    res.status(200).json(product);
+    res
+      .status(200)
+      .json({ ...product, message: "Product Deleted Successfully" });
   } catch (error) {
     res
       .status(500)
@@ -99,7 +107,7 @@ const fetchProducts = asyncHandler(async (req, res) => {
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
-    return res.status(200).res.json({
+    return res.status(200).json({
       products,
       page,
       pages: Math.ceil(count / pageSize),
@@ -132,10 +140,10 @@ const fetchProductById = asyncHandler(async (req, res) => {
 
 const fetchAllProducts = asyncHandler(async (req, res) => {
   try {
-    const products = await Product.find({})
+    const products = await Product.find()
       .populate("category")
       .limit(12)
-      .sort({ createdAt: -1 });
+      .sort({ _id: -1 });
 
     if (!products) {
       return res.status(404).json({ message: "Products Not Found" });
