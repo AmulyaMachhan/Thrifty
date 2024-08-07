@@ -59,7 +59,7 @@ function UserList() {
   };
 
   return (
-    <div className="p-4 flex flex-col justify-center overflow-x-auto">
+    <div className="p-4 flex flex-col justify-center align-center overflow-x-auto">
       <h1 className="text-2xl font-semibold mb-4 text-center">Users</h1>
 
       {isLoading ? (

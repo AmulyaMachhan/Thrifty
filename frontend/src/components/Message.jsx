@@ -11,7 +11,7 @@ const Message = ({ variant, children }) => {
     }
   };
 
-  return <div className={`p-4 rounded ${getVariantClass()}`}>{children}</div>;
+  return <div className={`p-15 rounded ${getVariantClass()}`}>{children}</div>;
 };
 
 export default Message;
