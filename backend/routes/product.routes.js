@@ -19,20 +19,24 @@ import { checkId } from "../middlewares/checkId.middleware.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(fetchProducts)
-  .post(authenticate, authorizeAdmin, formidable(), addProduct);
+// Static routes should be defined first
+router.route("/allproducts").get(fetchAllProducts);
+router.route("/top").get(fetchTopProducts);
+router.route("/new").get(fetchNewProducts);
+
+// Dynamic routes should be defined after static routes
 router
   .route("/:id")
   .get(fetchProductById)
   .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
   .delete(authenticate, authorizeAdmin, removeProduct);
 
-router.route("/:id/review").post(authenticate, checkId, addProductReview);
+// Other routes
+router
+  .route("/")
+  .get(fetchProducts)
+  .post(authenticate, authorizeAdmin, formidable(), addProduct);
 
-router.route("/allproducts").get(fetchAllProducts);
-router.route("/top").get(fetchTopProducts);
-router.route("/new").get(fetchNewProducts);
+router.route("/:id/review").post(authenticate, checkId, addProductReview);
 
 export default router;
