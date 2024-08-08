@@ -241,6 +241,22 @@ const fetchNewProducts = asyncHandler(async (req, res) => {
   }
 });
 
+const filterProducts = asyncHandler(async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+
+    const args = {};
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+
+    const products = await Product.find(args);
+    res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error while Filtering Products" });
+  }
+});
+
 export {
   addProduct,
   updateProductDetails,
@@ -251,4 +267,5 @@ export {
   addProductReview,
   fetchTopProducts,
   fetchNewProducts,
+  filterProducts,
 };
