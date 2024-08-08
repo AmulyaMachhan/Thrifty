@@ -12,6 +12,7 @@ import {
   fetchProductById,
   fetchProducts,
   fetchTopProducts,
+  filterProducts,
   removeProduct,
   updateProductDetails,
 } from "../controllers/product.controller.js";
@@ -39,4 +40,5 @@ router
 
 router.route("/:id/reviews").post(authenticate, checkId, addProductReview);
 
+router.route("/filtered-products").post(filterProducts);
 export default router;
