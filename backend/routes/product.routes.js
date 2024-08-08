@@ -37,6 +37,6 @@ router
   .get(fetchProducts)
   .post(authenticate, authorizeAdmin, formidable(), addProduct);
 
-router.route("/:id/review").post(authenticate, checkId, addProductReview);
+router.route("/:id/reviews").post(authenticate, checkId, addProductReview);
 
 export default router;
