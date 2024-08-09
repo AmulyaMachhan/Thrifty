@@ -9,7 +9,7 @@ const imageUpload = asyncHandler(async (req, res) => {
 
   return res.status(200).json({
     message: "Image Uploaded Successfully",
-    image: `/${req.file.path}`,
+    image: `/uploads/${req.file.filename}`,
   });
 });
 
