@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import {
-  useAllProductsQuery,
   useCreateProductsMutation,
+  useUploadProductImageMutation,
 } from "../../redux/api/productApiSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
@@ -21,8 +21,10 @@ function ProductList() {
   const navigate = useNavigate();
 
   const [createProduct] = useCreateProductsMutation();
+  const [uploadProductImage] = useUploadProductImageMutation();
 
   const { data: categories } = useFetchCategoriesQuery();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,7 +40,7 @@ function ProductList() {
     productData.append("countInStock", stock);
 
     try {
-      const { data } = await createProduct(productData);
+      const { data } = await createProduct(productData).unwrap();
 
       if (!data) {
         toast.error("Product Creation Failed!!");
@@ -52,17 +54,38 @@ function ProductList() {
       toast.error("Product Creation Failed!!");
     }
   };
-  const { data: products, refetch } = useAllProductsQuery();
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+
+      setImage(res.image);
+      setImageURL(res.image);
+      toast.success("Image Uploaded Successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to Upload Image");
+    }
+  };
 
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0]">
       <div className="flex flex-col md:flex-row">
         <div className="md:w-3/4 p-3">
           <div className="h-12">Create Product</div>
+
+          {imageURL && (
+            <div className="text-center">
+              <img
+                src={imageURL}
+                alt="product"
+                className="block mx-auto max-h-[200px]"
+              />
+            </div>
+          )}
 
           <div className="mb-3">
             <label className="border text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
