@@ -40,10 +40,10 @@ function ProductList() {
     productData.append("countInStock", stock);
 
     try {
-      const { data } = await createProduct(productData).unwrap();
+      const { data } = await createProduct(productData);
 
-      if (!data) {
-        toast.error("Product Creation Failed!!");
+      if (data.error) {
+        toast.error(data.error);
         return;
       } else {
         toast.success(`${data.name} Created Successfully`);
@@ -51,7 +51,7 @@ function ProductList() {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Product Creation Failed!!");
+      toast.error(error);
     }
   };
 

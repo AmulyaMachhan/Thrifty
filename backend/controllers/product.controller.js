@@ -7,26 +7,26 @@ const addProduct = asyncHandler(async (req, res) => {
 
   switch (true) {
     case !name:
-      return res.status(401).res.json({ message: "Name is required" });
+      return res.status(400).res.json({ error: "Name is required" });
     case !brand:
-      return res.status(401).res.json({ message: "Brand is required" });
+      return res.status(400).res.json({ error: "Brand is required" });
     case !description:
-      return res.status(401).res.json({ message: "Desription is required" });
+      return res.status(400).res.json({ error: "Desription is required" });
     case !quantity:
-      return res.status(401).res.json({ message: "Quantity is required" });
+      return res.status(400).res.json({ error: "Quantity is required" });
     case !price:
-      return res.status(401).res.json({ message: "Price is required" });
+      return res.status(400).res.json({ error: "Price is required" });
     case !category:
-      return res.status(401).res.json({ message: "Category is required" });
+      return res.status(400).res.json({ error: "Category is required" });
     case !image:
-      return res.status(401).res.json({ message: "Image is required" });
+      return res.status(400).res.json({ error: "Image is required" });
   }
 
   try {
     const existingProduct = await Product.findOne({ name });
 
     if (existingProduct) {
-      return res.status(401).json({ error: "Product already exists!!" });
+      return res.status(400).json({ error: "Product already exists!!" });
     }
 
     const product = await new Product({ ...req.fields });
@@ -45,17 +45,17 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
   switch (true) {
     case !name:
-      return res.status(401).res.json({ message: "Name is required" });
+      return res.status(400).res.json({ message: "Name is required" });
     case !brand:
-      return res.status(401).res.json({ message: "Brand is required" });
+      return res.status(400).res.json({ message: "Brand is required" });
     case !description:
-      return res.status(401).res.json({ message: "Desription is required" });
+      return res.status(400).res.json({ message: "Desription is required" });
     case !quantity:
-      return res.status(401).res.json({ message: "Quantity is required" });
+      return res.status(400).res.json({ message: "Quantity is required" });
     case !price:
-      return res.status(401).res.json({ message: "Price is required" });
+      return res.status(400).res.json({ message: "Price is required" });
     case !category:
-      return res.status(401).res.json({ message: "Category is required" });
+      return res.status(400).res.json({ message: "Category is required" });
   }
 
   try {
@@ -164,7 +164,7 @@ const addProductReview = asyncHandler(async (req, res) => {
 
     //Validate rating and comment
     if (!rating && !comment) {
-      return res.status(401).json({ message: "Rating and comment required" });
+      return res.status(400).json({ message: "Rating and comment required" });
     }
 
     //Find product based on the product id in the request parameters
@@ -182,7 +182,7 @@ const addProductReview = asyncHandler(async (req, res) => {
 
     //Throw an error if already reviewed by the user
     if (alreadyReviewed) {
-      return res.status(401).json({ message: "Product Already Reviewed" });
+      return res.status(400).json({ message: "Product Already Reviewed" });
     }
 
     //Create a new review according to the review schema
