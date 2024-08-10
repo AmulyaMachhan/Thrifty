@@ -6,13 +6,15 @@ import {
   useUpdateProductsMutation,
   useUploadProductImageMutation,
 } from "../../redux/api/productApiSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 
 function ProductUpdate() {
   const params = useParams();
 
   const { data: productData } = useGetProductByIdQuery(params._id);
+  const { data: categories } = useFetchCategoriesQuery();
 
   const [name, setName] = useState(productData?.name || "");
   const [image, setImage] = useState(productData?.image || "");
@@ -20,16 +22,61 @@ function ProductUpdate() {
   const [description, setDescription] = useState(
     productData?.description || ""
   );
-  const [categories, setCategory] = useState(productData?.category || "");
+  const [category, setCategory] = useState(productData?.category || "");
   const [quantity, setQuantity] = useState(productData?.quantity || 0);
   const [price, setPrice] = useState(productData?.price || 0);
   const [stock, setStock] = useState(productData?.stock || 0);
 
   const [uploadProductImage] = useUploadProductImageMutation();
-  const [uploadProducts] = useUpdateProductsMutation();
+  const [updateProducts] = useUpdateProductsMutation();
   const [deleteProducts] = useDeleteProductMutation();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (productData && productData._id) {
+      setName(productData.name);
+      setDescription(productData.description);
+      setPrice(productData.price);
+      setCategory(productData.category?._id);
+      setQuantity(productData.quantity);
+      setBrand(productData.brand);
+      setImage(productData.image);
+    }
+  }, [productData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("image", image);
+    formData.append("brand", brand);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("quantity", quantity);
+    formData.append("price", price);
+    formData.append("countInStock", stock);
+
+    try {
+      const { data } = await updateProducts({
+        formData,
+        productId: params._id,
+      });
+
+      if (data.error) {
+        toast.error(data.error);
+        return;
+      } else {
+        toast.success(`${data.name} Created Successfully`);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error);
+    }
+  };
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
