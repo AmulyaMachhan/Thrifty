@@ -78,6 +78,24 @@ function ProductUpdate() {
     }
   };
 
+  const handleDelete = async () => {
+    let answer = window.confirm("Are you sure you want to delete this product");
+
+    if (!answer) return;
+
+    try {
+      const { message } = await deleteProducts(params._id);
+
+      if (message) {
+        toast.success(message || "Product Deleted Successfully");
+      } else {
+        toast.error("Delete failed. Try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error while Deleting Product");
+    }
+  };
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
