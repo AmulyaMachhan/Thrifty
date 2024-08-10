@@ -7,19 +7,19 @@ const addProduct = asyncHandler(async (req, res) => {
 
   switch (true) {
     case !name:
-      return res.status(400).res.json({ error: "Name is required" });
+      return res.status(400).json({ error: "Name is required" });
     case !brand:
-      return res.status(400).res.json({ error: "Brand is required" });
+      return res.status(400).json({ error: "Brand is required" });
     case !description:
-      return res.status(400).res.json({ error: "Desription is required" });
+      return res.status(400).json({ error: "Desription is required" });
     case !quantity:
-      return res.status(400).res.json({ error: "Quantity is required" });
+      return res.status(400).json({ error: "Quantity is required" });
     case !price:
-      return res.status(400).res.json({ error: "Price is required" });
+      return res.status(400).json({ error: "Price is required" });
     case !category:
-      return res.status(400).res.json({ error: "Category is required" });
+      return res.status(400).json({ error: "Category is required" });
     case !image:
-      return res.status(400).res.json({ error: "Image is required" });
+      return res.status(400).json({ error: "Image is required" });
   }
 
   try {
@@ -45,17 +45,17 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
   switch (true) {
     case !name:
-      return res.status(400).res.json({ message: "Name is required" });
+      return res.status(400).json({ message: "Name is required" });
     case !brand:
-      return res.status(400).res.json({ message: "Brand is required" });
+      return res.status(400).json({ message: "Brand is required" });
     case !description:
-      return res.status(400).res.json({ message: "Desription is required" });
+      return res.status(400).json({ message: "Desription is required" });
     case !quantity:
-      return res.status(400).res.json({ message: "Quantity is required" });
+      return res.status(400).json({ message: "Quantity is required" });
     case !price:
-      return res.status(400).res.json({ message: "Price is required" });
+      return res.status(400).json({ message: "Price is required" });
     case !category:
-      return res.status(400).res.json({ message: "Category is required" });
+      return res.status(400).json({ message: "Category is required" });
   }
 
   try {
@@ -64,13 +64,12 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       { ...req.fields },
       { new: true }
     );
-    await product.save();
 
     return res.status(200).json(product);
   } catch (error) {
     res
       .status(500)
-      .json({ message: error.message || "Error while updating the product" });
+      .json({ error: error || "Error while updating the product" });
   }
 });
 
@@ -210,7 +209,7 @@ const addProductReview = asyncHandler(async (req, res) => {
   } catch (error) {
     console.error(error);
     return res
-      .status(200)
+      .status(500)
       .json({ error: error.message || "Error while adding product review" });
   }
 });
