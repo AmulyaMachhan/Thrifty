@@ -1,6 +1,52 @@
+import { useNavigate, useParams } from "react-router";
 import AdminMenu from "./AdminMenu";
+import {
+  useDeleteProductMutation,
+  useGetProductByIdQuery,
+  useUpdateProductsMutation,
+  useUploadProductImageMutation,
+} from "../../redux/api/productApiSlice";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function ProductUpdate() {
+  const params = useParams();
+
+  const { data: productData } = useGetProductByIdQuery(params._id);
+
+  const [name, setName] = useState(productData?.name || "");
+  const [image, setImage] = useState(productData?.image || "");
+  const [brand, setBrand] = useState(productData?.brand || "");
+  const [description, setDescription] = useState(
+    productData?.description || ""
+  );
+  const [categories, setCategory] = useState(productData?.category || "");
+  const [quantity, setQuantity] = useState(productData?.quantity || 0);
+  const [price, setPrice] = useState(productData?.price || 0);
+  const [stock, setStock] = useState(productData?.stock || 0);
+
+  const [uploadProductImage] = useUploadProductImageMutation();
+  const [uploadProducts] = useUpdateProductsMutation();
+  const [deleteProducts] = useDeleteProductMutation();
+
+  const navigate = useNavigate();
+
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      console.log(res.image.name);
+
+      setImage(res.image);
+      console.log(res.image);
+      toast.success("Image Uploaded Successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Unable to Upload Image");
+    }
+  };
   return (
     <>
       <div className="container  xl:mx-[9rem] sm:mx-[0]">
@@ -20,7 +66,7 @@ function ProductUpdate() {
             )}
 
             <div className="mb-3">
-              <label className="text-white  py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+              <label className="text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
                 {image ? image.name : "Upload image"}
                 <input
                   type="file"
