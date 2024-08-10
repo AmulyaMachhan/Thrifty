@@ -6,6 +6,7 @@ import {
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
+import AdminMenu from "./AdminMenu";
 
 function ProductList() {
   const [name, setName] = useState("");
@@ -76,6 +77,7 @@ function ProductList() {
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0] overflow-hidden">
       <div className="flex flex-col md:flex-row">
+        <AdminMenu />
         <div className="md:w-3/4 p-3">
           <div className="h-12 text-2xl font-bold mb-4">Create Product</div>
 

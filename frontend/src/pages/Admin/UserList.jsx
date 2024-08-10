@@ -9,6 +9,7 @@ import { Table } from "flowbite-react";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { toast } from "react-toastify";
+import AdminMenu from "./AdminMenu";
 
 function UserList() {
   const { data: users, isLoading, error, refetch } = useGetUsersQuery();
@@ -60,6 +61,7 @@ function UserList() {
 
   return (
     <div className="p-4 flex flex-col justify-center align-center overflow-x-auto">
+      <AdminMenu />
       <h1 className="text-2xl font-semibold mb-4 text-center">Users</h1>
 
       {isLoading ? (
