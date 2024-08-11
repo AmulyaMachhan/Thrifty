@@ -45,17 +45,17 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
   switch (true) {
     case !name:
-      return res.status(400).json({ message: "Name is required" });
+      return res.status(400).json({ error: "Name is required" });
     case !brand:
-      return res.status(400).json({ message: "Brand is required" });
+      return res.status(400).json({ error: "Brand is required" });
     case !description:
-      return res.status(400).json({ message: "Desription is required" });
+      return res.status(400).json({ error: "Desription is required" });
     case !quantity:
-      return res.status(400).json({ message: "Quantity is required" });
+      return res.status(400).json({ error: "Quantity is required" });
     case !price:
-      return res.status(400).json({ message: "Price is required" });
+      return res.status(400).json({ error: "Price is required" });
     case !category:
-      return res.status(400).json({ message: "Category is required" });
+      return res.status(400).json({ error: "Category is required" });
   }
 
   try {
