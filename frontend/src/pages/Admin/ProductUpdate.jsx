@@ -65,11 +65,11 @@ function ProductUpdate() {
         toast.error(data.error);
       } else {
         toast.success(`${data.name} Updated Successfully`);
-        navigate("/");
+        navigate("/admin/allproductslist");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Error updating product");
+      toast.error(error.message);
     }
   };
 
@@ -79,7 +79,7 @@ function ProductUpdate() {
         const { message } = await deleteProduct(params.id).unwrap();
         if (message) {
           toast.success(message || "Product Deleted Successfully");
-          navigate("/admin/products");
+          navigate("/admin/allproductslist");
         } else {
           toast.error("Delete failed. Try again.");
         }
@@ -106,8 +106,8 @@ function ProductUpdate() {
 
   return (
     <>
-      <div className="container xl:mx-[9rem] sm:mx-[0]">
-        <div className="flex flex-col md:flex-row">
+      <div className="container w-100 mx-auto sm:mx-[0]">
+        <div className="flex flex-col justify-center md:flex-row">
           <AdminMenu />
           <div className="md:w-3/4 p-3">
             <div className="h-12">Update / Delete Product</div>
