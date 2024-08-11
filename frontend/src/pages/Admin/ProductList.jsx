@@ -75,8 +75,8 @@ function ProductList() {
   };
 
   return (
-    <div className="container xl:mx-[9rem] sm:mx-[0] overflow-hidden">
-      <div className="flex flex-col md:flex-row">
+    <div className="container overflow-hidden">
+      <div className="flex flex-col justify-center md:flex-row">
         <AdminMenu />
         <div className="md:w-3/4 p-3">
           <div className="h-12 text-2xl font-bold mb-4">Create Product</div>
@@ -94,7 +94,7 @@ function ProductList() {
           <div className="mb-6 bg-gray-200 rounded-lg">
             <label
               htmlFor="image"
-              className="border border-gray-300 text-gray-800 block w-full text-center rounded-lg cursor-pointer font-bold py-4 "
+              className="border border-gray-300 text-gray-800 block w-full text-center rounded-lg cursor-pointer font-thin py-4 "
             >
               {image ? (
                 <span className="text-gray-800">{image}</span>
