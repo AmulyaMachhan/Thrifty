@@ -28,7 +28,7 @@ const ProductCarousel = () => {
   };
 
   return (
-    <div className="mb-4 lg:block xl:block md:block">
+    <div className="mb-4 xl:w-[40rem] lg:w-[40rem] md:w-[40rem] sm:w-[30rem] mx-auto">
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -36,10 +36,7 @@ const ProductCarousel = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <Slider
-          {...settings}
-          className="xl:w-[50rem]  lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
-        >
+        <Slider {...settings}>
           {products.map(
             ({
               image,
@@ -54,48 +51,44 @@ const ProductCarousel = () => {
               quantity,
               countInStock,
             }) => (
-              <div key={_id}>
+              <div key={_id} className="p-2">
                 <img
                   src={image}
                   alt={name}
-                  className="w-full rounded-lg object-cover h-[30rem]"
+                  className="w-full rounded-lg object-cover h-[20rem]"
                 />
 
-                <div className="mt-4 flex justify-between">
-                  <div className="one">
-                    <h2>{name}</h2>
-                    <p> $ {price}</p> <br /> <br />
-                    <p className="w-[25rem]">
-                      {description.substring(0, 170)} ...
-                    </p>
-                  </div>
+                <div className="mt-2 flex flex-col gap-2">
+                  <h2 className="text-sm font-semibold">{name}</h2>
+                  <p className="text-md font-bold">${price}</p>
+                  <p className="text-sm truncate">{description}</p>
 
-                  <div className="flex justify-between w-[20rem]">
-                    <div className="one">
-                      <h1 className="flex items-center mb-6">
-                        <FaStore className="mr-2 text-white" /> Brand: {brand}
+                  <div className="flex justify-between text-xs">
+                    <div className="flex flex-col">
+                      <h1 className="flex items-center">
+                        <FaStore className="mr-1 text-gray-600" /> {brand}
                       </h1>
-                      <h1 className="flex items-center mb-6">
-                        <FaClock className="mr-2 text-white" /> Added:{" "}
+                      <h1 className="flex items-center">
+                        <FaClock className="mr-1 text-gray-600" />{" "}
                         {moment(createdAt).fromNow()}
                       </h1>
-                      <h1 className="flex items-center mb-6">
-                        <FaStar className="mr-2 text-white" /> Reviews:
+                      <h1 className="flex items-center">
+                        <FaStar className="mr-1 text-gray-600" /> Reviews:{" "}
                         {numReviews}
                       </h1>
                     </div>
 
-                    <div className="two">
-                      <h1 className="flex items-center mb-6">
-                        <FaStar className="mr-2 text-white" /> Ratings:{" "}
+                    <div className="flex flex-col">
+                      <h1 className="flex items-center">
+                        <FaStar className="mr-1 text-gray-600" /> Ratings:{" "}
                         {Math.round(rating)}
                       </h1>
-                      <h1 className="flex items-center mb-6">
-                        <FaShoppingCart className="mr-2 text-white" /> Quantity:{" "}
-                        {quantity}
+                      <h1 className="flex items-center">
+                        <FaShoppingCart className="mr-1 text-gray-600" />{" "}
+                        Quantity: {quantity}
                       </h1>
-                      <h1 className="flex items-center mb-6">
-                        <FaBox className="mr-2 text-white" /> In Stock:{" "}
+                      <h1 className="flex items-center">
+                        <FaBox className="mr-1 text-gray-600" /> In Stock:{" "}
                         {countInStock}
                       </h1>
                     </div>
