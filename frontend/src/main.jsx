@@ -10,6 +10,7 @@ import store from "./redux/store.js";
 
 import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register.jsx";
+import Home from "./pages/Users/Home.jsx";
 
 //Registered User imports
 import PrivateRoute from "./components/PrivateRoute.jsx";
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route index={true} path="/" element={<Home />} />
 
       {/* Registered User Routes */}
       <Route path="" element={<PrivateRoute />}>
