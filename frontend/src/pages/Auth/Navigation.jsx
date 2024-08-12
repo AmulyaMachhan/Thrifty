@@ -66,7 +66,7 @@ const Navigation = () => {
           <AiOutlineMenu className="mr-2 mt-[1rem]" size={22} />
         </button>
 
-        <Link to="/home" className="flex relative" onClick={handleLinkClick}>
+        <Link to="/" className="flex relative" onClick={handleLinkClick}>
           <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
             <AiOutlineHome className="mt-[3rem] mr-2" size={20} />
             <span className="hidden nav-item-name mt-[3rem]">HOME</span>
