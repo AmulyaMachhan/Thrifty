@@ -83,11 +83,13 @@ Thrifty is a full-featured e-commerce web application built using the MERN stack
 
 Create a `.env` file in the `server` directory and add the following:
 
-````env
+```env
 NODE_ENV=development
 PORT=5000
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
+```
+
 # Thrifty - E-commerce Store
 
 Thrifty is a full-featured e-commerce web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides a seamless online shopping experience with a robust user authentication system, comprehensive admin management, and a modern, responsive user interface.
@@ -151,22 +153,22 @@ Thrifty is a full-featured e-commerce web application built using the MERN stack
 
 1. **Clone the repository**:
 
-    ```bash
-    git clone https://github.com/yourusername/thrifty.git
-    cd thrifty
-    ```
+   ```bash
+   git clone https://github.com/yourusername/thrifty.git
+   cd thrifty
+   ```
 
 2. **Install dependencies**:
 
-    ```bash
-    # Install server dependencies
-    cd server
-    npm install
+   ```bash
+   # Install server dependencies
+   cd server
+   npm install
 
-    # Install client dependencies
-    cd ../client
-    npm install
-    ```
+   # Install client dependencies
+   cd ../client
+   npm install
+   ```
 
 ## Environment Variables
 
@@ -177,7 +179,7 @@ NODE_ENV=development
 PORT=5000
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
-````
+```
 
 ## Running the Application
 
