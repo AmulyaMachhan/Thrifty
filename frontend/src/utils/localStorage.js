@@ -7,6 +7,14 @@ export const addFavouriteToLocalStorage = (product) => {
   }
 };
 
+//Remove product from Local Storage
+export const removeFavouriteFromLocalStorage = (productId) => {
+  const favourites = getFavouritesFromLocalStorage() || [];
+  const updateFavourites = favourites.filter((p) => p._id !== productId);
+
+  localStorage.setItem("favourites", JSON.stringify(updateFavourites));
+};
+
 //Retrieve Favourites from Local Storage
 export const getFavouritesFromLocalStorage = () => {
   const favouritesJSON = localStorage.getItem("favourites");
