@@ -1,35 +1,56 @@
 import { Link } from "react-router-dom";
-import HeartIcon from "./HeartIcon";
+import { Card, Button } from "flowbite-react";
 import PropTypes from "prop-types";
+import HeartIcon from "./HeartIcon";
+import Rating from "./Rating";
 
 const Product = ({ product }) => {
   return (
-    <div className="w-[30rem] ml-[2rem] p-3 relative">
-      <div className="relative">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-[30rem] rounded"
-        />
-        <HeartIcon product={product} />
-      </div>
+    <div className="max-w-2xl mx-4 my-4 ">
+      <Card
+        renderImage={() => (
+          <img
+            className="w-full h-[18rem] object-cover rounded-t-lg"
+            src={product.image}
+            alt={product.name}
+          />
+        )}
+        className="max-w-sm relative bg-gray-900"
+      >
+        <div className="absolute top-4 right-4">
+          <HeartIcon product={product} />
+        </div>
 
-      <div className="p-4">
-        <Link to={`/product/${product._id}`}>
-          <h2 className="flex justify-between items-center">
-            <div className="text-lg">{product.name}</div>
-            <span className="bg-pink-100 text-pink-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
-              $ {product.price}
-            </span>
-          </h2>
-        </Link>
-      </div>
+        <h5 className="text-xl font-semibold tracking-tight text-white">
+          {product.name}
+        </h5>
+
+        <Rating rating={product.rating} />
+
+        <div className="flex items-center justify-between">
+          <span className="text-3xl font-bold text-white">
+            ${product.price}
+          </span>
+          <Link
+            to={`/product/${product._id}`}
+            className="rounded-lg px-5 py-2 text-center text-xl font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-800"
+          >
+            <Button color="primary">View Product</Button>
+          </Link>
+        </div>
+      </Card>
     </div>
   );
 };
 
 Product.propTypes = {
-  product: PropTypes.object.isRequired,
+  product: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Product;
