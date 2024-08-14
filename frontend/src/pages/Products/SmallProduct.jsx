@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 
 const SmallProduct = ({ product }) => {
   return (
-    <div className="w-[15rem] ml-[1rem] p-2">
-      <div className="relative overflow-hidden h-[10rem] w-full">
+    <div className="w-[18rem] p-2 shadow-md rounded-lg">
+      <div className="relative overflow-hidden h-[12rem] w-full rounded-t-lg">
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-contain rounded"
+          className="h-full w-full object-cover rounded-xl"
         />
       </div>
 
-      <div className="p-2">
+      <div className="p-3">
         <Link to={`/product/${product._id}`}>
-          <h2 className="text-sm flex justify-between items-center">
-            <div className="truncate">{product.name}</div>
-            <span className="bg-pink-100 text-pink-800 text-xs font-medium mr-1 px-1.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
+          <h2 className="text-base font-semibold text-white flex justify-between items-center">
+            <span className="truncate">{product.name}</span>
+            <span className="bg-pink-600 text-white text-sm font-medium px-2 py-0.5 rounded-full">
               ${product.price}
             </span>
           </h2>
