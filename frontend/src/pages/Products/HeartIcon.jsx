@@ -23,7 +23,7 @@ function HeartIcon({ product }) {
     const favouritesFromLocalStorage = getFavouritesFromLocalStorage();
 
     dispatch(setFavourites(favouritesFromLocalStorage));
-  });
+  }, []);
 
   const toggleFavourites = () => {
     if (isFavourite) {
@@ -52,9 +52,7 @@ function HeartIcon({ product }) {
 }
 
 HeartIcon.propTypes = {
-  product: PropTypes.shape({
-    _id: PropTypes.number.isRequired,
-  }).isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 export default HeartIcon;
