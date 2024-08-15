@@ -18,7 +18,7 @@ function HeartIcon({ product }) {
   const dispatch = useDispatch();
 
   const favourites = useSelector((state) => state.favourites) || [];
-  const isFavourite = favourites.some((p) => p._id === product._id);
+  const isFavourite = favourites.some((p) => p._id === product?._id);
 
   useEffect(() => {
     const favouritesFromLocalStorage = getFavouritesFromLocalStorage();
@@ -30,7 +30,7 @@ function HeartIcon({ product }) {
     if (isFavourite) {
       dispatch(removeFromFavourites(product));
       // remove the product from the localStorage as well
-      removeFavouriteFromLocalStorage(product._id);
+      removeFavouriteFromLocalStorage(product?._id);
     } else {
       dispatch(addToFavourites(product));
       // add the product to localStorage as well
