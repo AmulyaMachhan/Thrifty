@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import HeartIcon from "./HeartIcon";
 
 const SmallProduct = ({ product }) => {
   return (
@@ -10,6 +11,7 @@ const SmallProduct = ({ product }) => {
           alt={product.name}
           className="h-full w-full object-cover rounded-xl"
         />
+        <HeartIcon product={product} />
       </div>
 
       <div className="p-3">
