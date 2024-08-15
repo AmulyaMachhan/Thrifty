@@ -14,6 +14,7 @@ import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/userApiSlice.js";
 import { logout } from "../../redux/features/authSlice.js";
+import FavoritesCount from "../Products/FavouritesCount.jsx";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -90,9 +91,10 @@ const Navigation = () => {
           className="flex relative"
           onClick={handleLinkClick}
         >
-          <div className="flex justify-center items-center transition-transform transform hover:translate-x-2 duration-300 ease-in-out">
+          <div className="flex justify-center items-center relative transition-transform transform hover:translate-x-2 duration-300 ease-in-out">
             <FaHeart className="mt-[3rem] mr-2" size={20} />
             <span className="hidden nav-item-name mt-[3rem]">FAVOURITES</span>
+            <FavoritesCount />
           </div>
         </Link>
       </div>
