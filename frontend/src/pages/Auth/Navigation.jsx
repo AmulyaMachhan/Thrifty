@@ -87,7 +87,7 @@ const Navigation = () => {
           </div>
         </Link>
         <Link
-          to="/favorite"
+          to="/favourites"
           className="flex relative"
           onClick={handleLinkClick}
         >
