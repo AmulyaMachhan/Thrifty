@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
 import { useState } from "react";
 import Ratings from "./Ratings";
+import { Link } from "react-router-dom";
+import Loader from "../../components/Loader";
+import SmallProduct from "./SmallProduct";
 
 function ProductTabs({
   loadingProductReview,
@@ -133,11 +136,28 @@ function ProductTabs({
           </>
         )}
       </section>
+
+      <section>
+        {activeTab === 3 && (
+          <section className="ml-[4rem] flex flex-wrap">
+            {isLoading ? (
+              <Loader />
+            ) : (
+              data.map((product) => (
+                <div key={product._id}>
+                  <SmallProduct product={product} />
+                </div>
+              ))
+            )}
+          </section>
+        )}
+      </section>
     </div>
   );
 }
 
 ProductTabs.propTypes = {
+  loadingProductReview: PropTypes.func.isRequired,
   userInfo: PropTypes.object.isRequired,
   submitHandler: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
