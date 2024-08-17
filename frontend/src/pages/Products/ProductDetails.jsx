@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import {
@@ -11,13 +11,50 @@ import {
 } from "react-icons/fa";
 import moment from "moment";
 import HeartIcon from "./HeartIcon";
-import { useGetProductByIdQuery } from "../../redux/api/productApiSlice";
+import {
+  useCreateReviewMutation,
+  useGetProductByIdQuery,
+} from "../../redux/api/productApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import ProductTabs from "./ProductTabs";
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id: productId } = useParams();
 
   const [qty, setQty] = useState(1);
-  const { data: product, isLoading, error } = useGetProductByIdQuery(productId);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+
+  const { userInfo } = useSelector((state) => state.auth);
+  const {
+    data: product,
+    isLoading,
+    refetch,
+    error,
+  } = useGetProductByIdQuery(productId);
+  const [createReview, { isLoading: loadingProductReview }] =
+    useCreateReviewMutation();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await createReview({ productId, rating, comment }).unwrap();
+
+      refetch();
+      toast.success(res.message);
+    } catch (error) {
+      toast.error(error.message || "Error while submitting the review");
+    }
+  };
+
+  const addToCartHandler = () => {
+    dispatch();
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -75,7 +112,7 @@ const ProductDetails = () => {
 
                 <div className="two">
                   <h1 className="flex items-center mb-6">
-                    {/* <FaStar className="mr-2 text-white" /> Ratings: {rating} */}
+                    <FaStar className="mr-2 text-white" /> Ratings: {rating}
                   </h1>
                   <h1 className="flex items-center mb-6">
                     <FaShoppingCart className="mr-2 text-white" /> Quantity:{" "}
@@ -108,13 +145,26 @@ const ProductDetails = () => {
 
               <div className="btn-container">
                 <button
-                  //   onClick={addToCartHandler}
+                  onClick={addToCartHandler}
                   disabled={product.countInStock === 0}
                   className="bg-pink-600 text-white py-2 px-4 rounded-lg mt-4 md:mt-0"
                 >
                   Add To Cart
                 </button>
               </div>
+            </div>
+
+            <div className="mt-[5rem] container flex flex-wrap items-start justify-between ml-[10rem]">
+              <ProductTabs
+                loadingProductReview={loadingProductReview}
+                userInfo={userInfo}
+                submitHandler={submitHandler}
+                rating={rating}
+                setRating={setRating}
+                comment={comment}
+                setComment={setComment}
+                product={product}
+              />
             </div>
           </div>
         </>
