@@ -6,7 +6,7 @@ import Ratings from "./Ratings";
 
 const Product = ({ product }) => {
   return (
-    <div className="max-w-xs mx-4 my-4 ">
+    <div className="max-w-sm mx-4 my-4">
       <Card
         renderImage={() => (
           <img
