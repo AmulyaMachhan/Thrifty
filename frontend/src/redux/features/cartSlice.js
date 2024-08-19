@@ -1,13 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 import { updateCart } from "../../utils/cartUtils";
 
+const initialState = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : { cartItems: [], shippingAddress: {}, paymentMethod: "PayPal" };
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState,
   reducers: {
     addToCart: (state, action) => {
       const { user, rating, numReviews, review, ...item } = action.payload;
-      const existingItem = state.cartItems.find((x) => x._id === item_.id);
+      const existingItem = state.cartItems.find((x) => x._id === item._id);
 
       if (existingItem) {
         state.cartItems = state.cartItems.map((x) =>
@@ -43,3 +48,14 @@ const cartSlice = createSlice({
     resetCart: (state) => (state = initialState),
   },
 });
+
+export const {
+  addToCart,
+  removeFromCart,
+  savePaymentMethod,
+  saveShippingAddress,
+  clearCartItems,
+  resetCart,
+} = cartSlice.actions;
+
+export default cartSlice.reducer;
