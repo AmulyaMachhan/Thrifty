@@ -8,9 +8,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
+import Home from "./pages/Home/Home.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
+import Shop from "./pages/Shop/Shop.jsx";
+
+//Authentication Routes
 import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register.jsx";
-import Home from "./pages/Home/Home.jsx";
 
 //Registered User imports
 import PrivateRoute from "./components/PrivateRoute.jsx";
@@ -25,17 +29,19 @@ import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
 import AllProducts from "./pages/Admin/AllProducts.jsx";
 import Favourites from "./pages/Products/Favourites.jsx";
 import ProductDetails from "./pages/Products/ProductDetails.jsx";
-import Cart from "./pages/Cart/Cart.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
       <Route index={true} path="/" element={<Home />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/shop" element={<Shop />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/product/:id" element={<ProductDetails />} />
-      <Route path="/cart" element={<Cart />} />
+
+      {/* Authentication Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* Registered User Routes */}
       <Route path="" element={<PrivateRoute />}>
