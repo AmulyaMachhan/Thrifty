@@ -25,7 +25,7 @@ import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
 import AllProducts from "./pages/Admin/AllProducts.jsx";
 import Favourites from "./pages/Products/Favourites.jsx";
 import ProductDetails from "./pages/Products/ProductDetails.jsx";
-import Cart from "./pages/Cart.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
