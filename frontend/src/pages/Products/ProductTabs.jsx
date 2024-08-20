@@ -157,13 +157,14 @@ function ProductTabs({
 }
 
 ProductTabs.propTypes = {
-  loadingProductReview: PropTypes.func.isRequired,
+  loadingProductReview: PropTypes.bool,
   userInfo: PropTypes.object.isRequired,
   submitHandler: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
   setRating: PropTypes.func.isRequired,
   comment: PropTypes.string.isRequired,
   setComment: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
+  product: PropTypes.object,
 };
+
 export default ProductTabs;
