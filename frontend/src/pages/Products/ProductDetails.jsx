@@ -12,6 +12,7 @@ import {
 } from "../../redux/api/productApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { addToCart } from "../../redux/features/cartSlice";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,8 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(); // Add your dispatch action here
+    dispatch(addToCart({ ...product, qty }));
+    toast.success("Added To Cart");
     navigate("/cart");
   };
 
