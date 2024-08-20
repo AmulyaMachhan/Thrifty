@@ -1,6 +1,8 @@
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { addToCart, removeFromCart } from "../redux/features/cartSlice";
+import { toast } from "react-toastify";
 
 function Cart() {
   const navigate = useNavigate();
@@ -8,6 +10,19 @@ function Cart() {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const addToCartHandler = (product, qty) => {
+    dispatch(addToCart({ ...product, qty }));
+  };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+    toast.success("Item successfully removed from cart");
+  };
+
+  const checkoutHandler = () => {
+    navigate("/login?redirect=/shipping");
+  };
 
   return (
     <div>
@@ -43,11 +58,12 @@ function Cart() {
 
                 <div className="w-24">
                   <select
+                    id="qty"
                     className="w-full p-1 border rounded text-black"
                     value={item.qty}
-                    // onChange={(e) =>
-                    //   addToCartHandler(item, Number(e.target.value))
-                    // }
+                    onChange={(e) =>
+                      addToCartHandler(item, Number(e.target.value))
+                    }
                   >
                     {[...Array(item.countInStock).keys()].map((x) => (
                       <option key={x + 1} value={x + 1}>
@@ -60,7 +76,7 @@ function Cart() {
                 <div>
                   <button
                     className="text-red-500 mr-[5rem]"
-                    // onClick={() => removeFromCartHandler(item._id)}
+                    onClick={() => removeFromCartHandler(item._id)}
                   >
                     <FaTrash className="ml-[1rem] mt-[.5rem]" />
                   </button>
@@ -84,7 +100,7 @@ function Cart() {
                 <button
                   className="bg-pink-500 mt-4 py-2 px-4 rounded-full text-lg w-full"
                   disabled={cartItems.length === 0}
-                  // onClick={checkoutHandler}
+                  onClick={checkoutHandler}
                 >
                   Proceed To Checkout
                 </button>
