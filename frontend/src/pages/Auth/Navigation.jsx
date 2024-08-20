@@ -85,8 +85,8 @@ const Navigation = () => {
           <div className="flex justify-center items-center transition-transform transform hover:translate-x-2 duration-300 ease-in-out">
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={20} />
             <span className="hidden nav-item-name mt-[3rem]">CART</span>
+            <CartCount />
           </div>
-          <CartCount />
         </Link>
 
         <Link
