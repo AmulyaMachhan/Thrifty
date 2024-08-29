@@ -77,14 +77,14 @@ const Shop = () => {
 
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex md:flex-row">
-          <div className="bg-[#151515] p-3 mt-2 mb-2">
+      <div className="container w-full mx-auto">
+        <div className="flex flex-wrap">
+          <div className="bg-[#151515] p-3 mt-2 mb-2 w-full md:w-1/4">
             <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
               Filter by Categories
             </h2>
 
-            <div className="p-5 w-[15rem]">
+            <div className="p-5 w-full">
               {categories?.map((c) => (
                 <div key={c._id} className="mb-2">
                   <div className="flex items-center mr-4">
@@ -133,7 +133,7 @@ const Shop = () => {
               Filter by Price
             </h2>
 
-            <div className="p-5 w-[15rem]">
+            <div className="p-5 w-full">
               <input
                 type="text"
                 placeholder="Enter Price"
@@ -153,19 +153,15 @@ const Shop = () => {
             </div>
           </div>
 
-          <div className="p-3">
+          <div className="p-3 w-full md:w-3/4">
             <h2 className="h4 text-center mb-2">{products?.length} Products</h2>
-            <div className="flex flex-wrap">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {isLoading ? (
                 <Loader />
               ) : products.length === 0 ? (
                 <div>No products found</div>
               ) : (
-                products?.map((p) => (
-                  <div className="p-3" key={p._id}>
-                    <ProductCard p={p} />
-                  </div>
-                ))
+                products?.map((p) => <ProductCard key={p._id} p={p} />)
               )}
             </div>
           </div>
