@@ -80,7 +80,7 @@ const productApiSlice = apiSlice.injectEndpoints({
     getFilteredProducts: builder.mutation({
       query: ({ checked, radio }) => ({
         url: `${PRODUCT_URL}/filtered-products`,
-        methods: "POST",
+        method: "POST",
         body: { checked, radio },
       }),
     }),
