@@ -10,7 +10,7 @@ const Home = () => {
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
 
   return (
-    <>
+    <div className="xl:pl-[5rem] lg:pl-[4rem] ">
       {!keyword && <Header />}
 
       {isLoading ? (
@@ -31,7 +31,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="flex justify-center flex-wrap mt-8 mx-20">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data?.products.map((product) => (
               <div key={product._id} className="p-4">
                 <Product product={product} />
@@ -40,7 +40,7 @@ const Home = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
