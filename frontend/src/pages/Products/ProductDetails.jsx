@@ -90,18 +90,20 @@ const ProductDetails = () => {
         </div>
       )}
 
-      <div className="mt-[5rem] container flex flex-wrap items-start justify-between ml-[10rem]">
-        <ProductTabs
-          loadingProductReview={loadingProductReview}
-          userInfo={userInfo}
-          submitHandler={submitHandler}
-          rating={rating}
-          setRating={setRating}
-          comment={comment}
-          setComment={setComment}
-          product={product}
-        />
-      </div>
+      <section className="w-full flex justify-end">
+        <div className="mt-[5rem] container flex flex-wrap items-start justify-between">
+          <ProductTabs
+            loadingProductReview={loadingProductReview}
+            userInfo={userInfo}
+            submitHandler={submitHandler}
+            rating={rating}
+            setRating={setRating}
+            comment={comment}
+            setComment={setComment}
+            product={product}
+          />
+        </div>
+      </section>
     </>
   );
 };
