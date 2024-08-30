@@ -220,7 +220,7 @@ const Navigation = () => {
                 className="flex items-center mt-5 transition-transform transform hover:translate-x-2 duration-300 ease-in-out"
                 onClick={handleLinkClick}
               >
-                <AiOutlineLogin className="mr-2 mt-[4px]" size={26} />
+                <AiOutlineLogin size={26} />
                 <span className="hidden nav-item-name">LOGIN</span>
               </Link>
             </li>
