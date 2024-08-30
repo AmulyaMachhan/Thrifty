@@ -28,7 +28,7 @@ const ProductCarousel = () => {
   };
 
   return (
-    <div className="mb-4 xl:w-[35rem] lg:w-[35rem] md:w-[30rem] sm:w-[25rem] mx-auto">
+    <div className="mb-4 xl:w-[30rem] lg:w-[30rem] md:w-[25rem] sm:w-[20rem] mx-auto">
       {isLoading ? (
         <Loader />
       ) : error ? (
