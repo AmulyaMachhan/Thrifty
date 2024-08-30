@@ -14,7 +14,7 @@ const SmallProduct = ({ product }) => {
         <HeartIcon product={product} />
       </div>
 
-      <div className="p-3">
+      <div className="py-3">
         <Link to={`/product/${product._id}`}>
           <h2 className="text-base font-semibold text-white flex justify-between items-center">
             <span className="truncate">{product.name}</span>
