@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 const ProductActions = ({ product, qty, setQty, addToCartHandler }) => (
-  <div className="mt-2">
+  <div className="mt-2 flex gap-5">
     {product.countInStock > 0 && (
       <select
         value={qty}
