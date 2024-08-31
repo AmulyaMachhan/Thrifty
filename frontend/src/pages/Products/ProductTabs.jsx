@@ -5,7 +5,7 @@ import Ratings from "./Ratings";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import SmallProduct from "./SmallProduct";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 function ProductTabs({
   loadingProductReview,
@@ -35,7 +35,7 @@ function ProductTabs({
           onClick={() => handleTabClick(1)}
         >
           <span className="mr-4">Write Your Review</span>
-          <FaArrowCircleRight />
+          {activeTab === 1 ? <FaArrowCircleRight /> : <FaArrowCircleLeft />}
         </div>
         <div
           className={`flex flex-1 items-center justify-between p-4 cursor-pointer text-lg border border-gray-400 rounded-md mb-2 ${
@@ -44,7 +44,7 @@ function ProductTabs({
           onClick={() => handleTabClick(2)}
         >
           <span className="mr-4">All Reviews</span>
-          <FaArrowCircleRight />
+          {activeTab === 2 ? <FaArrowCircleRight /> : <FaArrowCircleLeft />}
         </div>
         <div
           className={`flex flex-1 items-center justify-between p-4 cursor-pointer text-lg border border-gray-400 rounded-md mb-2 ${
@@ -53,7 +53,7 @@ function ProductTabs({
           onClick={() => handleTabClick(3)}
         >
           <span className="mr-4">Related Products</span>
-          <FaArrowCircleRight />
+          {activeTab === 3 ? <FaArrowCircleRight /> : <FaArrowCircleLeft />}
         </div>
       </section>
 
