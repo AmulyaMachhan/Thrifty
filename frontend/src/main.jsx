@@ -29,6 +29,7 @@ import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
 import AllProducts from "./pages/Admin/AllProducts.jsx";
 import Favourites from "./pages/Favourites/Favourites.jsx";
 import ProductDetails from "./pages/Products/ProductDetails.jsx";
+import { NextUIProvider } from "@nextui-org/react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,7 +62,9 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <RouterProvider router={router} />
-  </Provider>
+  <NextUIProvider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </NextUIProvider>
 );
