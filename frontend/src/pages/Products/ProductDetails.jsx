@@ -90,8 +90,8 @@ const ProductDetails = () => {
         </div>
       )}
 
-      <section className="w-full flex justify-end">
-        <div className="mt-[5rem] container flex flex-wrap items-start justify-between">
+      <section className="w-full xl:pl-[5rem] lg:pl-[4rem] md:pl-[3rem]">
+        <div className="mt-[5rem]">
           <ProductTabs
             loadingProductReview={loadingProductReview}
             userInfo={userInfo}
