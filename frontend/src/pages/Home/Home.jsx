@@ -10,11 +10,15 @@ const Home = () => {
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
 
   return (
-    <div className="xl:pl-[5rem] lg:pl-[4rem] ">
+    <div
+      className={`xl:pl-[5rem] lg:pl-[4rem] ${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
+    >
       {!keyword && <Header />}
 
       {isLoading ? (
-        <Loader />
+        <div className="">
+          <Loader />
+        </div>
       ) : isError ? (
         <Message variant="danger">
           {isError?.data?.message || isError?.error}
@@ -31,8 +35,8 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data?.products.map((product) => (
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {data?.products?.map((product) => (
               <div key={product._id} className="p-4">
                 <Product product={product} />
               </div>
