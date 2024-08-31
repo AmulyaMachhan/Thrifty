@@ -5,10 +5,7 @@ import Message from "../../components/Message";
 import ProductInfo from "./ProductInfo";
 import ProductActions from "./ProductActions";
 import ProductTabs from "./ProductTabs";
-import {
-  useCreateReviewMutation,
-  useGetProductByIdQuery,
-} from "../../redux/api/productApiSlice";
+import { useGetProductByIdQuery } from "../../redux/api/productApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/features/cartSlice";
@@ -30,19 +27,6 @@ const ProductDetails = () => {
     refetch,
     error,
   } = useGetProductByIdQuery(productId);
-  const [createReview, { isLoading: loadingProductReview }] =
-    useCreateReviewMutation();
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await createReview({ productId, rating, comment }).unwrap();
-      refetch();
-      toast.success(res.message);
-    } catch (error) {
-      toast.error(error.message || "Error while submitting the review");
-    }
-  };
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
@@ -93,9 +77,9 @@ const ProductDetails = () => {
       <section className="w-full xl:pl-[5rem] lg:pl-[4rem] md:pl-[3rem]">
         <div className="mt-[5rem]">
           <ProductTabs
-            loadingProductReview={loadingProductReview}
+            productId={productId}
+            refetch={refetch}
             userInfo={userInfo}
-            submitHandler={submitHandler}
             rating={rating}
             setRating={setRating}
             comment={comment}
