@@ -89,7 +89,7 @@ const removeProduct = asyncHandler(async (req, res) => {
 
 const fetchProducts = asyncHandler(async (req, res) => {
   try {
-    const pageSize = 6;
+    const pageSize = 8;
     const page = Number(req.query.page) || 1;
 
     const keyword = req.query.keyword
@@ -181,7 +181,7 @@ const addProductReview = asyncHandler(async (req, res) => {
 
     //Throw an error if already reviewed by the user
     if (alreadyReviewed) {
-      return res.status(400).json({ message: "Product Already Reviewed" });
+      return res.status(400).json({ error: "Product Already Reviewed" });
     }
 
     //Create a new review according to the review schema
