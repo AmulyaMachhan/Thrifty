@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
-import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
+import {
+  useCreateReviewMutation,
+  useGetTopProductsQuery,
+} from "../../redux/api/productApiSlice";
 import { useState } from "react";
 import Ratings from "./Ratings";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import SmallProduct from "./SmallProduct";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 function ProductTabs({
-  loadingProductReview,
+  productId,
+  refetch,
   userInfo,
-  submitHandler,
   rating,
   setRating,
   comment,
@@ -20,6 +24,21 @@ function ProductTabs({
   const { data, isLoading } = useGetTopProductsQuery();
 
   const [activeTab, setActiveTabs] = useState(1);
+  const [createReview, { isLoading: loadingProductReview }] =
+    useCreateReviewMutation();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await createReview({ productId, rating, comment }).unwrap();
+      refetch();
+      toast.success(res.message);
+      setActiveTabs(2);
+    } catch (error) {
+      console.log(error.data);
+      toast.error(error.data.error || "Error while submitting the review");
+    }
+  };
 
   const handleTabClick = (tabNumber) => {
     setActiveTabs(tabNumber);
@@ -178,9 +197,9 @@ function ProductTabs({
 }
 
 ProductTabs.propTypes = {
-  loadingProductReview: PropTypes.bool,
+  productId: PropTypes.string.isRequired,
+  refetch: PropTypes.func.isRequired,
   userInfo: PropTypes.object,
-  submitHandler: PropTypes.func.isRequired,
   rating: PropTypes.number.isRequired,
   setRating: PropTypes.func.isRequired,
   comment: PropTypes.string.isRequired,
