@@ -26,8 +26,8 @@ function ProductTabs({
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <section className="mr-[5rem]">
+    <div className="flex flex-col md:flex-row gap-4 ">
+      <section className="">
         <div
           className={`flex flex-1 items-center justify-between p-4 cursor-pointer text-lg border border-gray-400 rounded-md mb-2 ${
             activeTab === 1 ? "font-bold" : ""
@@ -127,13 +127,15 @@ function ProductTabs({
         >
           {activeTab === 2 && (
             <>
-              <div>{product.reviews.length === 0 && <p>No Reviews</p>}</div>
+              <div className="mt-4">
+                {product.reviews.length === 0 && <p>No Reviews</p>}
+              </div>
 
               <div>
                 {product.reviews.map((review) => (
                   <div
                     key={review._id}
-                    className="bg-[#1A1A1A] p-4 rounded-lg sm:ml-[0rem] xl:w-[55rem] sm:w-[24rem] mb-5"
+                    className="bg-[#1A1A1A] p-4 rounded-lg sm:ml-[0rem] xl:w-[50rem] sm:w-[24rem] mb-5"
                   >
                     <div className="flex justify-between">
                       <strong className="text-[#B0B0B0]">{review.name}</strong>
