@@ -6,6 +6,7 @@ import {
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
+import { IoCloudUploadOutline } from "react-icons/io5";
 import AdminMenu from "./AdminMenu";
 
 function ProductList() {
@@ -62,11 +63,8 @@ function ProductList() {
 
     try {
       const res = await uploadProductImage(formData).unwrap();
-      console.log(res.image.name);
-
       setImage(res.image);
       setImageURL(res.image);
-      console.log(res.image);
       toast.success("Image Uploaded Successfully");
     } catch (error) {
       console.error(error);
@@ -75,171 +73,179 @@ function ProductList() {
   };
 
   return (
-    <div className="container overflow-hidden">
-      <div className="flex flex-col justify-center md:flex-row">
-        <AdminMenu />
-        <div className="md:w-3/4 p-3">
-          <div className="h-12 text-2xl font-bold mb-4">Create Product</div>
+    <div className="min-h-screen  text-white py-10 px-6">
+      <div className="container mx-auto">
+        <div className="flex flex-col justify-center md:flex-row">
+          <AdminMenu />
+          <div className="md:w-3/4 p-6 bg-gray-900 rounded-xl shadow-xl">
+            <h1 className="text-3xl font-bold mb-8 text-center ">
+              Create Product
+            </h1>
 
-          {imageURL && (
-            <div className="text-center mb-4">
-              <img
-                src={imageURL}
-                alt="product"
-                className="block mx-auto max-h-[200px] rounded-lg"
-              />
-            </div>
-          )}
-
-          <div className="mb-6 bg-gray-200 rounded-lg">
-            <label
-              htmlFor="image"
-              className="border border-gray-300 text-gray-800 block w-full text-center rounded-lg cursor-pointer font-thin py-4 "
-            >
-              {image ? (
-                <span className="text-gray-800">{image}</span>
-              ) : (
-                "Upload Image"
-              )}
-
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={uploadFileHandler}
-                className="hidden"
-              />
-            </label>
-          </div>
-
-          <div className="p-3">
-            <div className="flex flex-wrap gap-6 mb-6">
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+            {imageURL && (
+              <div className="text-center mb-6">
+                <img
+                  src={imageURL}
+                  alt="product"
+                  className="block mx-auto max-h-[200px] rounded-lg shadow-lg"
                 />
               </div>
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="price"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Price
-                </label>
-                <input
-                  id="price"
-                  type="number"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-6 mb-6">
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="quantity"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Quantity
-                </label>
-                <input
-                  id="quantity"
-                  type="number"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                />
-              </div>
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="brand"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Brand
-                </label>
-                <input
-                  id="brand"
-                  type="text"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                />
-              </div>
-            </div>
+            )}
 
             <div className="mb-6">
               <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium"
+                htmlFor="image"
+                className="border border-dashed border-gray-300 block w-full text-center rounded-lg cursor-pointer py-4 hover:bg-gray-800 transition-colors"
               >
-                Description
-              </label>
-              <textarea
-                id="description"
-                className="p-4 w-full h-32 border rounded-lg bg-[#101011] text-white"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
+                {image ? (
+                  <span className="text-gray-300 ">{image}</span>
+                ) : (
+                  <div className="flex justify-center items-center gap-3 text-gray-300 font-semibold tracking-wider">
+                    <span>
+                      <IoCloudUploadOutline size={24} />
+                    </span>
+                    <span>UPLOAD IMAGE</span>
+                  </div>
+                )}
 
-            <div className="flex flex-wrap gap-6 mb-6">
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="stock"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Count In Stock
-                </label>
                 <input
-                  id="stock"
-                  type="text"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  value={stock}
-                  onChange={(e) => setStock(e.target.value)}
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={uploadFileHandler}
+                  className="hidden"
                 />
-              </div>
-
-              <div className="w-full md:w-1/2">
-                <label
-                  htmlFor="category"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Category
-                </label>
-                <select
-                  id="category"
-                  className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="">Choose Category</option>
-                  {categories?.map((c) => (
-                    <option key={c._id} value={c._id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              </label>
             </div>
 
-            <button
-              onClick={handleSubmit}
-              className="py-4 px-10 mt-5 w-full md:w-auto rounded-lg text-lg font-bold bg-pink-600"
-            >
-              Submit
-            </button>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="flex flex-wrap gap-6">
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="price"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Price
+                  </label>
+                  <input
+                    id="price"
+                    type="number"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-6">
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="quantity"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Quantity
+                  </label>
+                  <input
+                    id="quantity"
+                    type="number"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="brand"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Brand
+                  </label>
+                  <input
+                    id="brand"
+                    type="text"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <label
+                  htmlFor="description"
+                  className="block mb-2 text-sm font-medium text-gray-400"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  className="p-4 w-full h-32 border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
+              </div>
+
+              <div className="flex flex-wrap gap-6">
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="stock"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Count In Stock
+                  </label>
+                  <input
+                    id="stock"
+                    type="number"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-1/2">
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-400"
+                  >
+                    Category
+                  </label>
+                  <select
+                    id="category"
+                    className="p-4 w-full border border-gray-600 rounded-lg bg-gray-800 text-white focus:ring-pink-500 focus:border-pink-500"
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option value="">Choose Category</option>
+                    {categories?.map((c) => (
+                      <option key={c._id} value={c._id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="py-4 px-10 w-full md:w-auto rounded-lg text-lg font-bold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 transition-all"
+              >
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       </div>
