@@ -1,4 +1,4 @@
-import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
+import { useGetNewProductsQuery } from "../../redux/api/productApiSlice";
 import Message from "../../components/Message";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,7 +14,7 @@ import {
 import Loader from "../../components/Loader";
 
 const ProductCarousel = () => {
-  const { data: products, isLoading, error } = useGetTopProductsQuery();
+  const { data: products, isLoading, error } = useGetNewProductsQuery();
 
   const settings = {
     dots: false,
