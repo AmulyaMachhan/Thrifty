@@ -9,7 +9,7 @@ const OrderList = () => {
   return (
     <div className="container mx-auto ">
       <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4 my-4">
-        ORDERS ({orders.length !== 0 && orders.length})
+        ORDERS ({orders?.length !== 0 && orders?.length})
       </h2>
       {isLoading ? (
         <Loader />
