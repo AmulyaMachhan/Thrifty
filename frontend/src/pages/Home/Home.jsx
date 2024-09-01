@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <div
-      className={`xl:pl-[5rem] lg:pl-[4rem] ${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
+      className={`xl:pl-[3.5rem] lg:pl-[3rem] ${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
     >
       {!keyword && <Header />}
 
@@ -35,7 +35,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {data?.products?.map((product) => (
               <div key={product._id} className="p-4">
                 <Product product={product} />
