@@ -16,8 +16,8 @@ const Product = ({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <div className="max-w-[20rem] my-6">
-      <Card className="bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
-        <CardHeader className="p-0 relative">
+      <Card className="w-full bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
+        <CardHeader className="w-full p-0 relative">
           <Image
             src={product.image}
             alt={product.name}
@@ -35,12 +35,12 @@ const Product = ({ product }) => {
         </CardHeader>
 
         <CardBody className="py-4 px-3">
-          <h5 className="text-lg font-bold tracking-tight leading-tight mb-2">
+          <h5 className="text-lg font-bold tracking-wide leading-tight mb-2">
             {product.name}
           </h5>
           <Ratings value={product.rating} className="mb-4" />
           <p className="text-sm text-gray-300 leading-relaxed">
-            {product.description?.substring(0, 30)}...
+            {product.description?.substring(0, 25)}...
           </p>
         </CardBody>
 
