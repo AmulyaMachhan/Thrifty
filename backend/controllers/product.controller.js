@@ -229,7 +229,7 @@ const fetchTopProducts = asyncHandler(async (req, res) => {
 
 const fetchNewProducts = asyncHandler(async (req, res) => {
   try {
-    const products = await Product.find({}).sort({ _id: -1 }).limit(4);
+    const products = await Product.find({}).sort({ _id: -1 }).limit(10);
 
     return res.status(200).json(products);
   } catch (error) {
