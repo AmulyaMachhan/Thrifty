@@ -1,9 +1,12 @@
+import React, { Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/api/productApiSlice";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import Header from "../../components/Header";
-import Product from "../Products/Product";
+
+// Lazy load the Product component
+const Product = React.lazy(() => import("../Products/Product"));
 
 const Home = () => {
   const { keyword } = useParams();
@@ -20,7 +23,11 @@ const Home = () => {
         </p>
       </div>
       <div
-        className={`${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
+        className={`${
+          isLoading
+            ? "h-[100vh] w-full flex flex-col items-center justify-around"
+            : ""
+        }`}
       >
         {/* Hero Section */}
         {!keyword && <Header />}
@@ -48,7 +55,6 @@ const Home = () => {
                 >
                   Shop Now
                 </Link>
-                {/* Subheading */}
               </div>
               <div className="text-center text-gray-400">
                 <p className="text-xs sm:text-lg tracking-wide">
@@ -62,7 +68,10 @@ const Home = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 justify-items-center sm:mx-10">
               {data?.products?.map((product) => (
                 <div key={product._id} className="sm:p-4">
-                  <Product product={product} />
+                  {/* Suspense to lazy load individual products */}
+                  <Suspense fallback={<Loader />}>
+                    <Product product={product} />
+                  </Suspense>
                 </div>
               ))}
             </div>
