@@ -1,45 +1,40 @@
+/* eslint-disable react/display-name */
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Button,
-  Image,
-} from "@nextui-org/react";
 import PropTypes from "prop-types";
 import Ratings from "./Ratings";
 import HeartIcon from "../Favourites/HeartIcon";
-import { useState } from "react";
 import { ImageModal } from "../Admin/Modals/ImageModal";
 
-const Product = ({ product }) => {
+const Product = memo(({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="max-w-[20rem] my-6">
-      <Card className="w-full bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
-        <CardHeader
-          className="w-full p-0 relative"
+      {/* Card container */}
+      <div className="w-full bg-gradient-to-r from-black to-gray-600 shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
+        {/* Card Header with Image */}
+        <div
+          className="relative w-full cursor-pointer"
           onClick={() => setIsModalOpen(true)}
         >
-          <Image
+          <img
             src={product.image}
             alt={product.name}
-            className="w-full h-[15rem] rounded-t-lg object-cover"
-            width="100%"
-            style={{
-              opacity: isLoaded ? 1 : 0,
-              transition: "opacity 0.5s ease-in-out",
-            }}
+            className={`w-full h-60 object-cover transition-opacity duration-500 rounded-t-lg ${
+              isLoaded ? "opacity-100" : "opacity-0"
+            }`}
             onLoad={() => setIsLoaded(true)}
+            loading="lazy"
           />
           <div className="absolute top-4 right-4 z-10">
             <HeartIcon product={product} />
           </div>
-        </CardHeader>
-        <CardBody className="py-4 px-3">
+        </div>
+
+        {/* Card Body */}
+        <div className="py-4 px-3">
           <h5 className="text-lg font-bold text-white leading-tight mb-2">
             {product.name}
           </h5>
@@ -47,25 +42,24 @@ const Product = ({ product }) => {
           <p className="text-sm text-gray-300 leading-relaxed">
             {product.description?.substring(0, 25)}...
           </p>
-        </CardBody>
+        </div>
 
-        <CardFooter className="flex items-center justify-between px-3 pb-6 text-pink-300">
+        {/* Card Footer */}
+        <div className="flex items-center justify-between px-3 pb-6 text-pink-300">
           <div className="flex flex-col">
             <span className="text-xl font-bold">${product.price}</span>
             <span className="text-xs text-gray-400">Free Shipping</span>
           </div>
 
           <Link to={`/product/${product._id}`}>
-            <Button
-              size="sm"
-              color="gradient"
-              className="bg-pink-800 text-sm font-semibold rounded-lg py-2"
-            >
+            <button className="px-4 py-2 text-sm font-semibold rounded-lg bg-pink-800 text-white hover:bg-pink-700 transition duration-200">
               View Product
-            </Button>
+            </button>
           </Link>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
+
+      {/* Image Modal */}
       <ImageModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -73,7 +67,7 @@ const Product = ({ product }) => {
       />
     </div>
   );
-};
+});
 
 Product.propTypes = {
   product: PropTypes.shape({
@@ -82,7 +76,7 @@ Product.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    description: PropTypes.string, // Optional: Description can be included
+    description: PropTypes.string,
   }).isRequired,
 };
 
