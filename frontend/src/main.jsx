@@ -48,6 +48,8 @@ const router = createBrowserRouter(
       <Route path="/shop" element={<Shop />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/product/:id" element={<ProductDetails />} />
+
+      {/* Customer Support Routes */}
       <Route path="/help" element={<FAQ />} />
       <Route path="/returns" element={<ReturnsAndExchanges />} />
       <Route path="/contact" element={<ContactUs />} />
