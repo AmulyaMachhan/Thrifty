@@ -65,7 +65,7 @@ const Navigation = () => {
           </Link>
           <Link
             to="/cart"
-            className="flex items-center"
+            className="flex items-center relative"
             onClick={handleLinkClick}
           >
             <AiOutlineShoppingCart className="text-white" size={16} />
@@ -74,7 +74,7 @@ const Navigation = () => {
           </Link>
           <Link
             to="/favourites"
-            className="flex items-center"
+            className="flex items-center relative"
             onClick={handleLinkClick}
           >
             <FaHeart className="text-white" size={16} />
