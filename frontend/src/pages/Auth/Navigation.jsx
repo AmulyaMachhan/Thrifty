@@ -18,7 +18,7 @@ import FavoritesCount from "../Favourites/FavouritesCount.jsx";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
@@ -33,12 +33,8 @@ const Navigation = () => {
     }
   };
 
-  const handleMouseEnter = () => {
-    setDropdownOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setDropdownOpen(false);
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
   };
 
   const handleLinkClick = () => {
@@ -90,8 +86,7 @@ const Navigation = () => {
         <div className="relative">
           <button
             className="flex items-center text-gray-200 focus:outline-none"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onClick={toggleDropdown}
           >
             {userInfo ? (
               <span className="mr-2">{userInfo.username}</span>
@@ -101,7 +96,7 @@ const Navigation = () => {
             {userInfo && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 w-4 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="white"
@@ -110,13 +105,13 @@ const Navigation = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+                  d="M19 9l-7 7-7-7"
                 />
               </svg>
             )}
           </button>
 
-          {dropdownOpen && userInfo && (
+          {isDropdownOpen && userInfo && (
             <ul className="absolute right-0 mt-2 bg-white text-gray-600 rounded shadow-lg w-48">
               {userInfo.isAdmin && (
                 <>
