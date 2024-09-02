@@ -11,7 +11,11 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        abril: ["Abril Fatface", "serif"],
+      },
+    },
   },
   plugins: [flowbitePlugin, flowbite.plugin(), nextui()],
 };
