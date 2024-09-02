@@ -185,25 +185,26 @@ const Navigation = () => {
               </li>
             </ul>
           )}
+
           {!userInfo && (
-            <ul className="absolute right-0 mt-2 bg-white text-gray-600 rounded shadow-lg w-48">
+            <ul className="flex gap-3 text-white text-md">
               <li>
                 <Link
                   to="/login"
-                  className="flex items-center px-4 py-2 hover:bg-gray-100"
+                  className="flex items-center hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
-                  <AiOutlineLogin size={26} />
+                  <AiOutlineLogin size={16} />
                   <span className="ml-2">LOGIN</span>
                 </Link>
               </li>
               <li>
                 <Link
                   to="/register"
-                  className="flex items-center px-4 py-2 hover:bg-gray-100"
+                  className="flex items-center hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
-                  <AiOutlineUserAdd size={26} />
+                  <AiOutlineUserAdd size={16} />
                   <span className="ml-2">REGISTER</span>
                 </Link>
               </li>
