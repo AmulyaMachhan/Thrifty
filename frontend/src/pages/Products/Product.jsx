@@ -35,7 +35,7 @@ const Product = ({ product }) => {
         </CardHeader>
 
         <CardBody className="py-4 px-3">
-          <h5 className="text-lg font-bold tracking-wide leading-tight mb-2">
+          <h5 className="text-lg font-bold leading-tight mb-2">
             {product.name}
           </h5>
           <Ratings value={product.rating} className="mb-4" />
