@@ -30,13 +30,11 @@ const Shop = () => {
   }, [categoriesQuery.data, categoriesQuery.isLoading, dispatch]);
 
   useEffect(() => {
-    // Fetch filtered products whenever checked categories, radio filters, or priceFilter changes
     fetchFilteredProducts({ checked, radio });
   }, [checked, radio, fetchFilteredProducts]);
 
   useEffect(() => {
     if (filteredProductsData) {
-      // Filter products based on price filter
       const filteredProducts = filteredProductsData.filter((product) =>
         product.price.toString().includes(priceFilter)
       );
@@ -76,9 +74,12 @@ const Shop = () => {
 
   return (
     <>
-      <div className="container w-full mx-auto lg:pl-[4rem]">
-        <div className="flex flex-wrap">
-          <div className="bg-[#151515] p-3 mt-2 mb-2 w-full md:w-1/5">
+      <div className="container">
+        <h2 className="text-center text-xl font-bold tracking-wider bg-black py-4">
+          {products?.length} PRODUCTS
+        </h2>
+        <div className="flex flex-wrap mx-5 my-4">
+          <div className="mb-2 w-full md:w-1/5 px-2">
             <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
               Filter by Categories
             </h2>
@@ -152,8 +153,7 @@ const Shop = () => {
             </div>
           </div>
 
-          <div className="p-3 w-full md:w-4/5">
-            <h2 className="h4 text-center mb-2">{products?.length} Products</h2>
+          <div className="px-2 w-full md:w-4/5">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {isLoading ? (
                 <Loader />
