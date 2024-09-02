@@ -27,8 +27,14 @@ function Cart() {
   return (
     <div>
       {cartItems.length === 0 ? (
-        <div>
-          Your cart is empty <Link to="/shop">Go To Shop</Link>
+        <div className="text-center text-xl my-4 font- tracking-wide">
+          Your cart is empty. Go To{" "}
+          <Link
+            to="/shop"
+            className="underline text-pink-500 hover:text-pink-300"
+          >
+            Shop!
+          </Link>
         </div>
       ) : (
         <div className="flex justify-center w-full">
