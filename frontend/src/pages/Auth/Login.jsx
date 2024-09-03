@@ -84,7 +84,7 @@ function Login() {
             <button
               disabled={isLoading}
               type="submit"
-              className="bg-pink-500 text-white text-lg font-semibold px-4 py-2 rounded cursor-pointer my-[1rem]"
+              className="bg-pink-500 text-white text-lg font-semibold  px-4 py-2 rounded cursor-pointer my-[1rem]"
             >
               {isLoading ? "Signing In..." : "Sign In"}
             </button>
