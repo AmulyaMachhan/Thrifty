@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,8 @@ import HeartIcon from "../Favourites/HeartIcon";
 
 const ProductCard = ({ p }) => {
   const dispatch = useDispatch();
+
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const addToCartHandler = (product, qty) => {
     dispatch(addToCart({ ...product, qty }));
@@ -26,6 +28,11 @@ const ProductCard = ({ p }) => {
             className="cursor-pointer rounded-t-lg h-[180px] w-full object-cover"
             src={p.image}
             alt={p.name}
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transition: "opacity 0.5s ease-in-out",
+            }}
+            onLoad={() => setIsLoaded(true)}
           />
         </Link>
         <HeartIcon product={p} />
