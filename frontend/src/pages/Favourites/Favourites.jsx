@@ -7,13 +7,13 @@ const Favourites = () => {
   const favorites = useSelector(selectFavouriteProduct);
 
   return (
-    <div className="xl:ml-[10rem] lg:ml-[10rem]">
+    <div className="flex flex-col items-center">
       {favorites.length === 0 ? (
-        <div className="w-full h-[100vh] mr-[10rem] flex justify-center items-center text-2xl">
-          <span>No favorites added! Go to&nbsp;</span>
+        <div className="text-center text-xl my-4 font-semibold tracking-wide">
+          <span>No favorites added. Go to&nbsp;</span>
           <span>
             <Link to="/" className="text-pink-500 underline">
-              Home
+              Home!
             </Link>
           </span>
         </div>
