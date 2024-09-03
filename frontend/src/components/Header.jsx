@@ -15,8 +15,8 @@ const Header = () => {
   }
 
   return (
-    <>
-      <div className="flex flex-wrap justify-center items-center">
+    <div>
+      <div className="flex flex-wrap justify-evenly items-center">
         <div className="xl:block lg:hidden md:hidden:sm:hidden">
           <div className="grid grid-cols-2 gap-4">
             {data.map((product) => (
@@ -28,7 +28,7 @@ const Header = () => {
         </div>
         <ProductCarousel />
       </div>
-    </>
+    </div>
   );
 };
 
