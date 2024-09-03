@@ -26,7 +26,7 @@ const Home = () => {
           </Message>
         ) : (
           <>
-            <div className="flex justify-center gap-9 items-center mt-12">
+            <div className="flex justify-center gap-9 items-center mt-12 bg-black py-4">
               <h1 className="text-4xl font-bold">Special Products</h1>
               <Link
                 to="/shop"
