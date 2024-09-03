@@ -50,10 +50,10 @@ const Navigation = () => {
           </span>
         </div>
 
-        <div className="flex items-center space-x-4 text-sm">
+        <div className="flex items-center space-x-6 text-sm">
           <Link to="/" className="flex items-center" onClick={handleLinkClick}>
             <AiOutlineHome className="text-white" size={16} />
-            <span className="ml-2">HOME</span>
+            <span className="ml-2 tracking-wider">HOME</span>
           </Link>
           <Link
             to="/shop"
@@ -61,7 +61,7 @@ const Navigation = () => {
             onClick={handleLinkClick}
           >
             <AiOutlineShopping className="text-white" size={16} />
-            <span className="ml-2">SHOP</span>
+            <span className="ml-2 tracking-wider">SHOP</span>
           </Link>
           <Link
             to="/cart"
@@ -69,7 +69,7 @@ const Navigation = () => {
             onClick={handleLinkClick}
           >
             <AiOutlineShoppingCart className="text-white" size={16} />
-            <span className="ml-2">CART</span>
+            <span className="ml-2 tracking-wider">CART</span>
             <CartCount />
           </Link>
           <Link
@@ -78,7 +78,7 @@ const Navigation = () => {
             onClick={handleLinkClick}
           >
             <FaHeart className="text-white" size={16} />
-            <span className="ml-2">FAVOURITES</span>
+            <span className="ml-2 tracking-wider">FAVOURITES</span>
             <FavoritesCount />
           </Link>
         </div>
@@ -195,7 +195,7 @@ const Navigation = () => {
                   onClick={handleLinkClick}
                 >
                   <AiOutlineLogin size={16} />
-                  <span className="ml-2">LOGIN</span>
+                  <span className="ml-2 tracking-wider">LOGIN</span>
                 </Link>
               </li>
               <li>
@@ -205,7 +205,7 @@ const Navigation = () => {
                   onClick={handleLinkClick}
                 >
                   <AiOutlineUserAdd size={16} />
-                  <span className="ml-2">REGISTER</span>
+                  <span className="ml-2 tracking-wider">REGISTER</span>
                 </Link>
               </li>
             </ul>
