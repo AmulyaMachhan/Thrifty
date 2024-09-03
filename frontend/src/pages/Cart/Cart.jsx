@@ -27,7 +27,7 @@ function Cart() {
   return (
     <div>
       {cartItems.length === 0 ? (
-        <div className="text-center text-xl my-4 font- tracking-wide">
+        <div className="text-center text-xl my-4 font-semibold tracking-wide">
           Your cart is empty. Go To{" "}
           <Link
             to="/shop"
