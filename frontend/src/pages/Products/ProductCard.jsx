@@ -16,7 +16,7 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="w-90 relative bg-[#1A1A1A] rounded-lg shadow">
+    <div className="max-w-[18rem] relative bg-[#1A1A1A] rounded-lg shadow">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
           <span className="absolute bottom-3 right-3 bg-pink-100 text-pink-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
