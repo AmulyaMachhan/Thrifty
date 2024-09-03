@@ -4,17 +4,15 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import Header from "../../components/Header";
 import Product from "../Products/Product";
-import Brand from "../../components/Brand";
 
 const Home = () => {
   const { keyword } = useParams();
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
 
   return (
-    <>
-      <Brand />
+    <div className="flex justify-center">
       <div
-        className={`xl:pl-[3.5rem] lg:pl-[3rem] ${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
+        className={`${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
       >
         {!keyword && <Header />}
 
@@ -48,7 +46,7 @@ const Home = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
