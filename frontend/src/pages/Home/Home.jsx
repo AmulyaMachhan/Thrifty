@@ -26,7 +26,7 @@ const Home = () => {
           </Message>
         ) : (
           <>
-            <div className="flex justify-center gap-9 items-center mt-12 mx-20">
+            <div className="flex justify-center gap-9 items-center mt-12">
               <h1 className="text-4xl font-bold">Special Products</h1>
               <Link
                 to="/shop"
@@ -36,7 +36,7 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 mx-10">
               {data?.products?.map((product) => (
                 <div key={product._id} className="p-4">
                   <Product product={product} />
