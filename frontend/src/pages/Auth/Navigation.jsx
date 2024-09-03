@@ -7,7 +7,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,10 +17,14 @@ import CartCount from "../Cart/CartCount.jsx";
 import FavoritesCount from "../Favourites/FavouritesCount.jsx";
 
 const Navigation = () => {
-  const { userInfo } = useSelector((state) => state.auth);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const { userInfo } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
@@ -52,24 +56,48 @@ const Navigation = () => {
 
         <div className="flex items-center space-x-6 text-sm">
           <Link to="/" className="flex items-center" onClick={handleLinkClick}>
-            <AiOutlineHome className="text-white" size={16} />
-            <span className="ml-2 tracking-wider">HOME</span>
+            <AiOutlineHome
+              className="text-white"
+              size={16}
+              color={location.pathname === "/" ? "pink" : "white"}
+            />
+            <span
+              className={`ml-2 tracking-wider ${location.pathname === "/" ? "text-[#ffc0cb]" : "text-white"}`}
+            >
+              HOME
+            </span>
           </Link>
           <Link
             to="/shop"
             className="flex items-center"
             onClick={handleLinkClick}
           >
-            <AiOutlineShopping className="text-white" size={16} />
-            <span className="ml-2 tracking-wider">SHOP</span>
+            <AiOutlineShopping
+              className="text-white"
+              size={16}
+              color={location.pathname === "/shop" ? "pink" : "white"}
+            />
+            <span
+              className={`ml-2 tracking-wider ${location.pathname === "/shop" ? "text-[#ffc0cb]" : "text-white"}`}
+            >
+              SHOP
+            </span>
           </Link>
           <Link
             to="/cart"
             className="flex items-center relative"
             onClick={handleLinkClick}
           >
-            <AiOutlineShoppingCart className="text-white" size={16} />
-            <span className="ml-2 tracking-wider">CART</span>
+            <AiOutlineShoppingCart
+              className="text-white"
+              size={16}
+              color={location.pathname === "/cart" ? "pink" : "white"}
+            />
+            <span
+              className={`ml-2 tracking-wider ${location.pathname === "/cart" ? "text-[#ffc0cb]" : "text-white"}`}
+            >
+              CART
+            </span>
             <CartCount />
           </Link>
           <Link
@@ -77,8 +105,16 @@ const Navigation = () => {
             className="flex items-center relative"
             onClick={handleLinkClick}
           >
-            <FaHeart className="text-white" size={16} />
-            <span className="ml-2 tracking-wider">FAVOURITES</span>
+            <FaHeart
+              className="text-white"
+              size={16}
+              color={location.pathname === "/favourites" ? "pink" : "white"}
+            />
+            <span
+              className={`ml-2 tracking-wider ${location.pathname === "/favourites" ? "text-[#ffc0cb]" : "text-white"}`}
+            >
+              FAVOURITES
+            </span>
             <FavoritesCount />
           </Link>
         </div>
@@ -194,8 +230,15 @@ const Navigation = () => {
                   className="flex items-center hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
-                  <AiOutlineLogin size={16} />
-                  <span className="ml-2 tracking-wider">LOGIN</span>
+                  <AiOutlineLogin
+                    size={16}
+                    color={location.pathname === "/login" ? "pink" : "white"}
+                  />
+                  <span
+                    className={`ml-1 tracking-wider ${location.pathname === "/login" ? "text-[#ffc0cb]" : "text-white"}`}
+                  >
+                    LOGIN
+                  </span>
                 </Link>
               </li>
               <li>
@@ -204,8 +247,15 @@ const Navigation = () => {
                   className="flex items-center hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
-                  <AiOutlineUserAdd size={16} />
-                  <span className="ml-2 tracking-wider">REGISTER</span>
+                  <AiOutlineUserAdd
+                    size={16}
+                    color={location.pathname === "/register" ? "pink" : "white"}
+                  />
+                  <span
+                    className={`ml-1 tracking-wider ${location.pathname === "/register" ? "text-[#ffc0cb]" : "text-white"}`}
+                  >
+                    REGISTER
+                  </span>
                 </Link>
               </li>
             </ul>
