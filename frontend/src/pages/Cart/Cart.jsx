@@ -37,10 +37,11 @@ function Cart() {
           </Link>
         </div>
       ) : (
-        <div className="flex justify-center w-full">
-          <div className="flex flex-col w-[80%]">
-            <h1 className="text-2xl font-semibold mb-4">Shopping Cart</h1>
-
+        <div>
+          <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4">
+            SHOPPING CART
+          </h2>
+          <div className="my-6 w-4/5 mx-auto">
             {cartItems.map((item) => (
               <div key={item._id} className="flex items-enter mb-[1rem] pb-2">
                 <div className="w-[5rem] h-[5rem]">
@@ -90,8 +91,8 @@ function Cart() {
               </div>
             ))}
 
-            <div className="mt-8 w-[40rem]">
-              <div className="p-4 rounded-lg">
+            <div className="mt-8">
+              <div className="py-4 rounded-lg">
                 <h2 className="text-xl font-semibold mb-2">
                   Items ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 </h2>
@@ -104,7 +105,7 @@ function Cart() {
                 </div>
 
                 <button
-                  className="bg-pink-500 mt-4 py-2 px-4 rounded-full text-lg w-full"
+                  className="bg-pink-500 mt-4 py-2 px-6 rounded-full text-lg"
                   disabled={cartItems.length === 0}
                   onClick={checkoutHandler}
                 >
