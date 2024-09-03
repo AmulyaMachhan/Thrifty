@@ -19,9 +19,9 @@ const Favourites = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-lg font-bold ml-[3rem] mt-[3rem]">
-            FAVOURITE PRODUCTS
-          </h1>
+          <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4">
+            FAVORITE PRODUCTS
+          </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {favorites.map((product) => (
