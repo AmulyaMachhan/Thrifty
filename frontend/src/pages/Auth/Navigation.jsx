@@ -44,7 +44,7 @@ const Navigation = () => {
       <div className="container mx-auto flex items-center justify-between p-4 ">
         <Logo />
 
-        <NavLinks />
+        <NavLinks handleLinkClick={handleLinkClick} />
 
         <div className="relative">
           {userInfo ? (
