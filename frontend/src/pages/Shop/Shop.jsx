@@ -18,7 +18,7 @@ const Shop = () => {
 
   const categoriesQuery = useFetchCategoriesQuery();
   const [priceFilter, setPriceFilter] = useState("");
-
+  const [visibleCount, setVisibleCount] = useState(9);
   // Mutation to fetch filtered products
   const [fetchFilteredProducts, { data: filteredProductsData, isLoading }] =
     useGetFilteredProductsMutation();
@@ -70,6 +70,11 @@ const Shop = () => {
 
   const handlePriceChange = (e) => {
     setPriceFilter(e.target.value);
+  };
+
+  // Load more products
+  const loadMoreProducts = () => {
+    setVisibleCount((prevCount) => prevCount + 10); // Increase the number of visible products by 10
   };
 
   return (
@@ -160,9 +165,21 @@ const Shop = () => {
               ) : products.length === 0 ? (
                 <div>No products found</div>
               ) : (
-                products?.map((p) => <ProductCard key={p._id} p={p} />)
+                products
+                  .slice(0, visibleCount) // Show only the visible products
+                  .map((p) => <ProductCard key={p._id} p={p} />)
               )}
             </div>
+            {visibleCount < products.length && (
+              <div className="text-center my-4">
+                <button
+                  onClick={loadMoreProducts}
+                  className="px-4 py-2 bg-pink-600 text-white rounded-lg"
+                >
+                  Load More
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
