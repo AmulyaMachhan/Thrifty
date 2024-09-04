@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeartIcon from "../Favourites/HeartIcon";
+import { useState } from "react";
 
 const SmallProduct = ({ product }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <div className="w-[18rem] p-2 shadow-md rounded-lg">
       <div className="relative overflow-hidden h-[12rem] w-full rounded-t-lg">
@@ -10,6 +13,11 @@ const SmallProduct = ({ product }) => {
           src={product.image}
           alt={product.name}
           className="h-full w-full object-cover rounded-xl"
+          style={{
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.5s ease-in-out",
+          }}
+          onLoad={() => setIsLoaded(true)}
         />
         <HeartIcon product={product} />
       </div>
