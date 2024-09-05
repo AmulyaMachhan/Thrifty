@@ -47,71 +47,69 @@ const UserMenu = ({
       className={`absolute right-0 mt-4 transition-all duration-700 smooth ${isDropdownOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"} origin-top`}
     >
       <ul className="max-w-sm px-4 py-2 text-white bg-black bg-opacity-70 rounded-lg shadow-lg backdrop-blur-xl">
+        <li className="font-semibold text-pink-300 hover:text-pink-500 pb-2 border-b">
+          <p>Signed in as</p>
+          <p>{userInfo.email}</p>
+        </li>
         {userInfo.isAdmin && (
-          <div>
-            <li className="font-semibold text-pink-300 hover:text-pink-500 pb-2 border-b">
-              <p>Signed in as</p>
-              <p>{userInfo.email}</p>
+          <div className="border-b py-2">
+            <li>
+              <Link
+                to="/admin/dashboard"
+                className="flex items-center gap-2 py-2 hover:text-pink-500"
+                onClick={handleLinkClick}
+              >
+                <MdSpaceDashboard size={20} />
+                <span>Dashboard</span>
+              </Link>
             </li>
-            <div className="border-b py-2">
-              <li>
-                <Link
-                  to="/admin/dashboard"
-                  className="flex items-center gap-2 py-2 hover:text-pink-500"
-                  onClick={handleLinkClick}
-                >
-                  <MdSpaceDashboard size={20} />
-                  <span>Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/productlist"
-                  className="flex items-center gap-2 py-2 hover:text-pink-500"
-                  onClick={handleLinkClick}
-                >
-                  <AiOutlineShopping size={20} />
-                  <span>Products</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/categorylist"
-                  className="flex items-center gap-2 py-2 hover:text-pink-500"
-                  onClick={handleLinkClick}
-                >
-                  <BiSolidCategoryAlt size={20} />
-                  <span>Category</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/orderlist"
-                  className="flex items-center gap-2 py-2 hover:text-pink-500"
-                  onClick={handleLinkClick}
-                >
-                  <AiOutlineOrderedList size={20} />
-                  <span>Orders</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/userlist"
-                  className="flex items-center gap-2 py-2 hover:text-pink-500"
-                  onClick={handleLinkClick}
-                >
-                  <FaUsers size={20} />
-                  <span>Users</span>
-                </Link>
-              </li>
-            </div>
+            <li>
+              <Link
+                to="/admin/productlist"
+                className="flex items-center gap-2 py-2 hover:text-pink-500"
+                onClick={handleLinkClick}
+              >
+                <AiOutlineShopping size={20} />
+                <span>Products</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/categorylist"
+                className="flex items-center gap-2 py-2 hover:text-pink-500"
+                onClick={handleLinkClick}
+              >
+                <BiSolidCategoryAlt size={20} />
+                <span>Category</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/orderlist"
+                className="flex items-center gap-2 py-2 hover:text-pink-500"
+                onClick={handleLinkClick}
+              >
+                <AiOutlineOrderedList size={20} />
+                <span>Orders</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/userlist"
+                className="flex items-center gap-2 py-2 hover:text-pink-500"
+                onClick={handleLinkClick}
+              >
+                <FaUsers size={20} />
+                <span>Users</span>
+              </Link>
+            </li>
           </div>
         )}
 
         <li>
           <Link
             to="/profile"
-            className="flex items-center gap-2 py-2 hover:text-pink-500"
+            className="flex items-center gap-2 py-3 hover:text-pink-500"
             onClick={handleLinkClick}
           >
             <AiOutlineUser size={20} />
