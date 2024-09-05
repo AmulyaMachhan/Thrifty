@@ -44,10 +44,10 @@ const UserMenu = ({
     </button>
 
     {isDropdownOpen && (
-      <ul className="absolute right-0 max-w-sm px-4 py-2 mt-4 text-white bg-black bg-opacity-50 rounded-lg shadow-lg backdrop-blur-xl">
+      <ul className="absolute right-0 max-w-sm px-4 py-2 mt-4 text-white bg-black bg-opacity-70 rounded-lg shadow-lg backdrop-blur-xl">
         {userInfo.isAdmin && (
           <div>
-            <li className="font-semibold text-blue-400 pb-2 border-b">
+            <li className="font-semibold text-pink-300 hover:text-pink-500 pb-2 border-b">
               <p>Signed in as</p>
               <p>{userInfo.email}</p>
             </li>
@@ -55,7 +55,7 @@ const UserMenu = ({
               <li>
                 <Link
                   to="/admin/dashboard"
-                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  className="flex items-center gap-2 py-2 hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
                   <MdSpaceDashboard size={20} />
@@ -65,7 +65,7 @@ const UserMenu = ({
               <li>
                 <Link
                   to="/admin/productlist"
-                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  className="flex items-center gap-2 py-2 hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
                   <AiOutlineShopping size={20} />
@@ -75,7 +75,7 @@ const UserMenu = ({
               <li>
                 <Link
                   to="/admin/categorylist"
-                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  className="flex items-center gap-2 py-2 hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
                   <BiSolidCategoryAlt size={20} />
@@ -85,7 +85,7 @@ const UserMenu = ({
               <li>
                 <Link
                   to="/admin/orderlist"
-                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  className="flex items-center gap-2 py-2 hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
                   <AiOutlineOrderedList size={20} />
@@ -95,7 +95,7 @@ const UserMenu = ({
               <li>
                 <Link
                   to="/admin/userlist"
-                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  className="flex items-center gap-2 py-2 hover:text-pink-500"
                   onClick={handleLinkClick}
                 >
                   <FaUsers size={20} />
@@ -109,7 +109,7 @@ const UserMenu = ({
         <li>
           <Link
             to="/profile"
-            className="flex items-center gap-2 py-2 hover:bg-gray-100"
+            className="flex items-center gap-2 py-2 hover:text-pink-500"
             onClick={handleLinkClick}
           >
             <AiOutlineUser size={20} />
@@ -122,7 +122,7 @@ const UserMenu = ({
               logoutHandler();
               handleLinkClick();
             }}
-            className="flex items-center gap-2 py-2 text-red-500 hover:bg-gray-100"
+            className="flex items-center gap-2 py-2 text-red-500 hover:text-red-900"
           >
             <FiLogOut size={20} />
             <span>Logout</span>
