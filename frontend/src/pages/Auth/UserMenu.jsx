@@ -43,8 +43,10 @@ const UserMenu = ({
       </div>
     </button>
 
-    {isDropdownOpen && (
-      <ul className="absolute right-0 max-w-sm px-4 py-2 mt-4 text-white bg-black bg-opacity-70 rounded-lg shadow-lg backdrop-blur-xl">
+    <div
+      className={`absolute right-0 mt-4 transition-all duration-700 smooth ${isDropdownOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"} origin-top`}
+    >
+      <ul className="max-w-sm px-4 py-2 text-white bg-black bg-opacity-70 rounded-lg shadow-lg backdrop-blur-xl">
         {userInfo.isAdmin && (
           <div>
             <li className="font-semibold text-pink-300 hover:text-pink-500 pb-2 border-b">
@@ -129,7 +131,7 @@ const UserMenu = ({
           </button>
         </li>
       </ul>
-    )}
+    </div>
   </>
 );
 
