@@ -1,4 +1,13 @@
 import { Link } from "react-router-dom";
+import { MdSpaceDashboard } from "react-icons/md";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import {
+  AiOutlineShopping,
+  AiOutlineOrderedList,
+  AiOutlineUser,
+} from "react-icons/ai";
+import { FaUsers } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import PropTypes from "prop-types";
 
 const UserMenu = ({
@@ -42,61 +51,69 @@ const UserMenu = ({
               <p>Signed in as</p>
               <p>{userInfo.email}</p>
             </li>
-            <li>
-              <Link
-                to="/admin/dashboard"
-                className="block py-2 hover:bg-gray-100"
-                onClick={handleLinkClick}
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/productlist"
-                className="block py-2 hover:bg-gray-100"
-                onClick={handleLinkClick}
-              >
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/categorylist"
-                className="block py-2 hover:bg-gray-100"
-                onClick={handleLinkClick}
-              >
-                Category
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/orderlist"
-                className="block py-2 hover:bg-gray-100"
-                onClick={handleLinkClick}
-              >
-                Orders
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/userlist"
-                className="block py-2 hover:bg-gray-100"
-                onClick={handleLinkClick}
-              >
-                Users
-              </Link>
-            </li>
+            <div className="border-b py-2">
+              <li>
+                <Link
+                  to="/admin/dashboard"
+                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  <MdSpaceDashboard size={20} />
+                  <span>Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/productlist"
+                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  <AiOutlineShopping size={20} />
+                  <span>Products</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/categorylist"
+                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  <BiSolidCategoryAlt size={20} />
+                  <span>Category</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/orderlist"
+                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  <AiOutlineOrderedList size={20} />
+                  <span>Orders</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/userlist"
+                  className="flex items-center gap-2 py-2 hover:bg-gray-100"
+                  onClick={handleLinkClick}
+                >
+                  <FaUsers size={20} />
+                  <span>Users</span>
+                </Link>
+              </li>
+            </div>
           </div>
         )}
 
         <li>
           <Link
             to="/profile"
-            className="block py-2 hover:bg-gray-100"
+            className="flex items-center gap-2 py-2 hover:bg-gray-100"
             onClick={handleLinkClick}
           >
-            Profile
+            <AiOutlineUser size={20} />
+            <span>Profile</span>
           </Link>
         </li>
         <li>
@@ -105,9 +122,10 @@ const UserMenu = ({
               logoutHandler();
               handleLinkClick();
             }}
-            className="block w-full py-2 text-left hover:bg-gray-100"
+            className="flex items-center gap-2 py-2 text-red-500 hover:bg-gray-100"
           >
-            Logout
+            <FiLogOut size={20} />
+            <span>Logout</span>
           </button>
         </li>
       </ul>
@@ -122,4 +140,5 @@ UserMenu.propTypes = {
   handleLinkClick: PropTypes.func.isRequired,
   logoutHandler: PropTypes.func.isRequired,
 };
+
 export default UserMenu;
