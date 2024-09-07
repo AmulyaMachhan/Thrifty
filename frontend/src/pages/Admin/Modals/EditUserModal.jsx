@@ -54,7 +54,7 @@ const EditUserModal = ({ user, isOpen, onClose, refetch }) => {
       <div className="bg-gradient-to-tr from-pink-500 to-yellow-500 p-6 rounded-lg w-1/3">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">Edit User</h2>
-          <button onClick={onClose} className="text-red-500">
+          <button onClick={onClose} className="text-white">
             <FaTimes />
           </button>
         </div>
@@ -106,7 +106,7 @@ const EditUserModal = ({ user, isOpen, onClose, refetch }) => {
 };
 
 EditUserModal.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.object,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   refetch: PropTypes.func.isRequired,
