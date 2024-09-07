@@ -46,8 +46,8 @@ function UserList() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
-      <h2 className="text-center text-2xl font-bold tracking-wider py-3 bg-gradient-to-r from-blue-600 to-purple-600">
+    <div className="min-h-screen text-white">
+      <h2 className="text-center text-xl font-bold tracking-wider py-3 bg-gradient-to-r from-blue-600 to-purple-600">
         USER MANAGEMENT ({users?.length})
       </h2>
 
@@ -63,7 +63,7 @@ function UserList() {
           <div className="mx-auto">
             <table className="w-full table-auto bg-gray-800 rounded-lg shadow-lg overflow-hidden">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-700 to-gray-900 text-left text-gray-400 uppercase tracking-wider">
+                <tr className="bg-gradient-to-r from-gray-500 to-gray-700 text-left text-gray-400 uppercase tracking-wider">
                   <th className="px-6 py-4 border-r border-r-gray-600">ID</th>
                   <th className="px-6 py-4 border-r border-r-gray-600">NAME</th>
                   <th className="px-6 py-4 border-r border-r-gray-600">

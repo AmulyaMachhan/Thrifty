@@ -79,108 +79,106 @@ const Shop = () => {
 
   return (
     <>
-      <div className="container">
-        <h2 className="text-center text-xl font-bold tracking-wider bg-black py-4">
-          {products?.length} PRODUCTS
-        </h2>
-        <div className="flex flex-wrap mx-5 my-4">
-          <div className="mb-2 w-full md:w-1/5 px-2">
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
-              Filter by Categories
-            </h2>
+      <h2 className="text-center text-xl font-bold tracking-wider bg-black py-4 my-4">
+        PRODUCTS ({products?.length})
+      </h2>
+      <div className="flex flex-wrap px-5 py-4">
+        <div className="mb-2 w-full md:w-1/5 px-2">
+          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+            Filter by Categories
+          </h2>
 
-            <div className="p-5 w-full">
-              {categories?.map((c) => (
-                <div key={c._id} className="mb-2">
-                  <div className="flex items-center mr-4">
-                    <input
-                      type="checkbox"
-                      id={`checkbox-${c._id}`}
-                      onChange={(e) => handleCheck(e.target.checked, c._id)}
-                      className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor={`checkbox-${c._id}`}
-                      className="ml-2 text-sm font-medium text-white dark:text-gray-300"
-                    >
-                      {c.name}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
-              Filter by Brands
-            </h2>
-
-            <div className="p-5">
-              {uniqueBrands.map((brand) => (
-                <div className="flex items-center mr-4 mb-5" key={brand}>
+          <div className="p-5 w-full">
+            {categories?.map((c) => (
+              <div key={c._id} className="mb-2">
+                <div className="flex items-center mr-4">
                   <input
-                    type="radio"
-                    id={brand}
-                    name="brand"
-                    onChange={() => handleBrandClick(brand)}
-                    className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    type="checkbox"
+                    id={`checkbox-${c._id}`}
+                    onChange={(e) => handleCheck(e.target.checked, c._id)}
+                    className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
-                    htmlFor={`radio-${brand}`}
+                    htmlFor={`checkbox-${c._id}`}
                     className="ml-2 text-sm font-medium text-white dark:text-gray-300"
                   >
-                    {brand}
+                    {c.name}
                   </label>
                 </div>
-              ))}
-            </div>
-
-            <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
-              Filter by Price
-            </h2>
-
-            <div className="p-5 w-full">
-              <input
-                type="text"
-                placeholder="Enter Price"
-                value={priceFilter}
-                onChange={handlePriceChange}
-                className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-pink-300"
-              />
-            </div>
-
-            <div className="p-5 pt-0">
-              <button
-                className="w-full border my-4"
-                onClick={() => window.location.reload()}
-              >
-                Reset
-              </button>
-            </div>
+              </div>
+            ))}
           </div>
 
-          <div className="px-2 w-full md:w-4/5">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {isLoading ? (
-                <Loader />
-              ) : products.length === 0 ? (
-                <div>No products found</div>
-              ) : (
-                products
-                  .slice(0, visibleCount) // Show only the visible products
-                  .map((p) => <ProductCard key={p._id} p={p} />)
-              )}
-            </div>
-            {visibleCount < products.length && (
-              <div className="text-center my-4">
-                <button
-                  onClick={loadMoreProducts}
-                  className="px-4 py-2 bg-pink-600 text-white rounded-lg"
+          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+            Filter by Brands
+          </h2>
+
+          <div className="p-5">
+            {uniqueBrands.map((brand) => (
+              <div className="flex items-center mr-4 mb-5" key={brand}>
+                <input
+                  type="radio"
+                  id={brand}
+                  name="brand"
+                  onChange={() => handleBrandClick(brand)}
+                  className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor={`radio-${brand}`}
+                  className="ml-2 text-sm font-medium text-white dark:text-gray-300"
                 >
-                  Load More
-                </button>
+                  {brand}
+                </label>
               </div>
+            ))}
+          </div>
+
+          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+            Filter by Price
+          </h2>
+
+          <div className="p-5 w-full">
+            <input
+              type="text"
+              placeholder="Enter Price"
+              value={priceFilter}
+              onChange={handlePriceChange}
+              className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-pink-300"
+            />
+          </div>
+
+          <div className="p-5 pt-0">
+            <button
+              className="w-full border my-4"
+              onClick={() => window.location.reload()}
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div className="px-2 w-full md:w-4/5">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {isLoading ? (
+              <Loader />
+            ) : products.length === 0 ? (
+              <div>No products found</div>
+            ) : (
+              products
+                .slice(0, visibleCount) // Show only the visible products
+                .map((p) => <ProductCard key={p._id} p={p} />)
             )}
           </div>
+          {visibleCount < products.length && (
+            <div className="text-center my-4">
+              <button
+                onClick={loadMoreProducts}
+                className="px-4 py-2 bg-pink-600 text-white rounded-lg"
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
