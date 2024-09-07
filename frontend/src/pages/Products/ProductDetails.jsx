@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/features/cartSlice";
 import HeartIcon from "../Favourites/HeartIcon";
+import { FaArrowLeft } from "react-icons/fa";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,10 @@ const ProductDetails = () => {
     <>
       <Link
         to="/"
-        className="text-white font-semibold hover:underline ml-[10rem]"
+        className="flex items-center justify-center py-4 px-2 gap-2 bg-white text-black text-xl font-bold tracking-wide hover:bg-gray-200 hover:text-gray-700"
       >
-        Go Back
+        <FaArrowLeft />
+        BACK
       </Link>
 
       {isLoading ? (
@@ -50,19 +52,28 @@ const ProductDetails = () => {
           {error?.data?.message || error.message}
         </Message>
       ) : (
-        <div className="flex flex-wrap justify-center w-full gap-4 relative mt-[2rem]">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full xl:w-[35rem] lg:w-[40rem] md:w-[35rem] sm:w-[15rem]"
-          />
-          <HeartIcon product={product} />
-          <div className="flex flex-col gap-2">
-            <h2 className="text-2xl font-semibold">{product.name}</h2>
-            <p className=" xl:w-[30rem] lg:w-[25rem] md:w-[20rem] text-[#B0B0B0]">
+        <div className="flex flex-wrap justify-center items-start lg:items-center w-full gap-8 py-12 bg-gradient-to-r from-gray-800 to-black text-white rounded-lg shadow-lg">
+          {/* Product Image Section */}
+          <div className="relative w-4/5 lg:w-2/5">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            />
+            <HeartIcon product={product} className="absolute top-4 right-4" />
+          </div>
+
+          {/* Product Details Section */}
+          <div className="flex flex-col gap-4 w-4/5 lg:w-1/2">
+            <h2 className="text-3xl font-bold tracking-wide">{product.name}</h2>
+            <p className="text-md text-gray-400 leading-relaxed">
               {product.description}
             </p>
-            <p className="text-3xl font-extrabold">$ {product.price}</p>
+            <p className="text-2xl font-extrabold text-yellow-200">
+              $ {product.price}
+            </p>
+
+            {/* Product Information and Actions */}
             <ProductInfo product={product} rating={rating} />
             <ProductActions
               product={product}
@@ -74,19 +85,18 @@ const ProductDetails = () => {
         </div>
       )}
 
-      <section className="w-full xl:pl-[5rem] lg:pl-[4rem] md:pl-[3rem]">
-        <div className="mt-[5rem]">
-          <ProductTabs
-            productId={productId}
-            refetch={refetch}
-            userInfo={userInfo}
-            rating={rating}
-            setRating={setRating}
-            comment={comment}
-            setComment={setComment}
-            product={product}
-          />
-        </div>
+      {/* Product Tabs Section */}
+      <section className="py-10">
+        <ProductTabs
+          productId={productId}
+          refetch={refetch}
+          userInfo={userInfo}
+          rating={rating}
+          setRating={setRating}
+          comment={comment}
+          setComment={setComment}
+          product={product}
+        />
       </section>
     </>
   );
