@@ -9,6 +9,7 @@ import Message from "../../components/Message";
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
 import EditUserModal from "./Modals/EditUserModal";
+import DeleteUserModal from "./Modals/DeleteUserModal";
 import { MdEdit } from "react-icons/md";
 
 function UserList() {
@@ -17,6 +18,7 @@ function UserList() {
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     refetch();
@@ -27,15 +29,19 @@ function UserList() {
     setIsModalOpen(true);
   };
 
-  const deleteHandler = async (ID) => {
-    if (window.confirm("Are you sure ?")) {
-      try {
-        await deleteUser(ID);
-        toast.success("User Deleted Successfully");
-        refetch();
-      } catch (error) {
-        toast.error(error?.data?.message || error.message);
-      }
+  const toggleDelete = (user) => {
+    setSelectedUser(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const deleteHandler = async () => {
+    try {
+      await deleteUser(selectedUser._id);
+      toast.success("User Deleted Successfully");
+      refetch();
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
     }
   };
 
@@ -87,16 +93,14 @@ function UserList() {
                     </td>
                     <td className="px-6 py-3 flex items-center gap-2">
                       <button
-                        onClick={() =>
-                          toggleEdit(user._id, user.name, user.email)
-                        }
-                        className="bg-blue-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg flex items-center"
+                        onClick={() => toggleEdit(user)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg flex items-center"
                       >
                         <MdEdit />
                       </button>
                       {!user.isAdmin && (
                         <button
-                          onClick={() => deleteHandler(user._id)}
+                          onClick={() => toggleDelete(user)}
                           className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg flex items-center"
                         >
                           <FaTrash />
@@ -112,12 +116,20 @@ function UserList() {
       )}
 
       {selectedUser && (
-        <EditUserModal
-          user={selectedUser}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          refetch={refetch}
-        />
+        <>
+          <EditUserModal
+            user={selectedUser}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            refetch={refetch}
+          />
+          <DeleteUserModal
+            user={selectedUser}
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            onDelete={deleteHandler}
+          />
+        </>
       )}
     </div>
   );
