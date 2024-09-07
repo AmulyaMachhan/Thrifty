@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { useUpdateUserDetailsMutation } from "../../../redux/api/userApiSlice";
 import { toast } from "react-toastify";
 
-// Zod validation schema
 const schema = z.object({
   username: z.string().min(2, "Username is required"),
   email: z.string().email("Enter a valid email"),
@@ -49,8 +48,6 @@ const EditUserModal = ({ user, isOpen, onClose, refetch }) => {
       toast.error(error?.data?.message || error.message);
     }
   };
-
-  // Reset form when modal is opened or closed
 
   return isOpen ? (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
