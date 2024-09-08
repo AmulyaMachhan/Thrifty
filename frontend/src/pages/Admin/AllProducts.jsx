@@ -4,6 +4,7 @@ import AdminMenu from "./AdminMenu";
 import { useAllProductsQuery } from "../../redux/api/productApiSlice";
 import { useEffect } from "react";
 import Loader from "../../components/Loader";
+import { FaPlus } from "react-icons/fa";
 
 const AllProducts = () => {
   const { data: products, isLoading, isError, refetch } = useAllProductsQuery();
@@ -14,78 +15,77 @@ const AllProducts = () => {
 
   if (isLoading) {
     return (
-      <div className="h-[100vh] w-full flex justify-center align-middle">
+      <div className="h-screen w-full flex justify-center items-center bg-gray-900">
         <Loader />
       </div>
     );
   }
 
   if (isError) {
-    return <div>Error loading products</div>;
+    return (
+      <div className="text-center text-red-400 text-xl">
+        Error loading products
+      </div>
+    );
   }
 
   return (
-    <>
-      <div className="container xl:pl-[5rem] lg:pl-[2rem]">
+    <div className="min-h-screen text-gray-100">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row">
           <AdminMenu />
-          <div className="p-1">
-            <div className="text-center w-full text-xl font-bold h-12">
-              All Products ({products.length})
+          <div className="flex-1">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-3xl font-bold text-gray-100">
+                All Products ({products.length})
+              </h2>
+              <Link
+                to="/admin/productlist"
+                className="flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-lg tracking-wide font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-blue-500/50"
+              >
+                <FaPlus />
+                Create New Product
+              </Link>
             </div>
-            <div className="flex flex-wrap justify-around items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
                 <Link
                   key={product._id}
                   to={`/admin/product/update/${product._id}`}
-                  className="block mb-4 overflow-hidden"
+                  className="group bg-[#0f0f17] rounded-xl overflow-hidden hover:shadow-lg transition duration-300 ease-in-out outline outline-[#1a1a28] hover:outline-2 hover:outline-[#27273b]"
                 >
-                  <div className="flex">
+                  <div className="relative">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-[10rem] object-cover"
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="p-4 flex flex-col justify-around">
-                      <div className="flex justify-between">
-                        <h5 className="text-xl font-semibold mb-2">
-                          {product?.name}
-                        </h5>
-
-                        <p className="text-gray-400 text-xs">
-                          {moment(product.createdAt).format("MMMM Do YYYY")}
-                        </p>
-                      </div>
-
-                      <p className="text-gray-400 xl:w-[30rem] lg:w-[30rem] md:w-[20rem] sm:w-[10rem] text-sm mb-4">
-                        {product?.description?.substring(0, 160)}...
+                    <div className="absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex items-center justify-center">
+                      <span className="text-white text-lg font-semibold">
+                        View Details
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-xl font-semibold text-gray-100 truncate">
+                        {product?.name}
+                      </h3>
+                      <p className="text-sm text-gray-400">
+                        {moment(product.createdAt).format("MMM D, YYYY")}
                       </p>
-
-                      <div className="flex justify-between">
-                        <Link
-                          to={`/admin/product/update/${product._id}`}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
-                        >
-                          Update Product
-                          <svg
-                            className="w-3.5 h-3.5 ml-2"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 14 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M1 5h12m0 0L9 1m4 4L9 9"
-                            />
-                          </svg>
-                        </Link>
-                        <p>$ {product?.price}</p>
-                      </div>
+                    </div>
+                    <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+                      {product?.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xl font-bold text-blue-600">
+                        ${product?.price}
+                      </span>
+                      <button className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out shadow-md hover:shadow-pink-500/50">
+                        Update
+                      </button>
                     </div>
                   </div>
                 </Link>
@@ -94,7 +94,7 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
