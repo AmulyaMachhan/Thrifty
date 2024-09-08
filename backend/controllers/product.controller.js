@@ -141,7 +141,6 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
   try {
     const products = await Product.find()
       .populate("category")
-      .limit(12)
       .sort({ _id: -1 });
 
     if (!products) {
