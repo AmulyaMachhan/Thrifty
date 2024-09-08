@@ -84,7 +84,7 @@ const CategoryList = () => {
   return (
     <div className="min-h-screen text-white">
       <AdminMenu />
-      <h2 className="text-center text-2xl font-bold tracking-wider py-4 bg-gradient-to-r from-purple-600 to-pink-600 shadow-md">
+      <h2 className="text-center text-xl font-bold tracking-wider py-4 bg-gradient-to-r from-purple-600 to-pink-600 shadow-md">
         CATEGORY MANAGEMENT ({categories?.length || 0})
       </h2>
       <div className="max-w-2xl mx-auto p-5 bg-gradient-to-r from-[#303031] to-[#59595a] rounded-lg shadow-lg mt-6">
