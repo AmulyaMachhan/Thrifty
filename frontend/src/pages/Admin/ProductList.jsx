@@ -45,7 +45,7 @@ function ProductList() {
         return;
       } else {
         toast.success(`${data.name} Created Successfully`);
-        navigate("/");
+        navigate("/allproductslist");
       }
     } catch (error) {
       console.error(error);
