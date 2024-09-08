@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
+import { ImageModal } from "./Modals/ImageModal";
 
 function ProductUpdate() {
   const params = useParams();
@@ -17,6 +18,7 @@ function ProductUpdate() {
   const { data: productData } = useGetProductByIdQuery(params.id);
   const { data: categories = [] } = useFetchCategoriesQuery();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
@@ -105,176 +107,190 @@ function ProductUpdate() {
   };
 
   return (
-    <>
-      <div className="container w-100 mx-auto sm:mx-[0]">
-        <div className="flex flex-col justify-center md:flex-row">
+    <div className="min-h-screen text-gray-100">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row">
           <AdminMenu />
-          <div className="md:w-3/4 p-3">
-            <div className="h-12">Update / Delete Product</div>
+          <div className="flex-1 md:w-3/4 p-4">
+            <h2 className="text-3xl font-bold mb-6 text-white">
+              Update / Delete Product
+            </h2>
 
-            {image && (
-              <div className="text-center">
-                <img
-                  src={image}
-                  alt="product"
-                  className="block mx-auto w-full h-[40%]"
-                />
-              </div>
-            )}
-
-            <div className="mb-3">
-              <label className="text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-                {image ? image.name : "Upload image"}
-                <input
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                  onChange={uploadFileHandler}
-                  className="text-white"
-                />
-              </label>
-            </div>
-
-            <div className="p-3">
-              <div className="flex flex-wrap gap-6 mb-6">
-                <div className="w-full md:w-1/2">
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium"
-                  >
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+            <div className="bg-[#272727] rounded-xl p-6 shadow-lg mb-6 border border-gray-800">
+              {image && (
+                <div
+                  className="mb-6 overflow-hidden rounded-lg cursor-pointer"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <img
+                    src={image}
+                    alt="product"
+                    className="w-full h-64 object-cover rounded-lg transition-all duration-300 ease-in-out hover:opacity-80"
                   />
                 </div>
-                <div className="w-full md:w-1/2">
-                  <label
-                    htmlFor="price"
-                    className="block mb-2 text-sm font-medium"
-                  >
-                    Price
-                  </label>
-                  <input
-                    id="price"
-                    type="number"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-              </div>
+              )}
 
-              <div className="flex flex-wrap gap-6 mb-6">
-                <div className="w-full md:w-1/2">
-                  <label
-                    htmlFor="quantity"
-                    className="block mb-2 text-sm font-medium"
-                  >
-                    Quantity
-                  </label>
-                  <input
-                    id="quantity"
-                    type="number"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />
-                </div>
-                <div className="w-full md:w-1/2">
-                  <label
-                    htmlFor="brand"
-                    className="block mb-2 text-sm font-medium"
-                  >
-                    Brand
-                  </label>
-                  <input
-                    id="brand"
-                    type="text"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                  />
-                </div>
-              </div>
+              <ImageModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                imageSrc={image}
+              />
 
               <div className="mb-6">
-                <label
-                  htmlFor="description"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  className="p-4 w-full h-32 border rounded-lg bg-[#101011] text-white"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-              </div>
-
-              <div className="flex flex-wrap gap-6 mb-6">
-                <div className="w-full md:w-1/2">
-                  <label
-                    htmlFor="stock"
-                    className="block mb-2 text-sm font-medium"
-                  >
-                    Count In Stock
-                  </label>
+                <label className="block w-full p-4 text-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out">
+                  {image ? "Change Image" : "Upload Image"}
                   <input
-                    id="stock"
-                    type="text"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    value={stock}
-                    onChange={(e) => setStock(e.target.value)}
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    onChange={uploadFileHandler}
+                    className="hidden"
                   />
+                </label>
+              </div>
+
+              <form onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      type="text"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="price"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Price
+                    </label>
+                    <input
+                      id="price"
+                      type="number"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className="w-full md:w-1/2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label
+                      htmlFor="quantity"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Quantity
+                    </label>
+                    <input
+                      id="quantity"
+                      type="number"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="brand"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Brand
+                    </label>
+                    <input
+                      id="brand"
+                      type="text"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-6">
                   <label
-                    htmlFor="category"
-                    className="block mb-2 text-sm font-medium"
+                    htmlFor="description"
+                    className="block mb-2 text-sm font-medium text-gray-300"
                   >
-                    Category
+                    Description
                   </label>
-                  <select
-                    id="category"
-                    className="p-4 w-full border rounded-lg bg-[#101011] text-white"
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option value={category}>Choose Category</option>
-                    {categories?.map((c) => (
-                      <option key={c._id} value={c._id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
+                  <textarea
+                    id="description"
+                    className="w-full p-3 h-32 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
                 </div>
-              </div>
 
-              <div className="">
-                <button
-                  onClick={handleSubmit}
-                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  bg-green-600 mr-6"
-                >
-                  Update
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  bg-pink-600"
-                >
-                  Delete
-                </button>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label
+                      htmlFor="stock"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Count In Stock
+                    </label>
+                    <input
+                      id="stock"
+                      type="number"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      value={stock}
+                      onChange={(e) => setStock(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="category"
+                      className="block mb-2 text-sm font-medium text-gray-300"
+                    >
+                      Category
+                    </label>
+                    <select
+                      id="category"
+                      className="w-full p-3 rounded-lg bg-[#1b1b1b] border border-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-white"
+                      onChange={(e) => setCategory(e.target.value)}
+                      value={category}
+                    >
+                      <option value="">Choose Category</option>
+                      {categories?.map((c) => (
+                        <option key={c._id} value={c._id}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex space-x-4">
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
