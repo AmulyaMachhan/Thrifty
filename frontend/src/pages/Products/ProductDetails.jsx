@@ -86,7 +86,17 @@ const ProductDetails = () => {
       )}
 
       {/* Product Tabs Section */}
-      <section className="py-10">
+      <section className="py-3 bg-gradient-to-r from-gray-800 to-black text-white">
+        <div className="flex flex-col items-center">
+          <h1 className="text-center py-4 font-bold text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-300">
+            CUSTOMER REVIEWS
+          </h1>
+          <p className="max-w-3xl text-center text-lg text-gray-400 mt-2 mb-8 ">
+            Hear from our customers! Share your experience or check out what
+            others are saying about this product.
+          </p>
+        </div>
+
         <ProductTabs
           productId={productId}
           refetch={refetch}
