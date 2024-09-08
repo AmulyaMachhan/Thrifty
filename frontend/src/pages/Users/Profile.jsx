@@ -72,8 +72,8 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-sm lg:max-w-2xl p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
           Update Profile
         </h2>
