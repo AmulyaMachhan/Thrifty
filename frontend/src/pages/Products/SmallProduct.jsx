@@ -7,7 +7,7 @@ const SmallProduct = ({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="w-[18rem] p-2 shadow-md rounded-lg">
+    <div className="w-[18rem] rounded-lg">
       <div className="relative overflow-hidden h-[12rem] w-full rounded-t-lg">
         <img
           src={product.image}
