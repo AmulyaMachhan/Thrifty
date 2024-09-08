@@ -65,7 +65,7 @@ const UserMenu = ({
             </li>
             <li>
               <Link
-                to="/admin/productlist"
+                to="/admin/allproductslist"
                 className="flex items-center gap-2 py-2 hover:text-pink-500"
                 onClick={handleLinkClick}
               >
