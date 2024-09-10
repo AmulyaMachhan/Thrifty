@@ -25,9 +25,9 @@ function Cart() {
   };
 
   return (
-    <div>
+    <div className="py-4">
       {cartItems.length === 0 ? (
-        <div className="text-center text-xl my-4 font-semibold tracking-wide">
+        <div className="text-center text-xl font-semibold tracking-wide">
           Your cart is empty. Go To{" "}
           <Link
             to="/shop"
