@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import Ratings from "./Ratings";
 import HeartIcon from "../Favourites/HeartIcon";
 import { useState } from "react";
+import { BACKEND_URL } from "../../utils/constants";
 
 const Product = ({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,7 +20,7 @@ const Product = ({ product }) => {
       <Card className="w-full bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
         <CardHeader className="w-full p-0 relative">
           <Image
-            src={product.image}
+            src={`${BACKEND_URL}/${product.image}`}
             alt={product.name}
             className="w-full h-[15rem] rounded-t-lg object-cover"
             width="100%"
