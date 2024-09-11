@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://thrifty-pink.vercel.app/";
+export const BACKEND_URL = "https://thrifty-qqkh.vercel.app/";
