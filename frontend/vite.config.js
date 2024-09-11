@@ -6,11 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api/": "https://thrifty-pink.vercel.app/",
-      "/uploads": {
-        target: "https://thrifty-pink.vercel.app/",
-        changeOrigin: true,
-      },
+      "/uploads/": "https://thrifty-pink.vercel.app/",
     },
   },
 });
