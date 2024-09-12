@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(
   "/uploads",
-  express.static(path.join(path.resolve(), "public/uploads"))
+  express.static(path.join(path.resolve(), "public", "uploads"))
 );
 
 //Routes Import
