@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/uploads/(.*)",
-      "dest": "/public/uploads/$1"
+      "dest": "https://thrifty-eosin.vercel.app/uploads/$1"
     },
     {
       "src": "/(.*)",
