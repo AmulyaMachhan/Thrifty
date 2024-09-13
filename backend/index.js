@@ -7,9 +7,9 @@ import cookieParser from "cookie-parser";
 //UTILS
 import connectDB from "./src/config/db.js";
 
-dotenv.config();
-
-connectDB();
+dotenv.config({
+  path: "./.env",
+});
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(
   "/uploads",
-  express.static(path.join(path.resolve(), "public", "uploads"))
+  express.static(path.join(path.resolve(), "public/uploads"))
 );
 
 //Routes Import
@@ -34,6 +34,12 @@ app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/uploads", uploadRouter);
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log("SERVER RUNNING ON PORT :" + process.env.PORT);
-});
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`SERVER SUCCESSFULLY RUNNING ON PORT ${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(`MONGO DB CONNECTION ERROR ${error}`);
+  });
