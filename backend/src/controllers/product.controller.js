@@ -1,11 +1,10 @@
 import { Product } from "../models/product.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const addProduct = asyncHandler(async (req, res) => {
-  const { name, brand, description, quantity, price, category } = req.fields;
+  const { name, brand, description, quantity, price, category, image } =
+    req.fields;
 
-  const imageLocalPath = req.files?.image?.[0]?.path;
   switch (true) {
     case !name:
       return res.status(400).json({ error: "Name is required" });
@@ -19,11 +18,9 @@ const addProduct = asyncHandler(async (req, res) => {
       return res.status(400).json({ error: "Price is required" });
     case !category:
       return res.status(400).json({ error: "Category is required" });
-    case !imageLocalPath:
+    case !image:
       return res.status(400).json({ error: "Image is required" });
   }
-
-  const image = uploadOnCloudinary(imageLocalPath);
 
   try {
     const existingProduct = await Product.findOne({ name });
@@ -32,16 +29,7 @@ const addProduct = asyncHandler(async (req, res) => {
       return res.status(400).json({ error: "Product already exists!!" });
     }
 
-    const product = await new Product({
-      name,
-      brand,
-      description,
-      quantity,
-      price,
-      category,
-      image,
-    });
-
+    const product = await new Product({ ...req.fields });
     await product.save();
 
     return res.status(200).json(product);
