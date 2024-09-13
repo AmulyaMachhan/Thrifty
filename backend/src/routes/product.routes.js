@@ -36,13 +36,7 @@ router
 router
   .route("/")
   .get(fetchProducts)
-  .post(
-    authenticate,
-    authorizeAdmin,
-    upload.single("image"),
-    formidable(),
-    addProduct
-  );
+  .post(authenticate, authorizeAdmin, formidable(), addProduct);
 
 router.route("/:id/reviews").post(authenticate, checkId, addProductReview);
 
