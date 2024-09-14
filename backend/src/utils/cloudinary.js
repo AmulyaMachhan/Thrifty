@@ -1,13 +1,14 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
+import dotenv from "dotenv";
 
-(async function () {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET_KEY,
-  });
-})();
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+});
 
 const uploadOnCloudinary = async (localFilePath) => {
   try {
@@ -20,8 +21,11 @@ const uploadOnCloudinary = async (localFilePath) => {
     //File has been successufully uploaded on cloudinary
     console.log(`File is uploaded on cloudinary ${response.url}`);
 
-    //File has been removed from the local storage
-    fs.unlinkSync(localFilePath);
+    try {
+      fs.unlinkSync(localFilePath);
+    } catch (unlinkErr) {
+      console.error(`Error deleting local file: ${unlinkErr}`);
+    }
 
     return response;
   } catch (err) {
