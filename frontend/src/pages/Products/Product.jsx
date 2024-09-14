@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import Ratings from "./Ratings";
 import HeartIcon from "../Favourites/HeartIcon";
 import { useState } from "react";
-import { BACKEND_URL } from "../../utils/constants";
 
 const Product = ({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,7 +19,7 @@ const Product = ({ product }) => {
       <Card className="w-full bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
         <CardHeader className="w-full p-0 relative">
           <Image
-            src={`${BACKEND_URL}/${product.image}`}
+            src={product.image}
             alt={product.name}
             className="w-full h-[15rem] rounded-t-lg object-cover"
             width="100%"
@@ -36,7 +35,7 @@ const Product = ({ product }) => {
         </CardHeader>
 
         <CardBody className="py-4 px-3">
-          <h5 className="text-lg font-bold leading-tight mb-2">
+          <h5 className="text-lg font-bold text-white leading-tight mb-2">
             {product.name}
           </h5>
           <Ratings value={product.rating} className="mb-4" />
@@ -45,7 +44,7 @@ const Product = ({ product }) => {
           </p>
         </CardBody>
 
-        <CardFooter className="flex items-center justify-between px-3 pb-6">
+        <CardFooter className="flex items-center justify-between px-3 pb-6 text-pink-300">
           <div className="flex flex-col">
             <span className="text-xl font-bold">${product.price}</span>
             <span className="text-xs text-gray-400">Free Shipping</span>
@@ -55,7 +54,7 @@ const Product = ({ product }) => {
             <Button
               size="sm"
               color="gradient"
-              className="bg-black text-sm font-semibold rounded-lg py-2"
+              className="bg-pink-800 text-sm font-semibold rounded-lg py-2"
             >
               View Product
             </Button>
