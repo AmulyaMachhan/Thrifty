@@ -17,6 +17,7 @@ import {
   updateProductDetails,
 } from "../controllers/product.controller.js";
 import { checkId } from "../middlewares/checkId.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router
 router
   .route("/")
   .get(fetchProducts)
-  .post(authenticate, authorizeAdmin, formidable(), addProduct);
+  .post(authenticate, authorizeAdmin, upload.single("image"), addProduct);
 
 router.route("/:id/reviews").post(authenticate, checkId, addProductReview);
 
