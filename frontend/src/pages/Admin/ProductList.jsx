@@ -1,30 +1,58 @@
-import { useState } from "react";
-import {
-  useCreateProductsMutation,
-  useUploadProductImageMutation,
-} from "../../redux/api/productApiSlice";
+import { useState, useEffect } from "react";
+import { useCreateProductsMutation } from "../../redux/api/productApiSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
-import { IoCloudUploadOutline } from "react-icons/io5";
 import { IoMdListBox, IoMdText, IoMdPricetag } from "react-icons/io";
 import AdminMenu from "./AdminMenu";
 
 function ProductList() {
   const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [imageURL, setImageURL] = useState(null);
 
   const navigate = useNavigate();
   const [createProduct] = useCreateProductsMutation();
-  const [uploadProductImage] = useUploadProductImageMutation();
   const { data: categories } = useFetchCategoriesQuery();
+
+  // Load input values from localStorage when the component mounts
+  useEffect(() => {
+    const savedName = localStorage.getItem("productName");
+    const savedBrand = localStorage.getItem("productBrand");
+    const savedDescription = localStorage.getItem("productDescription");
+    const savedCategory = localStorage.getItem("productCategory");
+    const savedQuantity = localStorage.getItem("productQuantity");
+    const savedPrice = localStorage.getItem("productPrice");
+    const savedStock = localStorage.getItem("productStock");
+
+    if (savedName) setName(savedName);
+    if (savedBrand) setBrand(savedBrand);
+    if (savedDescription) setDescription(savedDescription);
+    if (savedCategory) setCategory(savedCategory);
+    if (savedQuantity) setQuantity(savedQuantity);
+    if (savedPrice) setPrice(savedPrice);
+    if (savedStock) setStock(savedStock);
+  }, []);
+
+  // Save input values to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("productName", name);
+    localStorage.setItem("productBrand", brand);
+    localStorage.setItem("productDescription", description);
+    localStorage.setItem("productCategory", category);
+    localStorage.setItem("productQuantity", quantity);
+    localStorage.setItem("productPrice", price);
+    localStorage.setItem("productStock", stock);
+  }, [name, brand, description, category, quantity, price, stock]);
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,26 +73,13 @@ function ProductList() {
         return;
       } else {
         toast.success(`${data.name} Created Successfully`);
+        // Clear localStorage after successful submission
+        localStorage.clear();
         navigate("/allproductslist");
       }
     } catch (error) {
       console.error(error);
       toast.error("Failed to create product");
-    }
-  };
-
-  const uploadFileHandler = async (e) => {
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-
-    try {
-      const res = await uploadProductImage(formData).unwrap();
-      setImage(res.image);
-      setImageURL(res.image);
-      toast.success("Image Uploaded Successfully");
-    } catch (error) {
-      console.error(error);
-      toast.error("Unable to Upload Image");
     }
   };
 
@@ -77,41 +92,25 @@ function ProductList() {
         <div className="flex flex-col md:flex-row items-center justify-center">
           <AdminMenu />
           <div className="md:w-3/4 bg-gray-800 shadow-lg rounded-lg p-8 mx-auto md:mx-0">
-            {imageURL && (
-              <div className="text-center mb-6">
-                <img
-                  src={imageURL}
-                  alt="product"
-                  className="block mx-auto max-h-[200px] rounded-lg shadow-md border border-gray-600"
-                />
-              </div>
-            )}
-
-            <div className="mb-6">
-              <label
-                htmlFor="image"
-                className="block w-full text-center py-4 border-dashed border-2 border-gray-600 rounded-lg cursor-pointer hover:bg-gray-700 transition duration-200 ease-in"
-              >
-                {image ? (
-                  <span className="text-gray-400">{image}</span>
-                ) : (
-                  <div className="flex justify-center items-center gap-3 text-gray-400 font-semibold">
-                    <IoCloudUploadOutline size={24} />
-                    <span>Upload Image</span>
-                  </div>
-                )}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="mb-6">
+                <label
+                  htmlFor="image"
+                  className="block mb-2 text-sm font-medium text-gray-300"
+                >
+                  Upload Image
+                </label>
                 <input
                   type="file"
                   id="image"
                   name="image"
                   accept="image/*"
-                  onChange={uploadFileHandler}
-                  className="hidden"
+                  onChange={handleImageChange}
+                  className="p-4 border border-gray-600 rounded-lg bg-gray-700 text-gray-200"
+                  required
                 />
-              </label>
-            </div>
+              </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
                   <label
