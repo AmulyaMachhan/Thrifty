@@ -9,7 +9,6 @@ import HeartIcon from "../Favourites/HeartIcon";
 
 const ProductCard = ({ p }) => {
   const dispatch = useDispatch();
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   const addToCartHandler = (product, qty) => {
@@ -18,19 +17,18 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="max-w-[18rem] relative bg-[#1A1A1A] rounded-lg shadow">
+    <div className="max-w-[18rem] p-2 relative bg-gradient-to-br from-gray-800 to-black rounded-lg shadow-lg transition-transform transform hover:scale-105">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-pink-100 text-pink-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">
+          <span className="absolute bottom-3 right-3 bg-gradient-to-r from-pink-200 to-pink-400 text-pink-800 text-sm font-medium px-3 py-1 rounded-full shadow-md">
             {p.brand}
           </span>
           <img
-            className="cursor-pointer rounded-t-lg h-[180px] w-full object-cover"
+            className="cursor-pointer rounded-t-lg h-[200px] w-full object-cover transition-opacity duration-500"
             src={p.image}
             alt={p.name}
             style={{
               opacity: isLoaded ? 1 : 0,
-              transition: "opacity 0.5s ease-in-out",
             }}
             onLoad={() => setIsLoaded(true)}
           />
@@ -38,26 +36,26 @@ const ProductCard = ({ p }) => {
         <HeartIcon product={p} />
       </section>
 
-      <div className="p-5">
-        <div className="flex justify-between">
-          <h5 className="mb-2 text-md text-white">{p.name}</h5>
+      <div className="py-5 px-4">
+        <h5 className="mb-2 text-lg font-semibold text-white truncate">
+          {p.name}
+        </h5>
 
-          <p className="font-semibold text-pink-500">
-            {p.price.toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })}
-          </p>
-        </div>
+        <p className="font-semibold text-pink-100 text-lg">
+          {p.price.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}
+        </p>
 
-        <p className="mb-3 font-normal text-[#CFCFCF]">
+        <p className="mb-3 font-normal text-gray-300">
           {p.description.substring(0, 30)} ...
         </p>
 
         <section className="flex justify-between items-center">
           <Link
             to={`/product/${p._id}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gradient-to-r from-pink-600 to-pink-400 rounded-lg shadow transition-all duration-200 hover:from-pink-500 hover:to-pink-300 focus:ring-4 focus:outline-none focus:ring-pink-300"
           >
             Read More
             <svg
@@ -78,7 +76,7 @@ const ProductCard = ({ p }) => {
           </Link>
 
           <button
-            className="p-2 rounded-full"
+            className="p-2 rounded-full bg-gradient-to-r from-pink-600 to-pink-400 hover:from-pink-500 hover:to-pink-300 transition-all duration-200"
             onClick={() => addToCartHandler(p, 1)}
             aria-label={`Add ${p.name} to cart`}
           >
