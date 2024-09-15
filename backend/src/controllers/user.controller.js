@@ -82,7 +82,7 @@ const loginUser = asyncHandler(async (req, res) => {
   createToken(res, existingUser._id);
 
   // Return response
-  res.status(200).json({
+  return res.status(200).json({
     _id: existingUser._id,
     email: existingUser.email,
     username: existingUser.username,
@@ -91,14 +91,14 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler((req, res) => {
-  //Remove cookies set
-  res.clearCookie("jwt", {
+  // Remove the JWT cookie by setting it with an empty value and expiration in the past
+  res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
   });
 
-  //Return a response
-  res.status(200).json({ message: "User Successfully Logged Out" });
+  // Return a success response
+  res.status(200).json({ message: "User successfully logged out" });
 });
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
