@@ -36,7 +36,7 @@ const ProductCard = ({ p }) => {
         <HeartIcon product={p} />
       </section>
 
-      <div className="py-5 px-4">
+      <div className="py-5 px-2">
         <h5 className="mb-2 text-lg font-semibold text-white truncate">
           {p.name}
         </h5>
