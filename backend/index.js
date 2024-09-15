@@ -1,4 +1,9 @@
 import dotenv from "dotenv";
+
+dotenv.config({
+  path: "./.env",
+});
+
 import path from "path";
 import express from "express";
 import cors from "cors";
@@ -6,10 +11,6 @@ import cookieParser from "cookie-parser";
 
 //UTILS
 import connectDB from "./src/config/db.js";
-
-dotenv.config({
-  path: "./.env",
-});
 
 const app = express();
 
