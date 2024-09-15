@@ -15,11 +15,9 @@ const Shop = () => {
   const { categories, products, checked, radio } = useSelector(
     (state) => state.shop
   );
-
   const categoriesQuery = useFetchCategoriesQuery();
   const [priceFilter, setPriceFilter] = useState("");
   const [visibleCount, setVisibleCount] = useState(9);
-
   const [fetchFilteredProducts, { data: filteredProductsData, isLoading }] =
     useGetFilteredProductsMutation();
 
@@ -78,53 +76,51 @@ const Shop = () => {
 
   return (
     <>
-      <h2 className="text-center text-xl font-bold tracking-wider bg-black py-4 my-4">
+      <h2 className="text-center text-2xl font-bold tracking-wide text-black bg-white py-4 my-4 shadow-md">
         PRODUCTS ({products?.length})
       </h2>
       <div className="flex flex-wrap px-5 py-4">
-        <div className="mb-2 w-full md:w-1/5 px-2">
-          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+        <div className="mb-2 w-full md:w-1/4 px-2">
+          <h2 className="text-lg font-semibold text-center py-2 bg-gray-200 text-gray-700 rounded-lg mb-4 shadow-md">
             Filter by Categories
           </h2>
 
-          <div className="p-5 w-full">
+          <div className="p-5 w-full bg-gray-800 rounded-lg">
             {categories?.map((c) => (
-              <div key={c._id} className="mb-2">
-                <div className="flex items-center mr-4">
-                  <input
-                    type="checkbox"
-                    id={`checkbox-${c._id}`}
-                    onChange={(e) => handleCheck(e.target.checked, c._id)}
-                    className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor={`checkbox-${c._id}`}
-                    className="ml-2 text-sm font-medium text-white dark:text-gray-300"
-                  >
-                    {c.name}
-                  </label>
-                </div>
+              <div key={c._id} className="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  id={`checkbox-${c._id}`}
+                  onChange={(e) => handleCheck(e.target.checked, c._id)}
+                  className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500"
+                />
+                <label
+                  htmlFor={`checkbox-${c._id}`}
+                  className="ml-2 text-sm font-medium text-gray-300"
+                >
+                  {c.name}
+                </label>
               </div>
             ))}
           </div>
 
-          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+          <h2 className="text-lg font-semibold text-center mt-4 py-2 bg-gray-200 text-gray-700 rounded-lg mb-4 shadow-md">
             Filter by Brands
           </h2>
 
-          <div className="p-5">
+          <div className="p-5 bg-gray-800 rounded-lg">
             {uniqueBrands.map((brand) => (
-              <div className="flex items-center mr-4 mb-5" key={brand}>
+              <div className="flex items-center mb-5" key={brand}>
                 <input
                   type="radio"
                   id={brand}
                   name="brand"
                   onChange={() => handleBrandClick(brand)}
-                  className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500"
                 />
                 <label
                   htmlFor={`radio-${brand}`}
-                  className="ml-2 text-sm font-medium text-white dark:text-gray-300"
+                  className="ml-2 text-sm font-medium text-gray-300"
                 >
                   {brand}
                 </label>
@@ -132,23 +128,23 @@ const Shop = () => {
             ))}
           </div>
 
-          <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
+          <h2 className="text-lg font-semibold mt-4 text-center py-2 bg-gray-200 text-gray-700 rounded-lg mb-4 shadow-md">
             Filter by Price
           </h2>
 
-          <div className="p-5 w-full">
+          <div className="p-5 w-full bg-gray-800 rounded-lg">
             <input
               type="text"
               placeholder="Enter Price"
               value={priceFilter}
               onChange={handlePriceChange}
-              className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-pink-300"
+              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-600 rounded-lg focus:outline-none focus:ring focus:border-pink-300"
             />
           </div>
 
-          <div className="p-5 pt-0">
+          <div className="p-5 mt-4">
             <button
-              className="w-full border my-4"
+              className="w-full py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-500 transition duration-200"
               onClick={() => window.location.reload()}
             >
               Reset
@@ -156,12 +152,12 @@ const Shop = () => {
           </div>
         </div>
 
-        <div className="px-2 w-full md:w-4/5">
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="px-2 w-full md:w-3/4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {isLoading ? (
               <Loader />
             ) : products.length === 0 ? (
-              <div>No products found</div>
+              <div className="text-center text-gray-400">No products found</div>
             ) : (
               products
                 .slice(0, visibleCount)
@@ -172,7 +168,7 @@ const Shop = () => {
             <div className="text-center my-4">
               <button
                 onClick={loadMoreProducts}
-                className="px-4 py-2 bg-pink-600 text-white rounded-lg"
+                className="px-4 py-2 bg-gradient-to-r from-pink-600 to-pink-400 text-white rounded-lg hover:bg-pink-500 transition duration-200"
               >
                 Load More
               </button>
