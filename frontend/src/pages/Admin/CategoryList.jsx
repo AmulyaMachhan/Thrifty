@@ -6,10 +6,11 @@ import {
   useFetchCategoriesQuery,
 } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
-import CategoryForm from "../../components/CategoryForm";
-import Modal from "../../components/Modal";
 import Loader from "../../components/Loader";
 import AdminMenu from "./AdminMenu";
+import CategoryForm from "../../components/CategoryForm";
+import CategoryModal from "./Modals/CategoryModal";
+import { PlusCircle, Edit2, Trash2 } from "lucide-react";
 
 const CategoryList = () => {
   const { data: categories, refetch, isLoading } = useFetchCategoriesQuery();
@@ -28,12 +29,10 @@ const CategoryList = () => {
 
   const handleCreateCategory = async (e) => {
     e.preventDefault();
-
     if (!name) {
       toast.error("Category name is required");
       return;
     }
-
     try {
       const result = await createCategory({ name }).unwrap();
       toast.success(`${result.name} is created.`);
@@ -46,18 +45,14 @@ const CategoryList = () => {
 
   const handleUpdateCategory = async (e) => {
     e.preventDefault();
-
     if (!updatingName) {
       toast.error("Category name is required");
       return;
     }
-
     try {
       const result = await updateCategory({
         categoryID: selectedCategory._id,
-        updatedCategory: {
-          name: updatingName,
-        },
+        updatedCategory: { name: updatingName },
       }).unwrap();
       toast.success(`${result.name} is updated`);
       setSelectedCategory(null);
@@ -66,6 +61,7 @@ const CategoryList = () => {
       refetch();
     } catch (error) {
       console.error(error);
+      toast.error("Updating category failed, try again.");
     }
   };
 
@@ -82,58 +78,92 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-violet-900 text-white">
       <AdminMenu />
-      <h2 className="text-center text-xl font-bold tracking-wider py-4 bg-gradient-to-r from-purple-600 to-pink-600 shadow-md">
-        CATEGORY MANAGEMENT ({categories?.length || 0})
-      </h2>
-      <div className="max-w-2xl mx-auto p-5 bg-gradient-to-r from-[#303031] to-[#59595a] rounded-lg shadow-lg mt-6">
-        <CategoryForm
-          value={name}
-          setValue={setName}
-          handleSubmit={handleCreateCategory}
-          placeholder="Enter new category name"
-          buttonText="Create Category"
-        />
-        <hr className="my-6 border-gray-600" />
-
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {categories?.map((category) => (
-              <div
-                key={category._id}
-                className="flex items-center justify-center"
-              >
-                <button
-                  className="w-full bg-pink-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-200 ease-in-out focus:ring-4 focus:ring-pink-300 focus:outline-none"
-                  onClick={() => {
-                    setModalVisible(true);
-                    setSelectedCategory(category);
-                    setUpdatingName(category.name);
-                  }}
-                >
-                  {category.name}
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
-          <div className="p-5 bg-white rounded-lg shadow-xl text-gray-900">
-            <h3 className="text-lg font-semibold mb-3">Update Category</h3>
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-center text-4xl font-bold mb-8 text-white">
+          Category Management
+        </h2>
+        <div className="bg-white/10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8">
+          <div className="mb-8">
+            <h3 className="text-center text-2xl font-semibold mb-4 text-pink-300">
+              Create New Category
+            </h3>
             <CategoryForm
-              value={updatingName}
-              setValue={(value) => setUpdatingName(value)}
-              handleSubmit={handleUpdateCategory}
-              buttonText="Update Category"
-              handleDelete={handleDeleteCategory}
-            />
+              value={name}
+              setValue={setName}
+              handleSubmit={handleCreateCategory}
+              placeholder="Enter new category name"
+              buttonText="Create Category"
+              className="flex items-center space-x-4"
+            >
+              <PlusCircle className="w-6 h-6" />
+            </CategoryForm>
           </div>
-        </Modal>
+
+          <div className="mb-8">
+            <h3 className="text-center text-2xl font-semibold mb-4 text-pink-300">
+              Categories ({categories?.length || 0})
+            </h3>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {categories?.map((category) => (
+                  <div
+                    key={category._id}
+                    className="bg-gradient-to-br from-purple-600 to-pink-500 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                  >
+                    <div className="p-4 flex justify-between items-center">
+                      <span className="text-lg font-medium">
+                        {category.name}
+                      </span>
+                      <div className="flex space-x-2">
+                        <button
+                          className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors duration-200"
+                          onClick={() => {
+                            setModalVisible(true);
+                            setSelectedCategory(category);
+                            setUpdatingName(category.name);
+                          }}
+                        >
+                          <Edit2 className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+
+      <CategoryModal
+        isOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+      >
+        <div className="p-6 bg-gray-800 rounded-lg shadow-xl text-white">
+          <h3 className=" text-center text-2xl font-semibold mb-4">
+            Update Category
+          </h3>
+          <CategoryForm
+            value={updatingName}
+            setValue={setUpdatingName}
+            handleSubmit={handleUpdateCategory}
+            buttonText="Update"
+            handleDelete={handleDeleteCategory}
+            className="space-y-4"
+          />
+          <button
+            onClick={handleDeleteCategory}
+            className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2"
+          >
+            <Trash2 className="w-5 h-5" />
+            <span>Delete Category</span>
+          </button>
+        </div>
+      </CategoryModal>
     </div>
   );
 };
