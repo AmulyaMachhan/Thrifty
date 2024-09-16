@@ -75,7 +75,7 @@ function ProductList() {
         toast.success(`${data.name} Created Successfully`);
         // Clear localStorage after successful submission
         localStorage.clear();
-        navigate("/allproductslist");
+        navigate("allproductslist");
       }
     } catch (error) {
       console.error(error);
