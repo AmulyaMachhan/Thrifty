@@ -84,7 +84,7 @@ const CategoryList = () => {
         <h2 className="text-center text-4xl font-bold mb-8 text-white">
           Category Management
         </h2>
-        <div className="bg-white/10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8">
+        <div className="p-8">
           <div className="mb-8">
             <h3 className="text-center text-2xl font-semibold mb-4 text-pink-300">
               Create New Category
