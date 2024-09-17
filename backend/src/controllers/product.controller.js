@@ -109,25 +109,25 @@ const updateProductImage = asyncHandler(async (req, res) => {
     if (!imageLocalPath) {
       return res
         .status(200)
-        .json({ error: "Error while uploading the cover image on server" });
+        .json({ error: "Error while uploading image on server" });
     }
 
     const image = await uploadOnCloudinary(imageLocalPath);
     if (!image) {
       return res
         .status(200)
-        .json({ error: "Error while uploading the cover image on server" });
+        .json({ error: "Error while uploading image on server" });
     }
 
     const product = await Product.findById(req.params?.id);
 
     const oldImageURL = product.image;
 
-    const publicID = oldImageURL.split("/").pop().split(".")[0]; // Extract public ID from URL
+    const publicID = oldImageURL.split("/").pop().split(".")[0];
     deleteFromCloudinary(publicID);
 
     product.image = image;
-    product.save({
+    await product.save({
       validateBeforeSave: false,
     });
 
