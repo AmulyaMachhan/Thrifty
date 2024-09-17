@@ -1,6 +1,9 @@
 import { Product } from "../models/product.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import {
+  deleteFromCloudinary,
+  uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   const { name, brand, description, quantity, price, category } = req.body;
@@ -100,36 +103,43 @@ const removeProduct = asyncHandler(async (req, res) => {
 });
 
 const updateProductImage = asyncHandler(async (req, res) => {
-  const imageLocalPath = req.file?.path;
+  try {
+    const imageLocalPath = req.file?.path;
 
-  if (!imageLocalPath) {
+    if (!imageLocalPath) {
+      return res
+        .status(200)
+        .json({ error: "Error while uploading the cover image on server" });
+    }
+
+    const image = await uploadOnCloudinary(imageLocalPath);
+    if (!image) {
+      return res
+        .status(200)
+        .json({ error: "Error while uploading the cover image on server" });
+    }
+
+    const product = await Product.findById(req.params?.id);
+
+    const oldImageURL = product.image;
+
+    const publicID = oldImageURL.split("/").pop().split(".")[0]; // Extract public ID from URL
+    deleteFromCloudinary(publicID);
+
+    product.image = image;
+    product.save({
+      validateBeforeSave: false,
+    });
+
     return res
       .status(200)
-      .json({ error: "Error while uploading the cover image on server" });
+      .json({ image, message: "Image Uploaded Successfully" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: error.message || "Error while updating image" });
   }
-
-  const image = await uploadOnCloudinary(imageLocalPath);
-  if (!image) {
-    return res
-      .status(200)
-      .json({ error: "Error while uploading the cover image on server" });
-  }
-
-  const product = await Product.findById(req.params?.id);
-
-  const oldImageURL = product.image;
-
-  const publicID = oldImageURL.split("/").pop().split(".")[0]; // Extract public ID from URL
-  deleteFromCloudinary(publicID);
-
-  product.image = image;
-  product.save({
-    validateBeforeSave: false,
-  });
-
-  return res
-    .status(200)
-    .json({ image, message: "Image Uploaded Successfully" });
 });
 
 const fetchProducts = asyncHandler(async (req, res) => {
