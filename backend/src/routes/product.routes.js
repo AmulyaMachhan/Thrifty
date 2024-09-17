@@ -15,6 +15,7 @@ import {
   filterProducts,
   removeProduct,
   updateProductDetails,
+  updateProductImage,
 } from "../controllers/product.controller.js";
 import { checkId } from "../middlewares/checkId.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -32,6 +33,15 @@ router
   .get(fetchProductById)
   .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
   .delete(authenticate, authorizeAdmin, removeProduct);
+
+router
+  .route("/:id/image")
+  .put(
+    authenticate,
+    authorizeAdmin,
+    upload.single("image"),
+    updateProductImage
+  );
 
 // Other routes
 router
