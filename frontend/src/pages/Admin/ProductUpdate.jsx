@@ -97,7 +97,10 @@ function ProductUpdate() {
     formData.append("image", e.target.files[0]);
 
     try {
-      const res = await uploadProductImage(formData).unwrap();
+      const res = await uploadProductImage({
+        image,
+        productId: params.id,
+      }).unwrap();
       setImage(res.image);
       toast.success("Image Uploaded Successfully");
     } catch (error) {
