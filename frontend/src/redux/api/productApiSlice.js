@@ -54,10 +54,10 @@ const productApiSlice = apiSlice.injectEndpoints({
     }),
 
     uploadProductImage: builder.mutation({
-      query: ({ image, productId }) => ({
+      query: ({ formData, productId }) => ({
         url: `${PRODUCT_URL}/${productId}/image`,
         method: "PUT",
-        body: image,
+        body: formData,
       }),
     }),
 
