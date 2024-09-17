@@ -98,10 +98,10 @@ function ProductUpdate() {
 
     try {
       const res = await uploadProductImage({
-        image,
+        formData,
         productId: params.id,
       }).unwrap();
-      setImage(res.image);
+      setImage(res.image.secure_url);
       toast.success("Image Uploaded Successfully");
     } catch (error) {
       console.error(error);
