@@ -107,29 +107,32 @@ const updateProductImage = asyncHandler(async (req, res) => {
     const imageLocalPath = req.file?.path;
 
     if (!imageLocalPath) {
-      return res
-        .status(200)
-        .json({ error: "Error while uploading image on server" });
+      return res.status(400).json({ error: "No image file provided" });
     }
 
     const image = await uploadOnCloudinary(imageLocalPath);
     if (!image) {
       return res
-        .status(200)
-        .json({ error: "Error while uploading image on server" });
+        .status(500)
+        .json({ error: "Error while uploading image to Cloudinary" });
     }
 
     const product = await Product.findById(req.params?.id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
 
     const oldImageURL = product.image;
-
     const publicID = oldImageURL.split("/").pop().split(".")[0];
-    deleteFromCloudinary(publicID);
 
-    product.image = image;
-    await product.save({
-      validateBeforeSave: false,
-    });
+    try {
+      await deleteFromCloudinary(publicID);
+    } catch (err) {
+      console.error("Error deleting image from Cloudinary:", err);
+    }
+
+    product.image = image.secure_url;
+    await product.save({ validateBeforeSave: false });
 
     return res
       .status(200)
