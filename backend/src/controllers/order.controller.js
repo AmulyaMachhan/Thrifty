@@ -1,3 +1,7 @@
+import Order from "../models/order.model";
+import { Product } from "../models/product.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+
 function calcPrices(orderItems) {
   const itemsPrice = orderItems.reduce(
     (acc, item) => acc + item.price * item.qty,
@@ -21,3 +25,60 @@ function calcPrices(orderItems) {
     totalPrice,
   };
 }
+
+const createOrder = asyncHandler(async (req, res) => {
+  try {
+    const { orderItems, shippingAddress, paymentMethod } = req.body;
+
+    if (orderItems && orderItems.length === 0) {
+      return res.status(400).json({ error: "No order items" });
+    }
+
+    const itemsFromDB = await Product.find({
+      _id: {
+        $in: orderItems.map((x) => x._id),
+      },
+    });
+
+    const dbOrderItems = orderItems.map((itemFromClient) => {
+      const matchingItemFromDB = itemsFromDB.find((itemFromDB) => {
+        itemFromDB._id.toString() === itemFromClient._id;
+      });
+
+      if (!matchingItemFromDB) {
+        return res
+          .status(400)
+          .json({ error: `Product not found : ${itemFromClient._id}` });
+      }
+
+      return {
+        ...itemFromClient,
+        product: itemFromClient._id,
+        price: matchingItemFromDB.price,
+        _id: undefined,
+      };
+    });
+
+    const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
+      calcPrices(dbOrderItems);
+
+    const order = new Order({
+      orderItems: dbOrderItems,
+      user: req.user._id,
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      shippingPrice,
+      taxPrice,
+      totalPrice,
+    });
+
+    const createdOrder = await order.save();
+
+    return res.status(200).json(createdOrder);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error || "Error while ordering the product" });
+  }
+});
