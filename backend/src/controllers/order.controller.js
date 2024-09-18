@@ -94,3 +94,15 @@ export const getAllOrders = asyncHandler(async (req, res) => {
       .json({ error: error || "Error while finding all order details" });
   }
 });
+
+export const getUserOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id });
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error || "Error while finding the user order details" });
+  }
+});
