@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { ImageModal } from "./Modals/ImageModal";
+import Loader from "../../components/Loader";
 
 function ProductUpdate() {
   const params = useParams();
@@ -28,9 +29,11 @@ function ProductUpdate() {
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
 
-  const [uploadProductImage] = useUploadProductImageMutation();
-  const [updateProducts] = useUpdateProductsMutation();
-  const [deleteProduct] = useDeleteProductMutation();
+  const [uploadProductImage, { isLoading: isImageUploading }] =
+    useUploadProductImageMutation();
+  const [updateProducts, { isLoading: isUpdating }] =
+    useUpdateProductsMutation();
+  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
 
   useEffect(() => {
     if (productData) {
@@ -140,7 +143,8 @@ function ProductUpdate() {
               />
 
               <div className="mb-6">
-                <label className="block w-full p-4 text-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out">
+                <label className="flex justify-center gap-5 w-full p-4 text-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out">
+                  {isImageUploading && <Loader />}
                   {image ? "Change Image" : "Upload Image"}
                   <input
                     type="file"
@@ -278,6 +282,7 @@ function ProductUpdate() {
                     type="submit"
                     className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                   >
+                    {isUpdating && <Loader />}
                     Update
                   </button>
                   <button
@@ -285,6 +290,7 @@ function ProductUpdate() {
                     onClick={handleDelete}
                     className="px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50"
                   >
+                    {isDeleting && <Loader />}
                     Delete
                   </button>
                 </div>
