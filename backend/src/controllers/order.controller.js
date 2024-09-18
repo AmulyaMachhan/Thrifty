@@ -1,4 +1,4 @@
-import Order from "../models/order.model";
+import { Order } from "../models/order.model.js";
 import { Product } from "../models/product.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
