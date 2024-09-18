@@ -82,3 +82,15 @@ export const createOrder = asyncHandler(async (req, res) => {
       .json({ error: error || "Error while ordering the product" });
   }
 });
+
+export const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({}).populate("user", "id username");
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error || "Error while finding all order details" });
+  }
+});
