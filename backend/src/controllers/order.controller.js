@@ -26,7 +26,7 @@ function calcPrices(orderItems) {
   };
 }
 
-const createOrder = asyncHandler(async (req, res) => {
+export const createOrder = asyncHandler(async (req, res) => {
   try {
     const { orderItems, shippingAddress, paymentMethod } = req.body;
 
