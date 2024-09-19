@@ -79,7 +79,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: error || "Error while ordering the product" });
+      .json({ error: error.message || "Error while ordering the product" });
   }
 });
 
@@ -89,9 +89,9 @@ export const getAllOrders = asyncHandler(async (req, res) => {
 
     return res.status(200).json(orders);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: error || "Error while finding all order details" });
+    res.status(500).json({
+      error: error.message || "Error while finding all order details",
+    });
   }
 });
 
@@ -101,9 +101,9 @@ export const getUserOrders = asyncHandler(async (req, res) => {
 
     return res.status(200).json(orders);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: error || "Error while finding the user order details" });
+    res.status(500).json({
+      error: error.message || "Error while finding the user order details",
+    });
   }
 });
 
@@ -113,9 +113,9 @@ export const countTotalOrders = asyncHandler(async (req, res) => {
 
     return res.status(200).json(totalOrders);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: error || "Error while finding the user order details" });
+    res.status(500).json({
+      error: error.message || "Error while finding the user order details",
+    });
   }
 });
 
@@ -126,9 +126,9 @@ export const calculateTotalSales = asyncHandler(async (req, res) => {
     const totalSales = orders.reduce((acc, order) => acc + order.totalPrice, 0);
     return res.status(200).json(totalSales);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: error || "Error while finding the user order details" });
+    res.status(500).json({
+      error: error.message || "Error while finding the user order details",
+    });
   }
 });
 
@@ -154,9 +154,9 @@ export const calculateTotalSalesByDate = asyncHandler(async (req, res) => {
 
     return res.status(200).json(salesByDate);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: error || "Error while finding the user order details" });
+    res.status(500).json({
+      error: error.message || "Error while finding the user order details",
+    });
   }
 });
 
@@ -168,11 +168,42 @@ export const findOrderById = asyncHandler(async (req, res) => {
     );
 
     if (!order) {
-      return res.status(404).json({ error: "Product not found" });
+      return res.status(404).json({ error: "Order not found" });
     }
 
     return res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ error: "Error while finding order details" });
+    res
+      .status(500)
+      .json({ error: error.message || "Error while finding order details" });
+  }
+});
+
+export const markOrderAsPaid = asyncHandler(async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    order.isPaid = true;
+    order.paidAt = Date.now();
+
+    const { id, status, update_time, payer } = req.body;
+    order.paymentResult = {
+      id,
+      status,
+      update_time,
+      email_address: payer.email_address,
+    };
+
+    const updatedOrder = await order.save();
+
+    return res.status(200).json(updatedOrder);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error.message || "Error while order payment" });
   }
 });
