@@ -4,6 +4,7 @@ import {
   authorizeAdmin,
 } from "../middlewares/auth.middleware.js";
 import {
+  countTotalOrders,
   createOrder,
   getAllOrders,
   getUserOrders,
@@ -17,5 +18,6 @@ router
   .get(authenticate, authorizeAdmin, getAllOrders);
 
 router.route("/mine").get(authenticate, getUserOrders);
+router.route("/total-orders").get(countTotalOrders);
 
 export default router;
