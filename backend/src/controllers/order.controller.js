@@ -118,3 +118,16 @@ export const countTotalOrders = asyncHandler(async (req, res) => {
       .json({ error: error || "Error while finding the user order details" });
   }
 });
+
+export const calculateTotalSales = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({});
+
+    const totalSales = orders.reduce((acc, order) => acc + order.totalPrice, 0);
+    return res.status(200).json(totalSales);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error || "Error while finding the user order details" });
+  }
+});
