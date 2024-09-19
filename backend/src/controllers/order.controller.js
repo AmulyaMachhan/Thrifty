@@ -159,3 +159,20 @@ export const calculateTotalSalesByDate = asyncHandler(async (req, res) => {
       .json({ error: error || "Error while finding the user order details" });
   }
 });
+
+export const findOrderById = asyncHandler(async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate(
+      "user",
+      "username email"
+    );
+
+    if (!order) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    return res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: "Error while finding order details" });
+  }
+});
