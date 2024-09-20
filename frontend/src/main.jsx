@@ -5,6 +5,7 @@ import "./index.css";
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 
+import { NextUIProvider } from "@nextui-org/react";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
@@ -19,6 +20,7 @@ import Register from "./pages/Auth/Register.jsx";
 //Registered User imports
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Profile from "./pages/Users/Profile.jsx";
+import Shipping from "./pages/Order/Shipping.jsx";
 
 //Admin imports
 import AdminRoutes from "./pages/Admin/AdminRoutes.jsx";
@@ -29,7 +31,6 @@ import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
 import AllProducts from "./pages/Admin/AllProducts.jsx";
 import Favourites from "./pages/Favourites/Favourites.jsx";
 import ProductDetails from "./pages/Products/ProductDetails.jsx";
-import { NextUIProvider } from "@nextui-org/react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       {/* Registered User Routes */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/shipping" element={<Shipping />} />
       </Route>
 
       {/* Admin Routes */}
