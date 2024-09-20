@@ -1,4 +1,4 @@
-import { ORDER_URL } from "../constants";
+import { ORDER_URL, PAYPAL_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 const orderApiSlice = apiSlice.injectEndpoints({
@@ -32,6 +32,12 @@ const orderApiSlice = apiSlice.injectEndpoints({
 
     getTotalSalesByDate: builder.query({
       query: () => `${ORDER_URL}/total-sales-by-date`,
+    }),
+
+    getPaypalClientId: builder.query({
+      query: () => ({
+        url: PAYPAL_URL,
+      }),
     }),
   }),
 });
