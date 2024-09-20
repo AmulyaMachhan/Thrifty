@@ -25,6 +25,10 @@ const orderApiSlice = apiSlice.injectEndpoints({
         url: `${ORDER_URL}/${id}`,
       }),
     }),
+
+    getTotalSales: builder.query({
+      query: () => `${ORDER_URL}/total-sales`,
+    }),
   }),
 });
 
