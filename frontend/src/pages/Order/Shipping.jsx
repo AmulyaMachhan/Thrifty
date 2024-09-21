@@ -72,7 +72,6 @@ function Shipping() {
             />
           </div>
 
-          {/* Flex container for Postal Code and Country on medium screens and larger */}
           <div className="md:flex md:space-x-4">
             <div className="mb-4 md:mb-0 md:w-1/2">
               <label className="block text-gray-300 text-sm mb-1">
