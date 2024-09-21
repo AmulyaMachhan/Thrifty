@@ -35,6 +35,7 @@ function PlaceOrder() {
         totalPrice: cart.totalPrice,
       }).unwrap();
       dispatch(clearCartItems());
+      toast.success("Order Place Successfully!!");
       navigate(`/order/${res._id}`);
     } catch (error) {
       console.log(error);
