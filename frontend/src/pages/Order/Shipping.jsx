@@ -40,17 +40,17 @@ function Shipping() {
       <div className="flex justify-center items-center min-h-screen">
         <form
           onSubmit={submitHandler}
-          className="bg-gray-900 shadow-lg rounded-lg p-8 w-full max-w-xl"
+          className="bg-gray-900 shadow-lg rounded-lg p-4 md:p-6 w-full max-w-3xl"
         >
-          <h1 className="text-3xl font-bold text-white mb-6 text-center">
+          <h1 className="text-2xl font-semibold text-white mb-4 text-center">
             Shipping Information
           </h1>
 
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">Address</label>
+          <div className="mb-4">
+            <label className="block text-gray-300 text-sm mb-1">Address</label>
             <input
               type="text"
-              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
+              className="w-full p-2 text-sm bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
               placeholder="Enter address"
               value={address}
               required
@@ -58,11 +58,11 @@ function Shipping() {
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">City</label>
+          <div className="mb-4">
+            <label className="block text-gray-300 text-sm mb-1">City</label>
             <input
               type="text"
-              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
+              className="w-full p-2 text-sm bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
               placeholder="Enter city"
               value={city}
               required
@@ -70,32 +70,41 @@ function Shipping() {
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">Postal Code</label>
-            <input
-              type="text"
-              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
-              placeholder="Enter postal code"
-              value={postalCode}
-              required
-              onChange={(e) => setPostalCode(e.target.value)}
-            />
+          {/* Flex container for Postal Code and Country on medium screens and larger */}
+          <div className="md:flex md:space-x-4">
+            <div className="mb-4 md:mb-0 md:w-1/2">
+              <label className="block text-gray-300 text-sm mb-1">
+                Postal Code
+              </label>
+              <input
+                type="text"
+                className="w-full p-2 text-sm bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
+                placeholder="Enter postal code"
+                value={postalCode}
+                required
+                onChange={(e) => setPostalCode(e.target.value)}
+              />
+            </div>
+
+            <div className="mb-4 md:w-1/2">
+              <label className="block text-gray-300 text-sm mb-1">
+                Country
+              </label>
+              <input
+                type="text"
+                className="w-full p-2 text-sm bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
+                placeholder="Enter country"
+                value={country}
+                required
+                onChange={(e) => setCountry(e.target.value)}
+              />
+            </div>
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">Country</label>
-            <input
-              type="text"
-              className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-white"
-              placeholder="Enter country"
-              value={country}
-              required
-              onChange={(e) => setCountry(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-gray-300 mb-2">Payment Method</label>
+          <div className="mb-4">
+            <label className="block text-gray-300 text-sm mb-1">
+              Payment Method
+            </label>
             <div className="flex items-center">
               <input
                 type="radio"
@@ -105,12 +114,14 @@ function Shipping() {
                 checked={paymentMethod === "PayPal"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <span className="ml-2 text-white">PayPal or Credit Card</span>
+              <span className="ml-2 text-sm text-white">
+                PayPal or Credit Card
+              </span>
             </div>
           </div>
 
           <button
-            className="w-full py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-pink-500 focus:ring-opacity-50"
+            className="w-full py-2 bg-pink-600 hover:bg-pink-700 text-sm text-white font-bold rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-pink-500 focus:ring-opacity-50"
             type="submit"
           >
             Continue
