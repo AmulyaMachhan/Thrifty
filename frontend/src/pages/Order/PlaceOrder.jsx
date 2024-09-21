@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { useCreateOrderMutation } from "../../redux/api/orderApiSlice";
 import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCartItems } from "../../redux/features/cartSlice";
+import { useCreateOrderMutation } from "../../redux/api/orderApiSlice";
 import ProgressSteps from "../../components/ProgressSteps";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { Link } from "react-router-dom";
 
 function PlaceOrder() {
   const cart = useSelector((state) => state.cart);
