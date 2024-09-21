@@ -5,6 +5,7 @@ import {
   savePaymentMethod,
   saveShippingAddress,
 } from "../../redux/features/cartSlice";
+import ProgressSteps from "../../components/ProgressSteps";
 
 function Shipping() {
   const cart = useSelector((state) => state.cart);
@@ -37,7 +38,8 @@ function Shipping() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col justify-center items-center gap-5 pt-5">
+        <ProgressSteps step1 step2 />
         <form
           onSubmit={submitHandler}
           className="bg-gray-900 shadow-lg rounded-lg p-4 md:p-6 w-full max-w-3xl"
