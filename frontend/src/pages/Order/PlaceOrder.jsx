@@ -44,43 +44,48 @@ function PlaceOrder() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 py-8">
       <ProgressSteps step1 step2 step3 />
       <div className="container mx-auto mt-8">
         {cart.cartItems.length === 0 ? (
           <Message>Your cart is empty!</Message>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto shadow-lg rounded-lg bg-white p-6 mb-8">
             <table className="w-full border-collapse">
               <thead>
-                <tr>
-                  <td className="px-1 py-2 text-left align-top">Image</td>
-                  <td className="px-1 py-2 text-left">Product</td>
-                  <td className="px-1 py-2 text-left">Quantity</td>
-                  <td className="px-1 py-2 text-left">Price</td>
-                  <td className="px-1 py-2 text-left">Total</td>
+                <tr className="border-b">
+                  <th className="px-4 py-2 text-left font-semibold">Image</th>
+                  <th className="px-4 py-2 text-left font-semibold">Product</th>
+                  <th className="px-4 py-2 text-left font-semibold">
+                    Quantity
+                  </th>
+                  <th className="px-4 py-2 text-left font-semibold">Price</th>
+                  <th className="px-4 py-2 text-left font-semibold">Total</th>
                 </tr>
               </thead>
 
               <tbody>
                 {cart.cartItems.map((item, index) => (
-                  <tr key={index}>
-                    <td className="p-2">
+                  <tr key={index} className="border-b">
+                    <td className="p-4">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 object-cover"
+                        className="w-16 h-16 rounded-lg object-cover"
                       />
                     </td>
 
-                    <td className="p-2">
-                      <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <td className="p-4">
+                      <Link
+                        to={`/product/${item.product}`}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {item.name}
+                      </Link>
                     </td>
-                    <td className="p-2">{item.qty}</td>
-                    <td className="p-2">{item.price.toFixed(2)}</td>
-                    <td className="p-2">
-                      $ {(item.qty * item.price).toFixed(2)}
-                    </td>
+                    <td className="p-4">{item.qty}</td>
+                    <td className="p-4">${item.price}</td>
+                    <td className="p-4">$ {item.qty * item.price}</td>
                   </tr>
                 ))}
               </tbody>
@@ -88,56 +93,56 @@ function PlaceOrder() {
           </div>
         )}
 
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-5">Order Summary</h2>
-          <div className="flex justify-between flex-wrap p-8 bg-[#181818]">
-            <ul className="text-lg">
-              <li>
-                <span className="font-semibold mb-4">Items:</span> $
-                {cart.itemsPrice}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+          <div className="shadow-lg rounded-lg bg-white p-6">
+            <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+            <ul className="text-lg space-y-2">
+              <li className="flex justify-between">
+                <span className="font-semibold">Items:</span>
+                <span>$ {cart.itemsPrice}</span>
               </li>
-              <li>
-                <span className="font-semibold mb-4">Shipping:</span> $
-                {cart.shippingPrice}
+              <li className="flex justify-between">
+                <span className="font-semibold">Shipping:</span>
+                <span>$ {cart.shippingPrice}</span>
               </li>
-              <li>
-                <span className="font-semibold mb-4">Tax:</span> $
-                {cart.taxPrice}
+              <li className="flex justify-between">
+                <span className="font-semibold">Tax:</span>
+                <span>$ {cart.taxPrice}</span>
               </li>
-              <li>
-                <span className="font-semibold mb-4">Total:</span> $
-                {cart.totalPrice}
+              <li className="flex justify-between text-lg font-bold">
+                <span>Total:</span>
+                <span>$ {cart.totalPrice}</span>
               </li>
             </ul>
+          </div>
 
-            {error && <Message variant="danger">{error.data.message}</Message>}
-
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Shipping</h2>
+          <div className="shadow-lg rounded-lg bg-white p-6">
+            <h2 className="text-xl font-semibold mb-4">Shipping & Payment</h2>
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold">Shipping Address</h3>
               <p>
-                <strong>Address:</strong> {cart.shippingAddress.address},{" "}
-                {cart.shippingAddress.city} {cart.shippingAddress.postalCode},{" "}
+                {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
+                {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
               </p>
             </div>
-
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Payment Method</h2>
-              <strong>Method:</strong> {cart.paymentMethod}
+              <h3 className="text-lg font-semibold">Payment Method</h3>
+              <p>{cart.paymentMethod}</p>
             </div>
           </div>
-
-          <button
-            type="button"
-            className="bg-pink-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4"
-            disabled={cart.cartItems === 0}
-            onClick={placeOrderHandler}
-          >
-            Place Order
-          </button>
-
-          {creatingOrder && <Loader />}
         </div>
+
+        {error && <Message variant="danger">{error.data.message}</Message>}
+
+        <button
+          type="button"
+          className="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-6 rounded-full text-lg w-full mt-8 shadow-md hover:shadow-lg transform transition duration-300 ease-in-out hover:scale-105"
+          disabled={cart.cartItems.length === 0}
+          onClick={placeOrderHandler}
+        >
+          {creatingOrder ? <Loader /> : "Place Order"}
+        </button>
       </div>
     </div>
   );
