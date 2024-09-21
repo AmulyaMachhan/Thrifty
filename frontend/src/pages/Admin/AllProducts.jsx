@@ -81,7 +81,7 @@ const AllProducts = () => {
                     </p>
                     <div className="flex justify-between items-center">
                       <span className="text-xl font-bold text-blue-600">
-                        ${product?.price}
+                        ${product?.price.toFixed(2)}
                       </span>
                       <button className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out shadow-md hover:shadow-pink-500/50">
                         Update
