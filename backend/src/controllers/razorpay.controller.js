@@ -38,3 +38,41 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
   }
 });
+
+export const verifyOrder = asyncHandler(async (req, res) => {
+  try {
+    const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
+
+    switch (true) {
+      case !razorpayOrderId:
+        return res.status(404).json({ error: "Razorpay Order ID Required" });
+      case !razorpayPaymentId:
+        return res.status(404).json({ error: "Razorpay Payment ID Required" });
+      case !razorpaySignature:
+        return res.status(404).json({ error: "Razorpay Signature Required" });
+    }
+
+    const secret = process.env.RAZORPAY_KEY_SECRET;
+
+    const hmac = crypto.createHmac("sha256", secret);
+    hmac.update(razorpayOrderId + "|" + razorpayPaymentId);
+    const generatedSignature = hmac.digest("hex");
+
+    if (generatedSignature === razorpaySignature) {
+      res.status(200).json({
+        success: true,
+        message: "Payment verified successfully",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Payment verification failed",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Payment verification failed",
+    });
+  }
+});
