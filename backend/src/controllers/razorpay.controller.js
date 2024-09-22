@@ -10,7 +10,7 @@ export const createRazorpayOrder = asyncHandler(async (req, res) => {
   try {
     const { amount, currency } = req.body;
 
-    if (!amount) {
+    if (!amount || !currency) {
       return res
         .status(404)
         .json({ error: "No amount provided for the order" });
