@@ -72,7 +72,7 @@ export const verifyOrder = asyncHandler(async (req, res) => {
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: "Payment verification failed",
+      message: "Error while Payment verification",
     });
   }
 });
