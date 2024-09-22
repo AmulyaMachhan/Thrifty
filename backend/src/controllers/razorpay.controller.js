@@ -43,6 +43,15 @@ export const verifyOrder = asyncHandler(async (req, res) => {
   try {
     const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
 
+    switch (true) {
+      case !razorpayOrderId:
+        return res.status(404).json({ error: "Razorpay Order ID Required" });
+      case !razorpayPaymentId:
+        return res.status(404).json({ error: "Razorpay Payment ID Required" });
+      case !razorpaySignature:
+        return res.status(404).json({ error: "Razorpay Signature Required" });
+    }
+
     const secret = process.env.RAZORPAY_KEY_SECRET;
 
     const hmac = crypto.createHmac("sha256", secret);
