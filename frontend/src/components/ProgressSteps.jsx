@@ -75,9 +75,9 @@ const ProgressSteps = ({ step1, step2, step3 }) => {
 };
 
 ProgressSteps.propTypes = {
-  step1: PropTypes.bool.isRequired,
-  step2: PropTypes.bool.isRequired,
-  step3: PropTypes.bool.isRequired,
+  step1: PropTypes.bool,
+  step2: PropTypes.bool,
+  step3: PropTypes.bool,
 };
 
 export default ProgressSteps;
