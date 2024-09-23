@@ -3,4 +3,4 @@ export const USERS_URL = "/api/v1/users";
 export const CATEGORY_URL = "/api/v1/category";
 export const PRODUCT_URL = "/api/v1/products";
 export const ORDER_URL = "/api/v1/orders";
-export const PAYPAL_URL = "/api/config/paypal";
+export const RAZORPAY_URL = "/api/v1/razorpay";
