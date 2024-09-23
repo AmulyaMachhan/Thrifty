@@ -34,12 +34,6 @@ const orderApiSlice = apiSlice.injectEndpoints({
       query: () => `${ORDER_URL}/total-sales-by-date`,
     }),
 
-    getPaypalClientId: builder.query({
-      query: () => ({
-        url: PAYPAL_URL,
-      }),
-    }),
-
     payOrder: builder.mutation({
       query: ({ orderId, details }) => ({
         url: `${ORDER_URL}/${orderId}/pay`,
