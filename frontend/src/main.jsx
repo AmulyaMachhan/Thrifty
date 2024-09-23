@@ -22,6 +22,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import Profile from "./pages/Users/Profile.jsx";
 import Shipping from "./pages/Order/Shipping.jsx";
 import PlaceOrder from "./pages/Order/PlaceOrder.jsx";
+import Order from "./pages/Order/Order.jsx";
 
 //Admin imports
 import AdminRoutes from "./pages/Admin/AdminRoutes.jsx";
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<Profile />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/order/:id" element={<Order />} />
       </Route>
 
       {/* Admin Routes */}
