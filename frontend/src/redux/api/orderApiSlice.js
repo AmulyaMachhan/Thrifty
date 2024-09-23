@@ -56,6 +56,14 @@ const orderApiSlice = apiSlice.injectEndpoints({
         body: { amount, currency },
       }),
     }),
+
+    verifyRazorpayOrder: builder.mutation({
+      query: (data) => ({
+        url: `${RAZORPAY_URL}/verify-order`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -67,7 +75,7 @@ export const {
   useGetTotalSalesQuery,
   useGetTotalSalesByDateQuery,
   usePayOrderMutation,
-  useGetPaypalClientIdQuery,
   useDeliverOrderMutation,
   useCreateRazorpayOrderMutation,
+  useVerifyRazorpayOrderMutation,
 } = orderApiSlice;
