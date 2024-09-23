@@ -41,9 +41,9 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
 
     const dbOrderItems = orderItems.map((itemFromClient) => {
-      const matchingItemFromDB = itemsFromDB.find((itemFromDB) => {
-        itemFromDB._id.toString() === itemFromClient._id;
-      });
+      const matchingItemFromDB = itemsFromDB.find(
+        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
+      );
 
       if (!matchingItemFromDB) {
         return res
