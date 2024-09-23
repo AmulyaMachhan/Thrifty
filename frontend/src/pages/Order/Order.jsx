@@ -10,6 +10,7 @@ import {
   usePayOrderMutation,
   useVerifyRazorpayOrderMutation,
 } from "../../redux/api/orderApiSlice";
+import { useRazorpay } from "react-razorpay";
 
 const Order = () => {
   const { id: orderId } = useParams();
@@ -21,7 +22,7 @@ const Order = () => {
     error,
   } = useGetOrderDetailsQuery(orderId);
 
-  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  const [payOrder] = usePayOrderMutation();
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
   const [createRazorpayOrder] = useCreateRazorpayOrderMutation();
@@ -29,18 +30,23 @@ const Order = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
+  const {
+    error: razorpayError,
+    isLoading: razorpayLoading,
+    Razorpay,
+  } = useRazorpay();
+
   const handlePayment = async () => {
     const orderAmount = order.totalPrice;
+
     try {
       const { data: razorpayOrder } = await createRazorpayOrder({
         amount: orderAmount,
         currency: "INR",
       });
 
-      console.log(razorpayOrder);
-
       const options = {
-        key: "rzp_test_JFOkLyufLxjOSZ",
+        key: "rzp_test_JFOkLyufLxjOSZ", // Replace with your Razorpay key
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         name: "Thrifty",
@@ -50,17 +56,22 @@ const Order = () => {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
 
-          const verificationResponse = await verifyRazorpayOrder({
-            razorpayOrderId: razorpay_order_id,
-            razorpayPaymentId: razorpay_payment_id,
-            razorpaySignature: razorpay_signature,
-          });
+          try {
+            const verificationResponse = await verifyRazorpayOrder({
+              razorpayOrderId: razorpay_order_id,
+              razorpayPaymentId: razorpay_payment_id,
+              razorpaySignature: razorpay_signature,
+            }).unwrap();
 
-          if (verificationResponse.error) {
+            if (verificationResponse.success) {
+              toast.success("Payment verified successfully.");
+
+              refetch(); // Refresh the order details
+            } else {
+              toast.error("Payment verification failed. Please try again.");
+            }
+          } catch (error) {
             toast.error("Payment verification failed. Please try again.");
-          } else {
-            toast.success("Payment verified successfully.");
-            refetch(); // Refresh the order details
           }
         },
         prefill: {
@@ -73,8 +84,8 @@ const Order = () => {
         },
       };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
+      const razorpayInstance = new Razorpay(options);
+      razorpayInstance.open();
     } catch (error) {
       console.error("Payment creation failed", error);
       toast.error("Failed to create payment. Please try again.");
@@ -127,7 +138,7 @@ const Order = () => {
                       <td className="p-2 text-center">{item.qty}</td>
                       <td className="p-2 text-center">{item.price}</td>
                       <td className="p-2 text-center">
-                        $ {(item.qty * item.price).toFixed(2)}
+                        ₹ {(item.qty * item.price).toFixed(2)}
                       </td>
                     </tr>
                   ))}
@@ -175,30 +186,31 @@ const Order = () => {
         <h2 className="text-xl font-bold mb-2 mt-[3rem]">Order Summary</h2>
         <div className="flex justify-between mb-2">
           <span>Items</span>
-          <span>$ {order.itemsPrice}</span>
+          <span>₹ {order.itemsPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
           <span>Shipping</span>
-          <span>$ {order.shippingPrice}</span>
+          <span>₹ {order.shippingPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
           <span>Tax</span>
-          <span>$ {order.taxPrice}</span>
+          <span>₹ {order.taxPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
           <span>Total</span>
-          <span>$ {order.totalPrice}</span>
+          <span>₹ {order.totalPrice}</span>
         </div>
 
         {!order.isPaid && (
           <div>
-            {loadingPay && <Loader />}
+            {loadingDeliver && <Loader />}
+            {razorpayError && <p>Error loading Razorpay: {error}</p>}
             <button
               type="button"
               className="bg-pink-500 text-white w-full py-2"
-              onClick={handlePayment}
+              onClick={handlePayment} // Call the payment handler here
             >
-              Pay with Razorpay
+              Pay Now
             </button>
           </div>
         )}
