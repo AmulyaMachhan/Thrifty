@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
 import Razorpay from "razorpay";
 import { asyncHandler } from "../utils/asyncHandler.js";
+
+dotenv.config();
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -17,7 +20,7 @@ export const createRazorpayOrder = asyncHandler(async (req, res) => {
     }
 
     const options = {
-      amount: amount * 100,
+      amount: (amount * 100).toFixed(),
       currency,
       receipt: `order_rcptid_${Math.floor(Math.random() * 10000)}`,
     };
