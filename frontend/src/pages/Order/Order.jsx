@@ -31,20 +31,21 @@ const Order = () => {
 
   const handlePayment = async () => {
     const orderAmount = order.totalPrice;
-
     try {
       const { data: razorpayOrder } = await createRazorpayOrder({
-        amount: orderAmount * 100, // Razorpay requires amount in paise (1 INR = 100 paise)
+        amount: orderAmount,
         currency: "INR",
-      }).unwrap();
+      });
+
+      console.log(razorpayOrder);
 
       const options = {
-        key: "rzp_test_JFOkLyufLxjOSZ", // Replace with your Razorpay key
+        key: "rzp_test_JFOkLyufLxjOSZ",
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         name: "Thrifty",
         description: "Order Description",
-        order_id: razorpayOrder.id,
+        order_id: razorpayOrder.orderId,
         handler: async (response) => {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
