@@ -30,11 +30,7 @@ const Order = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const {
-    error: razorpayError,
-    isLoading: razorpayLoading,
-    Razorpay,
-  } = useRazorpay();
+  const { error: razorpayError, Razorpay } = useRazorpay();
 
   const handlePayment = async () => {
     const orderAmount = order.totalPrice;
@@ -64,14 +60,14 @@ const Order = () => {
             }).unwrap();
 
             if (verificationResponse.success) {
-              toast.success("Payment verified successfully.");
-
-              refetch(); // Refresh the order details
+              await payOrder().unwrap();
+              toast.success("Payment done successfully.");
+              refetch();
             } else {
-              toast.error("Payment verification failed. Please try again.");
+              toast.error("Payment failed. Please try again.");
             }
           } catch (error) {
-            toast.error("Payment verification failed. Please try again.");
+            toast.error("Payment failed. Please try again.");
           }
         },
         prefill: {
