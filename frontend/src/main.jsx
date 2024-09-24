@@ -23,6 +23,7 @@ import Profile from "./pages/Users/Profile.jsx";
 import Shipping from "./pages/Order/Shipping.jsx";
 import PlaceOrder from "./pages/Order/PlaceOrder.jsx";
 import Order from "./pages/Order/Order.jsx";
+import Orders from "./pages/Users/Orders.jsx";
 
 //Admin imports
 import AdminRoutes from "./pages/Admin/AdminRoutes.jsx";
@@ -33,7 +34,7 @@ import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
 import AllProducts from "./pages/Admin/AllProducts.jsx";
 import Favourites from "./pages/Favourites/Favourites.jsx";
 import ProductDetails from "./pages/Products/ProductDetails.jsx";
-import Orders from "./pages/Users/Orders.jsx";
+import OrderList from "./pages/Admin/OrderList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -64,6 +65,7 @@ const router = createBrowserRouter(
         <Route path="allproductslist" element={<AllProducts />} />
         <Route path="productlist" element={<ProductList />} />
         <Route path="product/update/:id" element={<ProductUpdate />} />
+        <Route path="orderlist" element={<OrderList />} />
       </Route>
     </Route>
   )
