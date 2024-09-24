@@ -26,6 +26,9 @@ function Cart() {
 
   return (
     <div className="py-4">
+      <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4 mb-4">
+        SHOPPING CART
+      </h2>
       {cartItems.length === 0 ? (
         <div className="text-center text-xl font-semibold tracking-wide">
           Your cart is empty. Go To{" "}
@@ -38,9 +41,6 @@ function Cart() {
         </div>
       ) : (
         <div>
-          <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4">
-            SHOPPING CART
-          </h2>
           <div className="my-6 w-4/5 mx-auto">
             {cartItems.map((item) => (
               <div key={item._id} className="flex items-enter mb-[1rem] pb-2">
