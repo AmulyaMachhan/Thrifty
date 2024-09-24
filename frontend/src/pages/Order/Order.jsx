@@ -42,7 +42,7 @@ const Order = () => {
       });
 
       const options = {
-        key: "rzp_test_JFOkLyufLxjOSZ", // Replace with your Razorpay key
+        key: "rzp_test_JFOkLyufLxjOSZ",
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         name: "Thrifty",
@@ -99,131 +99,150 @@ const Order = () => {
     refetch();
   };
 
-  return isLoading ? (
-    <Loader />
-  ) : error ? (
-    <Messsage variant="danger">{error.data.message}</Messsage>
-  ) : (
-    <div className="container mx-auto p-6 space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Order Items Section */}
-        <div className="md:col-span-2 bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Order Details</h2>
-          {order.orderItems.length === 0 ? (
-            <Messsage>Order is empty</Messsage>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full">
-                <thead className="bg-gray-100 border-b">
-                  <tr>
-                    <th className="p-4 text-left">Image</th>
-                    <th className="p-4 text-left">Product</th>
-                    <th className="p-4 text-center">Quantity</th>
-                    <th className="p-4 text-right">Unit Price</th>
-                    <th className="p-4 text-right">Total</th>
-                  </tr>
-                </thead>
+  if (isLoading) return <Loader />;
+  if (error) return <Messsage variant="danger">{error.data.message}</Messsage>;
 
-                <tbody>
-                  {order.orderItems.map((item, index) => (
-                    <tr key={index} className="border-b">
-                      <td className="p-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                      </td>
-
-                      <td className="p-4">
-                        <Link
-                          to={`/product/${item.product}`}
-                          className="text-blue-600 hover:underline"
-                        >
-                          {item.name}
-                        </Link>
-                      </td>
-
-                      <td className="p-4 text-center">{item.qty}</td>
-                      <td className="p-4 text-right">
-                        ₹ {item.price.toFixed(2)}
-                      </td>
-                      <td className="p-4 text-right">
-                        ₹ {(item.qty * item.price).toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+  return (
+    <div className="bg-gray-900 min-h-screen py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Order Items Section */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-white mb-6">
+                  Order Details
+                </h2>
+                {order.orderItems.length === 0 ? (
+                  <Messsage>Order is empty</Messsage>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="text-sm text-gray-400 border-b border-gray-700">
+                          <th className="pb-3 font-medium text-left">
+                            Product
+                          </th>
+                          <th className="pb-3 font-medium text-center">
+                            Quantity
+                          </th>
+                          <th className="pb-3 font-medium text-right">Price</th>
+                          <th className="pb-3 font-medium text-right">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-700">
+                        {order.orderItems.map((item, index) => (
+                          <tr key={index} className="text-gray-300">
+                            <td className="py-4">
+                              <div className="flex items-center">
+                                <img
+                                  src={item.image}
+                                  alt={item.name}
+                                  className="w-16 h-16 rounded-lg object-cover mr-4"
+                                />
+                                <Link
+                                  to={`/product/${item.product}`}
+                                  className="hover:text-indigo-400 transition"
+                                >
+                                  {item.name}
+                                </Link>
+                              </div>
+                            </td>
+                            <td className="py-4 text-center">{item.qty}</td>
+                            <td className="py-4 text-right">
+                              ₹{item.price.toFixed(2)}
+                            </td>
+                            <td className="py-4 text-right font-medium">
+                              ₹{(item.qty * item.price).toFixed(2)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-
-        {/* Order Summary Section */}
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
-          <div className="space-y-2">
-            <p>
-              <span className="font-semibold text-gray-600">Order ID:</span>{" "}
-              {order._id}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-600">Name:</span>{" "}
-              {order.user.username}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-600">Email:</span>{" "}
-              {order.user.email}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-600">Address:</span>{" "}
-              {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
-              {order.shippingAddress.postalCode},{" "}
-              {order.shippingAddress.country}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-600">
-                Payment Method:
-              </span>{" "}
-              {order.paymentMethod}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-600">Total:</span> ₹{" "}
-              {order.totalPrice}
-            </p>
-            {order.isPaid ? (
-              <Messsage variant="success">Paid on {order.paidAt}</Messsage>
-            ) : (
-              <Messsage variant="danger">Not paid</Messsage>
-            )}
           </div>
 
-          {/* Payment and Delivery Section */}
-          {!order.isPaid && (
-            <div className="mt-6">
-              <button
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors"
-                onClick={handlePayment}
-              >
-                Pay Now
-              </button>
-            </div>
-          )}
-
-          {loadingDeliver && <Loader />}
-          {userInfo &&
-            userInfo.isAdmin &&
-            order.isPaid &&
-            !order.isDelivered && (
-              <div className="mt-6">
-                <button
-                  className="w-full bg-green-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition-colors"
-                  onClick={deliverHandler}
-                >
-                  Mark As Delivered
-                </button>
+          {/* Order Summary Section */}
+          <div className="space-y-6">
+            <div className="bg-gray-800 rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Order Summary
+              </h2>
+              <div className="space-y-4">
+                <div className="flex justify-between text-gray-400">
+                  <span>Order ID</span>
+                  <span className="text-white">{order._id}</span>
+                </div>
+                <div className="flex justify-between text-gray-400">
+                  <span>Name</span>
+                  <span className="text-white">{order.user.username}</span>
+                </div>
+                <div className="flex justify-between text-gray-400">
+                  <span>Email</span>
+                  <span className="text-white">{order.user.email}</span>
+                </div>
+                <div className="text-gray-400">
+                  <span className="block mb-1">Shipping Address</span>
+                  <span className="text-white">
+                    {order.shippingAddress.address},{" "}
+                    {order.shippingAddress.city}{" "}
+                    {order.shippingAddress.postalCode},{" "}
+                    {order.shippingAddress.country}
+                  </span>
+                </div>
+                <div className="flex justify-between text-gray-400">
+                  <span>Payment Method</span>
+                  <span className="text-white">{order.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between text-gray-400 pt-4 border-t border-gray-700">
+                  <span className="font-semibold">Total Amount</span>
+                  <span className="text-white font-bold">
+                    ₹{order.totalPrice}
+                  </span>
+                </div>
               </div>
-            )}
+            </div>
+
+            <div className="bg-gray-800 rounded-xl shadow-lg p-6">
+              <h3 className="text-xl font-bold text-white mb-4">
+                Payment Status
+              </h3>
+              {order.isPaid ? (
+                <div className="bg-green-900/50 text-green-400 p-4 rounded-lg">
+                  Paid on {new Date(order.paidAt).toLocaleDateString()}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-red-900/50 text-red-400 p-4 rounded-lg">
+                    Payment Pending
+                  </div>
+                  <button
+                    onClick={handlePayment}
+                    className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-200"
+                  >
+                    Pay Now
+                  </button>
+                </div>
+              )}
+
+              {loadingDeliver && <Loader />}
+
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <button
+                    onClick={deliverHandler}
+                    className="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-200"
+                  >
+                    Mark As Delivered
+                  </button>
+                )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
