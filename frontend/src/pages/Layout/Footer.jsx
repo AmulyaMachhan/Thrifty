@@ -86,7 +86,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-gray-800">
           {/* Copyright Section */}
           <div className="py-8 text-center">

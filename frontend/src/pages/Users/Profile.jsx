@@ -22,7 +22,7 @@ const profileSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"], // This field will show the error
+    path: ["confirmPassword"],
   });
 
 function Profile() {
@@ -33,13 +33,6 @@ function Profile() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-  const toggleConfirmPasswordVisibility = () => {
-    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
-  };
 
   const {
     register,
@@ -63,7 +56,6 @@ function Profile() {
         email: data.email,
         password: data.password,
       }).unwrap();
-
       dispatch(setCredentials({ ...res }));
       toast.success("Profile Updated Successfully");
     } catch (error) {
@@ -72,144 +64,173 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-sm lg:max-w-2xl p-8">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-          Update Profile
-        </h2>
-        <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
-          <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Name
-            </label>
-            <div className="relative">
-              <FaUser className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter name"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                {...register("username")}
-              />
-            </div>
-            {errors.username && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.username.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Email Address
-            </label>
-            <div className="relative">
-              <FaEnvelope className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                {...register("email")}
-              />
-            </div>
-            {errors.email && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Password
-            </label>
-            <div className="relative">
-              <FaLock className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                id="password"
-                type={isPasswordVisible ? "text" : "password"}
-                placeholder="Enter password"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                {...register("password")}
-              />
-              <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
-                type="button"
-                onClick={togglePasswordVisibility}
-                aria-label="toggle password visibility"
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Update Your Profile
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Keep your information up to date
+          </p>
+        </div>
+
+        <div className="bg-white p-8 rounded-xl shadow-md">
+          <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
+            {/* Username Field */}
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700"
               >
-                {isPasswordVisible ? (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
+                Full Name
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaUser className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="username"
+                  type="text"
+                  {...register("username")}
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="John Doe"
+                />
+              </div>
+              {errors.username && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.username.message}
+                </p>
+              )}
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700 mb-1"
-            >
-              Confirm Password
-            </label>
-            <div className="relative">
-              <FaLock className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                id="confirmPassword"
-                type={isConfirmPasswordVisible ? "text" : "password"}
-                placeholder="Confirm password"
-                className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                {...register("confirmPassword")}
-              />
-              <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
-                type="button"
-                onClick={toggleConfirmPasswordVisibility}
-                aria-label="toggle password visibility"
+
+            {/* Email Field */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
               >
-                {isConfirmPasswordVisible ? (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                ) : (
-                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                )}
-              </button>
+                Email Address
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaEnvelope className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="email"
+                  type="email"
+                  {...register("email")}
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="john@example.com"
+                />
+              </div>
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.confirmPassword.message}
-              </p>
-            )}
+
+            {/* Password Field */}
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                New Password
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="password"
+                  type={isPasswordVisible ? "text" : "password"}
+                  {...register("password")}
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                >
+                  {isPasswordVisible ? (
+                    <EyeSlashFilledIcon className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <EyeFilledIcon className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Confirm Password Field */}
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm New Password
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="confirmPassword"
+                  type={isConfirmPasswordVisible ? "text" : "password"}
+                  {...register("confirmPassword")}
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+                  }
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                >
+                  {isConfirmPasswordVisible ? (
+                    <EyeSlashFilledIcon className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <EyeFilledIcon className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between pt-4">
+              <button
+                type="submit"
+                className="bg-indigo-600 text-white px-4 py-2 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+              >
+                Update Profile
+              </button>
+              <Link
+                to="/user-orders"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+              >
+                View Orders
+              </Link>
+            </div>
+          </form>
+        </div>
+
+        {loadingUpdatedProfile && (
+          <div className="flex justify-center">
+            <Loader />
           </div>
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-black text-white font-semibold tracking-wide py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              UPDATE
-            </button>
-            <Link
-              to="/user-orders"
-              className="bg-white text-black font-semibold tracking-wide py-2 px-4 border border-[#000000] rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-            >
-              ORDERS
-            </Link>
-          </div>
-        </form>
-        <div className="py-4">{loadingUpdatedProfile && <Loader />}</div>
+        )}
       </div>
     </div>
   );
