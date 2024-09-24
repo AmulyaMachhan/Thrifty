@@ -64,41 +64,41 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-bold text-white">
             Update Your Profile
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-gray-400">
             Keep your information up to date
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-xl shadow-md">
+        <div className="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700">
           <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
             {/* Username Field */}
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 Full Name
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaUser className="h-5 w-5 text-gray-400" />
+                  <FaUser className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="username"
                   type="text"
                   {...register("username")}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-md leading-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="John Doe"
                 />
               </div>
               {errors.username && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="mt-2 text-sm text-red-400">
                   {errors.username.message}
                 </p>
               )}
@@ -108,24 +108,24 @@ function Profile() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 Email Address
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="h-5 w-5 text-gray-400" />
+                  <FaEnvelope className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="email"
                   type="email"
                   {...register("email")}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2 bg-gray-700 border border-gray-600 rounded-md leading-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="john@example.com"
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="mt-2 text-sm text-red-400">
                   {errors.email.message}
                 </p>
               )}
@@ -135,35 +135,35 @@ function Profile() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 New Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-gray-400" />
+                  <FaLock className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="password"
                   type={isPasswordVisible ? "text" : "password"}
                   {...register("password")}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full pl-10 pr-10 py-2 bg-gray-700 border border-gray-600 rounded-md leading-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-200"
                 >
                   {isPasswordVisible ? (
-                    <EyeSlashFilledIcon className="h-5 w-5 text-gray-400" />
+                    <EyeSlashFilledIcon className="h-5 w-5" />
                   ) : (
-                    <EyeFilledIcon className="h-5 w-5 text-gray-400" />
+                    <EyeFilledIcon className="h-5 w-5" />
                   )}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="mt-2 text-sm text-red-400">
                   {errors.password.message}
                 </p>
               )}
@@ -173,19 +173,19 @@ function Profile() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 Confirm New Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-gray-400" />
+                  <FaLock className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="confirmPassword"
                   type={isConfirmPasswordVisible ? "text" : "password"}
                   {...register("confirmPassword")}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full pl-10 pr-10 py-2 bg-gray-700 border border-gray-600 rounded-md leading-5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   placeholder="••••••••"
                 />
                 <button
@@ -193,32 +193,32 @@ function Profile() {
                   onClick={() =>
                     setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
                   }
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-200"
                 >
                   {isConfirmPasswordVisible ? (
-                    <EyeSlashFilledIcon className="h-5 w-5 text-gray-400" />
+                    <EyeSlashFilledIcon className="h-5 w-5" />
                   ) : (
-                    <EyeFilledIcon className="h-5 w-5 text-gray-400" />
+                    <EyeFilledIcon className="h-5 w-5" />
                   )}
                 </button>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="mt-2 text-sm text-red-400">
                   {errors.confirmPassword.message}
                 </p>
               )}
             </div>
 
-            <div className="flex items-center justify-between pt-4">
+            <div className="flex items-center justify-between pt-6">
               <button
                 type="submit"
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                className="bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition-colors duration-200"
               >
                 Update Profile
               </button>
               <Link
                 to="/user-orders"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                className="px-6 py-2 border border-gray-600 rounded-md font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition-colors duration-200"
               >
                 View Orders
               </Link>
