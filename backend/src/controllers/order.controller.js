@@ -195,7 +195,7 @@ export const markOrderAsPaid = asyncHandler(async (req, res) => {
       id,
       status,
       update_time,
-      email_address: payer.email_address,
+      email_address: payer.email,
     };
 
     const updatedOrder = await order.save();
