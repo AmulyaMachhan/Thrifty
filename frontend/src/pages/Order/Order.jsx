@@ -105,9 +105,9 @@ const Order = () => {
   return (
     <div className="bg-gray-900 min-h-screen py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           {/* Order Items Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className=" space-y-6">
             <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden">
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-white mb-6">
