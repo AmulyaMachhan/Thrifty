@@ -90,7 +90,7 @@ const Footer = () => {
         <div className="border-t border-gray-800">
           {/* Copyright Section */}
           <div className="py-8 text-center">
-            <p className="text-gray-400 mb-4">
+            <p className="font-semibold text-gray-400 mb-2 tracking-wide">
               © 2024 Thrifty. All rights reserved.
             </p>
             <div className="flex justify-center space-x-4 text-sm">
