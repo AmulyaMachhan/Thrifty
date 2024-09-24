@@ -60,7 +60,13 @@ const Order = () => {
             }).unwrap();
 
             if (verificationResponse.success) {
-              await payOrder().unwrap();
+              const details = {
+                id: order._id,
+                status: "sucess",
+                update_time: Date.now(),
+                payer: userInfo,
+              };
+              await payOrder({ orderId, details });
               toast.success("Payment done successfully.");
               refetch();
             } else {
