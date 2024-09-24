@@ -111,13 +111,11 @@ function Shipping() {
                 type="radio"
                 className="form-radio text-pink-500 focus:ring-2 focus:ring-pink-500"
                 name="paymentMethod"
-                value="PayPal"
-                checked={paymentMethod === "PayPal"}
+                value="Razorpay"
+                checked={paymentMethod === "Razorpay"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <span className="ml-2 text-sm text-white">
-                PayPal or Credit Card
-              </span>
+              <span className="ml-2 text-sm text-white">Razorpay</span>
             </div>
           </div>
 
