@@ -7,8 +7,13 @@ const UserOrder = () => {
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
 
   return (
-    <div className="container mx-auto p-6 text-gray-300">
-      <h2 className="text-3xl font-bold mb-8 text-gray-100">My Orders</h2>
+    <div className="container mx-auto py-6 text-gray-300">
+      <h2 className="text-center text-xl font-bold tracking-wider bg-black py-4 mb-4">
+        MY ORDERS{" "}
+        <span className="text-xl mx-2 px-2 py-1 font-bold text-[black] bg-[#F9F5FF] border border-[#E4E7EC] rounded-xl">
+          {orders?.length}
+        </span>
+      </h2>
 
       {isLoading ? (
         <div className="flex justify-center items-center">
@@ -16,8 +21,17 @@ const UserOrder = () => {
         </div>
       ) : error ? (
         <Message variant="danger">{error?.data?.error || error.error}</Message>
+      ) : orders.length === 0 ? (
+        <div className="text-center text-xl my-4 font-semibold tracking-wide">
+          <span>No Orders. Go to&nbsp;</span>
+          <span>
+            <Link to="/shop" className="text-pink-500 underline">
+              shop!
+            </Link>
+          </span>
+        </div>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto p-6">
           <table className="w-full text-left bg-gray-800 rounded-lg shadow-lg overflow-hidden">
             <thead className="bg-gray-700">
               <tr className="text-gray-400">
