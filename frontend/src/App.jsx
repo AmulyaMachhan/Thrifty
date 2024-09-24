@@ -1,7 +1,8 @@
 import { ToastContainer } from "react-toastify";
 import { Outlet } from "react-router-dom";
-import Navigation from "./pages/Auth/Navigation.jsx";
+import Navigation from "./pages/Layout/Navigation.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./pages/Layout/Footer.jsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <main className="pt-[4.5rem] min-h-screen">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }
