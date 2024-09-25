@@ -1,6 +1,5 @@
 import Chart from "react-apexcharts";
 import { useState, useEffect } from "react";
-import AdminMenu from "./AdminMenu";
 import OrderList from "./OrderList";
 import {
   useGetTotalOrdersQuery,
@@ -88,10 +87,12 @@ const AdminDashboard = () => {
   }, [salesDetail]);
 
   return (
-    <>
-      <AdminMenu />
+    <div className="py-4">
+      <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4 mb-4">
+        ADMIN DASHBOARD
+      </h2>
 
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto p-4">
         <div className="flex flex-wrap justify-center gap-10">
           {/* Sales Card */}
           <div className="bg-black text-gray-100 rounded-lg p-6 w-64 shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
@@ -151,7 +152,7 @@ const AdminDashboard = () => {
           <OrderList />
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
