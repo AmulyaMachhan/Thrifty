@@ -8,14 +8,8 @@ const CategoryForm = ({
   handleDelete,
 }) => {
   return (
-    <div className="bg-white shadow-xl rounded-lg p-6 transition-transform transform-gpu hover:scale-105">
+    <div className="">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <label
-          htmlFor="category"
-          className="block text-sm font-semibold text-gray-800"
-        >
-          Category Name
-        </label>
         <div className="relative">
           <input
             type="text"
