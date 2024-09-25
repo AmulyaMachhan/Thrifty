@@ -9,6 +9,7 @@ import {
 } from "../../redux/api/orderApiSlice";
 import { useGetUsersQuery } from "../../redux/api/userApiSlice";
 import Loader from "../../components/Loader";
+import { FaCartShopping, FaUsers } from "react-icons/fa6";
 
 const AdminDashboard = () => {
   const { data: sales, isLoading } = useGetTotalSalesQuery();
@@ -16,7 +17,6 @@ const AdminDashboard = () => {
   const { data: orders } = useGetTotalOrdersQuery();
   const { data: salesDetail } = useGetTotalSalesByDateQuery();
 
-  console.log(orders);
   const [state, setState] = useState({
     options: {
       chart: {
@@ -80,7 +80,6 @@ const AdminDashboard = () => {
             categories: formattedSalesDate.map((item) => item.x),
           },
         },
-
         series: [
           { name: "Sales", data: formattedSalesDate.map((item) => item.y) },
         ],
@@ -92,50 +91,63 @@ const AdminDashboard = () => {
     <>
       <AdminMenu />
 
-      <section className="container mx-auto">
-        <div className="flex justify-center flex-wrap gap-10">
-          <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
-            <div className="font-bold rounded-full w-[3rem] bg-pink-500 text-center p-3">
-              $
+      <section className="container mx-auto px-4 py-8">
+        <div className="flex flex-wrap justify-center gap-10">
+          {/* Sales Card */}
+          <div className="bg-black text-gray-100 rounded-lg p-6 w-64 shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+            <div className="flex items-center justify-center bg-pink-600 rounded-full w-12 h-12">
+              <span className="text-white text-2xl font-bold">$</span>
             </div>
-
-            <p className="mt-5">Sales</p>
-            <h1 className="text-xl font-bold">
-              $ {isLoading ? <Loader /> : sales}
-            </h1>
+            <p className="text-gray-400 mt-4">Sales</p>
+            <h2 className="text-3xl font-bold mt-2">
+              {isLoading ? <Loader /> : `$ ${sales}`}
+            </h2>
           </div>
-          <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
-            <div className="font-bold rounded-full w-[3rem] bg-pink-500 text-center p-3">
-              $
-            </div>
 
-            <p className="mt-5">Customers</p>
-            <h1 className="text-xl font-bold">
+          {/* Customers Card */}
+          <div className="bg-black text-gray-100 rounded-lg p-6 w-64 shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+            <div className="flex items-center justify-center bg-pink-600 rounded-full w-12 h-12">
+              <span className="text-white text-2xl font-bold">
+                <FaUsers />
+              </span>
+            </div>
+            <p className="text-gray-400 mt-4">Customers</p>
+            <h2 className="text-3xl font-bold mt-2">
               {isLoading ? <Loader /> : customers?.length}
-            </h1>
+            </h2>
           </div>
-          <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
-            <div className="font-bold rounded-full w-[3rem] bg-pink-500 text-center p-3">
-              $
+
+          {/* Orders Card */}
+          <div className="bg-black text-gray-100 rounded-lg p-6 w-64 shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+            <div className="flex items-center justify-center bg-pink-600 rounded-full w-12 h-12">
+              <span className="text-white text-2xl font-bold">
+                <FaCartShopping />
+              </span>
             </div>
-
-            <p className="mt-5">All Orders</p>
-            <h1 className="text-xl font-bold">
+            <p className="text-gray-400 mt-4">All Orders</p>
+            <h2 className="text-3xl font-bold mt-2">
               {isLoading ? <Loader /> : orders}
-            </h1>
+            </h2>
           </div>
         </div>
 
-        <div className="mt-[4rem] flex justify-center">
-          <Chart
-            options={state.options}
-            series={state.series}
-            type="bar"
-            width="70%"
-          />
+        {/* Chart Section */}
+        <div className="mt-16 flex justify-center">
+          <div className="bg-gray-900 rounded-lg p-6 shadow-lg w-full max-w-5xl">
+            <h2 className="text-white text-2xl font-semibold mb-6">
+              Sales Overview
+            </h2>
+            <Chart
+              options={state.options}
+              series={state.series}
+              type="bar"
+              width="100%"
+            />
+          </div>
         </div>
 
-        <div className="mt-[4rem]">
+        {/* Order List */}
+        <div className="mt-16">
           <OrderList />
         </div>
       </section>
