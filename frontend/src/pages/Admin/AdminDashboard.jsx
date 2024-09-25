@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   const { data: orders } = useGetTotalOrdersQuery();
   const { data: salesDetail } = useGetTotalSalesByDateQuery();
 
-  console.log(sales);
+  console.log(orders);
   const [state, setState] = useState({
     options: {
       chart: {
@@ -92,8 +92,8 @@ const AdminDashboard = () => {
     <>
       <AdminMenu />
 
-      <section className="">
-        <div className="w-[80%] flex justify-around flex-wrap">
+      <section className="container mx-auto">
+        <div className="flex justify-center flex-wrap gap-10">
           <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
             <div className="font-bold rounded-full w-[3rem] bg-pink-500 text-center p-3">
               $
@@ -101,7 +101,7 @@ const AdminDashboard = () => {
 
             <p className="mt-5">Sales</p>
             <h1 className="text-xl font-bold">
-              $ {isLoading ? <Loader /> : sales.totalSales}
+              $ {isLoading ? <Loader /> : sales}
             </h1>
           </div>
           <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
@@ -111,7 +111,7 @@ const AdminDashboard = () => {
 
             <p className="mt-5">Customers</p>
             <h1 className="text-xl font-bold">
-              $ {isLoading ? <Loader /> : customers?.length}
+              {isLoading ? <Loader /> : customers?.length}
             </h1>
           </div>
           <div className="rounded-lg bg-black p-5 w-[20rem] mt-5">
@@ -121,12 +121,12 @@ const AdminDashboard = () => {
 
             <p className="mt-5">All Orders</p>
             <h1 className="text-xl font-bold">
-              $ {isLoading ? <Loader /> : orders?.totalOrders}
+              {isLoading ? <Loader /> : orders}
             </h1>
           </div>
         </div>
 
-        <div className="ml-[10rem] mt-[4rem]">
+        <div className="mt-[4rem] flex justify-center">
           <Chart
             options={state.options}
             series={state.series}
