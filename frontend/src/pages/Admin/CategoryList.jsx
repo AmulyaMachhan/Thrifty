@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import CategoryForm from "../../components/CategoryForm";
 import CategoryModal from "./Modals/CategoryModal";
-import { PlusCircle, Edit2, Trash2 } from "lucide-react";
+import { PlusCircle, Edit2 } from "lucide-react";
 
 const CategoryList = () => {
   const { data: categories, refetch, isLoading } = useFetchCategoriesQuery();
@@ -82,10 +82,13 @@ const CategoryList = () => {
         CATEGORY MANAGEMENT
       </h2>
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto mb-12 bg-gray-800 bg-opacity-50 p-6 rounded-xl backdrop-blur-sm shadow-xl">
-          <h2 className="text-2xl font-semibold mb-6 text-purple-300">
-            Create New Category
+        <div className="max-w-xl mx-auto mb-12">
+          <h2 className="text-center text-3xl font-bold mb-1 text-white">
+            Create a new category
           </h2>
+          <h5 className="text-center text-gray-300 mb-5">
+            Increasing the amount of products everyday!
+          </h5>
           <CategoryForm
             value={name}
             setValue={setName}
@@ -98,10 +101,12 @@ const CategoryList = () => {
           </CategoryForm>
         </div>
 
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 text-purple-300 flex items-center justify-center gap-2">
-            Categories{" "}
-            <span className="text-pink-400">({categories?.length || 0})</span>
+        <hr className="divider border-1.5 border-gray-300 rounded-full"></hr>
+
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold mb-6 text-gray-100 flex items-center justify-center gap-2 tracking-widest">
+            TOTAL CATEGORIES{" "}
+            <span className="text-pink-500">({categories?.length || 0})</span>
           </h2>
 
           {isLoading ? (
@@ -109,15 +114,15 @@ const CategoryList = () => {
               <Loader />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
               {categories?.map((category) => (
                 <div
                   key={category._id}
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden shadow-lg border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 hover:shadow-purple-500/20 hover:shadow-2xl group"
+                  className="bg-gradient-to-br from-gray-700 to-black rounded-xl overflow-hidden"
                 >
-                  <div className="p-6 flex justify-between items-center">
-                    <span className="text-lg font-medium text-gray-200 group-hover:text-white transition-colors">
-                      {category.name}
+                  <div className="p-3 flex justify-between items-center">
+                    <span className="text-sm font-medium tracking-wide text-gray-200 group-hover:text-white transition-colors">
+                      {category.name.toUpperCase()}
                     </span>
                     <button
                       onClick={() => {
@@ -125,9 +130,9 @@ const CategoryList = () => {
                         setSelectedCategory(category);
                         setUpdatingName(category.name);
                       }}
-                      className="p-2 rounded-full bg-purple-500/20 hover:bg-purple-500/40 transition-colors duration-200 text-purple-300 hover:text-purple-200"
+                      className="p-2 rounded-full bg-black hover:bg-black transition-colors duration-200 text-white hover:text-gray-200"
                     >
-                      <Edit2 className="w-5 h-5" />
+                      <Edit2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -141,22 +146,21 @@ const CategoryList = () => {
         isOpen={modalVisible}
         onClose={() => setModalVisible(false)}
       >
-        <div className="p-8 bg-gray-800 rounded-xl shadow-2xl border border-purple-500/30">
-          <h3 className="text-2xl font-semibold mb-6 text-center text-purple-300">
-            Update Category
+        <div className="p-8 bg-gray-900 rounded-xl shadow-2xl">
+          <h3 className="text-2xl font-bold mb-6 text-center text-gray-100 tracking-wide">
+            UPDATE CATEGORY
           </h3>
           <CategoryForm
             value={updatingName}
             setValue={setUpdatingName}
             handleSubmit={handleUpdateCategory}
-            buttonText="Update"
+            buttonText="Update Category"
             className="space-y-4"
           />
           <button
             onClick={handleDeleteCategory}
-            className="mt-6 w-full bg-red-500/20 hover:bg-red-500/40 text-red-300 hover:text-red-200 font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 border border-red-500/30 hover:border-red-500/60"
+            className="mt-4 w-full bg-red-500/20 hover:bg-red-500/40 text-red-300 hover:text-red-200 font-semibold py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 border border-red-500/30 hover:border-red-500/60"
           >
-            <Trash2 className="w-5 h-5" />
             <span>Delete Category</span>
           </button>
         </div>
