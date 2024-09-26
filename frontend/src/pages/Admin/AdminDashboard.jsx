@@ -22,7 +22,7 @@ const AdminDashboard = () => {
         type: "line",
       },
       tooltip: {
-        theme: "dark",
+        theme: "light",
       },
       colors: ["#00E396"],
       dataLabels: {
@@ -133,9 +133,9 @@ const AdminDashboard = () => {
         </div>
 
         {/* Chart Section */}
-        <div className="mt-16 flex justify-center">
-          <div className="bg-gray-900 rounded-lg p-6 shadow-lg w-full max-w-5xl">
-            <h2 className="text-white text-2xl font-semibold mb-6">
+        <div className="mt-10 flex justify-center">
+          <div className="rounded-lg p-6 shadow-lg w-full max-w-5xl">
+            <h2 className="text-center text-white text-3xl font-semibold mb-6 tracking-wide">
               Sales Overview
             </h2>
             <Chart
@@ -148,7 +148,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Order List */}
-        <div className="mt-16">
+        <div className="mt-5">
           <OrderList />
         </div>
       </section>
