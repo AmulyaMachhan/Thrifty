@@ -18,23 +18,9 @@ app.use(
   cors({
     origin: "https://thrifty-qqkh.vercel.app",
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Content-Type, Authorization",
   })
 );
 app.use(express.static(path.join(path.resolve() + "public")));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
 
 //Routes Import
 import userRouter from "./src/routes/user.routes.js";
