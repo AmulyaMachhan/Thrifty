@@ -18,6 +18,8 @@ app.use(
   cors({
     origin: "https://thrifty-qqkh.vercel.app",
     credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type, Authorization",
   })
 );
 app.use(express.static(path.join(path.resolve() + "public")));
