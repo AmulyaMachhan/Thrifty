@@ -6,9 +6,11 @@ import {
   AiOutlineOrderedList,
   AiOutlineUser,
 } from "react-icons/ai";
-import { FaUsers } from "react-icons/fa";
+import { FaHeart, FaUsers } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import PropTypes from "prop-types";
+import { FaBagShopping } from "react-icons/fa6";
+import FavoritesCount from "../Favourites/FavouritesCount";
 
 const UserMenu = ({
   userInfo,
@@ -109,11 +111,32 @@ const UserMenu = ({
         <li>
           <Link
             to="/profile"
-            className="flex items-center gap-2 py-3 hover:text-pink-500"
+            className="flex items-center gap-2 py-2 hover:text-pink-500"
             onClick={handleLinkClick}
           >
             <AiOutlineUser size={20} />
-            <span>Profile</span>
+            <span>Account Details</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/user-orders"
+            className="flex items-center gap-2 py-2 hover:text-pink-500"
+            onClick={handleLinkClick}
+          >
+            <FaBagShopping size={20} />
+            <span>My Orders</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/favourites"
+            className="flex items-center gap-2 py-2 hover:text-pink-500 relative"
+            onClick={handleLinkClick}
+          >
+            <FaHeart size={20} />
+            <span>Wishlist</span>
+            <FavoritesCount />
           </Link>
         </li>
         <li>
