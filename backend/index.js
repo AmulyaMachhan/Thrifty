@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://thrifty-eosin.vercel.app/",
     credentials: true,
   })
 );
