@@ -22,7 +22,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://thrifty-qqkh.vercel.app"
+          "value": "https://thrifty-qqkh.vercel.app/"
         }
       ]
     }
