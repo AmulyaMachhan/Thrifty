@@ -28,7 +28,7 @@ const ProductCarousel = () => {
   };
 
   return (
-    <div className="mb-4 max-w-md">
+    <div className="mb-4 max-w-xs sm:max-w-md">
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -55,7 +55,7 @@ const ProductCarousel = () => {
                 <img
                   src={image}
                   alt={name}
-                  className="w-full rounded-lg object-cover h-[20rem]"
+                  className="w-full rounded-lg object-cover h-[10rem] sm:h-[20rem]"
                 />
 
                 <div className="mt-2 flex flex-col gap-2">
