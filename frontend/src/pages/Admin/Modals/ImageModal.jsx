@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import { createPortal } from "react-dom";
 
 export const ImageModal = ({ isOpen, onClose, imageSrc }) => {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-95  z-50 flex justify-center items-center p-4">
       <div className="w-[70%] overflow-auto g-gradient-to-r from-gray-900 via-gray-800 to-black h-screen rounded-lg p-4">
         <img
@@ -31,7 +32,8 @@ export const ImageModal = ({ isOpen, onClose, imageSrc }) => {
           </svg>
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
