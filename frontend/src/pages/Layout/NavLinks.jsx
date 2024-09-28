@@ -1,6 +1,6 @@
 import { FaHeart } from "react-icons/fa";
 import FavoritesCount from "../Favourites/FavouritesCount";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CartCount from "../Cart/CartCount";
 import {
   AiOutlineHome,
@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 
 function NavLinks({ handleLinkClick }) {
+  const location = useLocation();
   return (
     <div className="w-full flex justify-around space-x-6 text-sm ">
       <Link to="/" className="flex items-center" onClick={handleLinkClick}>
