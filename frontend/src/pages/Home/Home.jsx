@@ -29,21 +29,21 @@ const Home = () => {
         ) : (
           <>
             {/* Main Heading */}
-            <div className="mt-12 bg-black py-6">
-              <div className="flex justify-center gap-5 items-center mb-4">
-                <h1 className="text-4xl font-bold text-white tracking-wide">
+            <div className="py-3 sm:mt-12 sm:py-6 bg-black">
+              <div className="mb-2 sm:mb-4 flex justify-center gap-5 items-center">
+                <h1 className="text-2xl sm:text-4xl font-bold text-white sm:tracking-wide">
                   Our Special Products
                 </h1>
                 <Link
                   to="/shop"
-                  className="bg-pink-600 text-white font-semibold rounded-full py-2 px-5 hover:bg-pink-700 transition duration-200"
+                  className="px-3 py-1 text-xs sm:text-md sm:px-5 bg-pink-600 text-white font-semibold rounded-full hover:bg-pink-700 transition duration-200"
                 >
                   Shop Now
                 </Link>
                 {/* Subheading */}
               </div>
               <div className="text-center text-gray-400">
-                <p className="text-lg tracking-wide">
+                <p className="text-xs sm:text-lg tracking-wide">
                   Discover our hand-picked collection of the best products, just
                   for you!
                 </p>
@@ -51,9 +51,9 @@ const Home = () => {
             </div>
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 mx-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 justify-items-center sm:mx-10">
               {data?.products?.map((product) => (
-                <div key={product._id} className="p-4">
+                <div key={product._id} className="sm:p-4">
                   <Product product={product} />
                 </div>
               ))}
