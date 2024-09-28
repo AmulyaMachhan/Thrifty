@@ -16,11 +16,11 @@ const Header = () => {
 
   return (
     <div className="">
-      <div className="py-4 bg-white">
-        <h1 className="text-4xl font-bold text-center text-black tracking-wide mb-1">
+      <div className="py-2 px-2 md:py-4 bg-white">
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-black tracking-wide mb-1">
           Featured Products
         </h1>
-        <p className="text-lg text-center text-gray-700 font-semibold tracking-wide">
+        <p className="text-xs md:text-lg text-center text-gray-700 font-semibold tracking-wide">
           Discover our top picks for this season, handpicked just for you!
         </p>
       </div>
@@ -38,7 +38,7 @@ const Header = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-semibold text-gray-200 text-center mb-6">
+          <h2 className="text-2xl font-semibold text-gray-200 text-center mt-6 mb-6 sm:mt-0">
             Browse Our Product Carousel
           </h2>
           <ProductCarousel />
