@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 function NavLinks({ handleLinkClick }) {
   return (
-    <div className="flex items-center space-x-6 text-sm">
+    <div className="w-full flex justify-around space-x-6 text-sm ">
       <Link to="/" className="flex items-center" onClick={handleLinkClick}>
         <AiOutlineHome
           className="text-white"
@@ -19,7 +19,7 @@ function NavLinks({ handleLinkClick }) {
           color={location.pathname === "/" ? "pink" : "white"}
         />
         <span
-          className={`ml-2 tracking-wider ${location.pathname === "/" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`hidden md:block ml-2 tracking-wider ${location.pathname === "/" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           HOME
         </span>
@@ -31,7 +31,7 @@ function NavLinks({ handleLinkClick }) {
           color={location.pathname === "/shop" ? "pink" : "white"}
         />
         <span
-          className={`ml-2 tracking-wider ${location.pathname === "/shop" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`hidden md:block ml-2 tracking-wider ${location.pathname === "/shop" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           SHOP
         </span>
@@ -47,7 +47,7 @@ function NavLinks({ handleLinkClick }) {
           color={location.pathname === "/cart" ? "pink" : "white"}
         />
         <span
-          className={`ml-2 tracking-wider ${location.pathname === "/cart" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`hidden md:block ml-2 tracking-wider ${location.pathname === "/cart" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           CART
         </span>
@@ -64,7 +64,7 @@ function NavLinks({ handleLinkClick }) {
           color={location.pathname === "/favourites" ? "pink" : "white"}
         />
         <span
-          className={`ml-2 tracking-wider ${location.pathname === "/favourites" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`hidden md:block ml-2 tracking-wider ${location.pathname === "/favourites" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           FAVOURITES
         </span>
