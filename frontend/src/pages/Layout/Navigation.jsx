@@ -43,9 +43,9 @@ const Navigation = () => {
     <nav className="bg-black text-white fixed w-full top-0 left-0 z-50">
       <div className="container mx-auto flex items-center justify-between p-4 ">
         <Logo />
-
-        <NavLinks handleLinkClick={handleLinkClick} />
-
+        <div className="hidden sm:block">
+          <NavLinks handleLinkClick={handleLinkClick} />
+        </div>
         <div className="relative">
           {userInfo ? (
             <UserMenu
