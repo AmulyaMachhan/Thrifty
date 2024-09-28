@@ -42,9 +42,11 @@ function Login() {
   };
   return (
     <div>
-      <section className="flex justify-center">
-        <div className="w-1/2 px-4">
-          <h1 className="text-2xl font-bold tracking-wider my-4">SIGN IN</h1>
+      <section className="flex justify-center items-center">
+        <div className="w-full px-8 sm:w-1/2 sm:px-4">
+          <h1 className="text-center sm:text-left text-2xl font-bold tracking-wider my-4">
+            SIGN IN
+          </h1>
 
           <form className="container" onSubmit={handleSubmit}>
             <div className="my-[2rem]">
