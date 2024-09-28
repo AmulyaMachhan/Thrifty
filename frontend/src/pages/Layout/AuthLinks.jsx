@@ -15,7 +15,7 @@ const AuthLinks = ({ location, handleLinkClick }) => (
           color={location.pathname === "/login" ? "pink" : "white"}
         />
         <span
-          className={`ml-1 tracking-wider ${location.pathname === "/login" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`text-xs md:block ml-1 tracking-wider ${location.pathname === "/login" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           LOGIN
         </span>
@@ -32,7 +32,7 @@ const AuthLinks = ({ location, handleLinkClick }) => (
           color={location.pathname === "/register" ? "pink" : "white"}
         />
         <span
-          className={`ml-1 tracking-wider ${location.pathname === "/register" ? "text-[#ffc0cb]" : "text-white"}`}
+          className={`text-xs md:block ml-1 tracking-wider ${location.pathname === "/register" ? "text-[#ffc0cb]" : "text-white"}`}
         >
           REGISTER
         </span>
