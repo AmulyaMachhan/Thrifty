@@ -46,8 +46,8 @@ function Register() {
     }
   };
   return (
-    <section className="flex">
-      <div className="w-1/2 px-4">
+    <section className="flex justify-center">
+      <div className="w-full px-8 sm:w-1/2 sm:px-4">
         <h1 className="text-2xl font-bold tracking-wider my-2">REGISTER</h1>
 
         <form className="container" onSubmit={handleSubmit}>
@@ -146,7 +146,7 @@ function Register() {
       <img
         src="https://images.unsplash.com/photo-1576502200916-3808e07386a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80"
         alt=""
-        className="w-1/2 xl:block md:hidden sm:hidden rounded-lg"
+        className="sm:w-1/2 hidden lg:block rounded-lg"
       />
     </section>
   );
