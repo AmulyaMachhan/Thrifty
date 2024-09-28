@@ -11,13 +11,19 @@ import PropTypes from "prop-types";
 import Ratings from "./Ratings";
 import HeartIcon from "../Favourites/HeartIcon";
 import { useState } from "react";
+import { ImageModal } from "../Admin/Modals/ImageModal";
 
 const Product = ({ product }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="max-w-[20rem] my-6">
       <Card className="w-full bg-gradient-to-r from-[#000000] to-[#434343]  shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out">
-        <CardHeader className="w-full p-0 relative">
+        <CardHeader
+          className="w-full p-0 relative"
+          onClick={() => setIsModalOpen(true)}
+        >
           <Image
             src={product.image}
             alt={product.name}
@@ -33,7 +39,6 @@ const Product = ({ product }) => {
             <HeartIcon product={product} />
           </div>
         </CardHeader>
-
         <CardBody className="py-4 px-3">
           <h5 className="text-lg font-bold text-white leading-tight mb-2">
             {product.name}
@@ -61,6 +66,11 @@ const Product = ({ product }) => {
           </Link>
         </CardFooter>
       </Card>
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        imageSrc={product.image}
+      />
     </div>
   );
 };
