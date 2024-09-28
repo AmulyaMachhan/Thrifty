@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="">
       <div className="py-2 px-2 md:py-4 bg-white">
-        <h1 className="text-2xl md:text-4xl font-bold text-center text-black tracking-wide mb-1">
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-black sm:tracking-wide mb-1">
           Featured Products
         </h1>
         <p className="text-xs md:text-lg text-center text-gray-700 font-semibold tracking-wide">
