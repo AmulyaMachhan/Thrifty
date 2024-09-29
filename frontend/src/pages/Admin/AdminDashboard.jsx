@@ -68,7 +68,7 @@ const AdminDashboard = () => {
     if (salesDetail) {
       const formattedSalesDate = salesDetail.map((item) => ({
         x: item._id,
-        y: item.totalSales,
+        y: item.totalSales?.toFixed(2),
       }));
 
       setState((prevState) => ({
@@ -80,7 +80,10 @@ const AdminDashboard = () => {
           },
         },
         series: [
-          { name: "Sales", data: formattedSalesDate.map((item) => item.y) },
+          {
+            name: "Sales",
+            data: formattedSalesDate.map((item) => item.y),
+          },
         ],
       }));
     }
@@ -134,7 +137,7 @@ const AdminDashboard = () => {
 
         {/* Chart Section */}
         <div className="mt-10 flex justify-center">
-          <div className="rounded-lg p-6 shadow-lg w-full max-w-5xl">
+          <div className="w-full">
             <h2 className="text-center text-white text-3xl font-semibold mb-6 tracking-wide">
               Sales Overview
             </h2>
