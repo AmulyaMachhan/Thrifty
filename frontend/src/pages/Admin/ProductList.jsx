@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { IoMdListBox, IoMdText, IoMdPricetag } from "react-icons/io";
-import AdminMenu from "./AdminMenu";
 
 function ProductList() {
   const [name, setName] = useState("");
@@ -73,7 +72,6 @@ function ProductList() {
         return;
       } else {
         toast.success(`${data.name} Created Successfully`);
-        // Clear localStorage after successful submission
         localStorage.clear();
         navigate("/admin/allproductslist");
       }
@@ -90,7 +88,6 @@ function ProductList() {
       </h2>
       <div className="container mx-auto py-8">
         <div className="flex flex-col md:flex-row items-center justify-center">
-          <AdminMenu />
           <div className="md:w-3/4 bg-gray-800 shadow-lg rounded-lg p-8 mx-auto md:mx-0">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="mb-6">

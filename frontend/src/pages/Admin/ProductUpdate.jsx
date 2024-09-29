@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import AdminMenu from "./AdminMenu";
 import {
   useDeleteProductMutation,
   useGetProductByIdQuery,
@@ -116,7 +115,6 @@ function ProductUpdate() {
     <div className="min-h-screen text-gray-100">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row">
-          <AdminMenu />
           <div className="flex-1 md:w-3/4 p-4">
             <h2 className="text-3xl font-bold mb-6 text-white">
               Update / Delete Product
