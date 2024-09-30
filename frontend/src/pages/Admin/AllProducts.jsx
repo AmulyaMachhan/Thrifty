@@ -14,7 +14,7 @@ const AllProducts = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen w-full flex justify-center items-center bg-gray-900">
+      <div className="h-screen w-full flex justify-center items-center">
         <Loader />
       </div>
     );
