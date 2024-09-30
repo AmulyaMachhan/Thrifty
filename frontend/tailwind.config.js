@@ -15,6 +15,9 @@ export default {
       fontFamily: {
         abril: ["Abril Fatface", "serif"],
       },
+      screens: {
+        xs: "450px",
+      },
     },
   },
   plugins: [flowbitePlugin, flowbite.plugin(), nextui()],
