@@ -104,7 +104,7 @@ const AdminDashboard = () => {
             </div>
             <p className="text-gray-400 mt-4">Sales</p>
             <h2 className="text-3xl font-bold mt-2">
-              {isLoading ? <Loader /> : `$ ${sales.toFixed(2)}`}
+              {isLoading ? <Loader /> : `$ ${sales?.toFixed(2)}`}
             </h2>
           </div>
 

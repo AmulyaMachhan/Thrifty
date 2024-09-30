@@ -76,6 +76,6 @@ function NavLinks({ handleLinkClick }) {
 }
 
 NavLinks.propTypes = {
-  handleLinkClick: PropTypes.func.isRequired,
+  handleLinkClick: PropTypes.func,
 };
 export default NavLinks;
