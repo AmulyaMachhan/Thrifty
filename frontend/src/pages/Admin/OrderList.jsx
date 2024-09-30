@@ -7,7 +7,10 @@ const OrderList = () => {
   const { data: orders, isLoading, error } = useGetAllOrdersQuery();
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto ">
+      <h2 className="w-full text-center text-xl font-bold tracking-wider bg-black py-4 my-4">
+        ORDERS ({orders.length !== 0 && orders.length})
+      </h2>
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -24,7 +27,7 @@ const OrderList = () => {
           </span>
         </div>
       ) : (
-        <div className="overflow-x-auto bg-black rounded-lg shadow-xl">
+        <div className="overflow-x-auto bg-black rounded-lg shadow-xl m-4">
           <table className="min-w-full divide-y divide-gray-700">
             <thead className="bg-black">
               <tr>
