@@ -17,14 +17,14 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="max-w-[18rem] p-2 relative bg-gradient-to-br from-gray-800 to-black rounded-lg shadow-lg transition-transform transform hover:scale-105">
+    <div className="max-w-[15rem] relative bg-gradient-to-br from-gray-800 to-black rounded-lg shadow-lg transition-transform transform hover:scale-105">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-gradient-to-r from-pink-200 to-pink-400 text-pink-800 text-sm font-medium px-3 py-1 rounded-full shadow-md">
+          <span className="absolute bottom-3 right-3 bg-gradient-to-r from-pink-200 to-pink-400 text-pink-800 text-xs font-medium px-3 py-1 rounded-full shadow-md">
             {p.brand}
           </span>
           <img
-            className="cursor-pointer rounded-t-lg h-[200px] w-full object-cover transition-opacity duration-500"
+            className="cursor-pointer rounded-t-lg h-[10rem] w-full object-cover transition-opacity duration-500"
             src={p.image}
             alt={p.name}
             style={{
@@ -36,7 +36,7 @@ const ProductCard = ({ p }) => {
         <HeartIcon product={p} />
       </section>
 
-      <div className="py-5 px-2">
+      <div className="py-3 px-2">
         <h5 className="mb-2 text-lg font-semibold text-white truncate">
           {p.name}
         </h5>
@@ -48,7 +48,7 @@ const ProductCard = ({ p }) => {
           })}
         </p>
 
-        <p className="mb-3 font-normal text-gray-300">
+        <p className="mb-3 font-normal text-gray-300 text-xs">
           {p.description.substring(0, 30)} ...
         </p>
 
@@ -59,7 +59,7 @@ const ProductCard = ({ p }) => {
           >
             Read More
             <svg
-              className="w-3.5 h-3.5 ml-2"
+              className="w-3 h-3 ml-2"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -80,7 +80,7 @@ const ProductCard = ({ p }) => {
             onClick={() => addToCartHandler(p, 1)}
             aria-label={`Add ${p.name} to cart`}
           >
-            <AiOutlineShoppingCart size={25} />
+            <AiOutlineShoppingCart size={20} />
           </button>
         </section>
       </div>
