@@ -37,6 +37,10 @@ import ProductDetails from "./pages/Products/ProductDetails.jsx";
 import OrderList from "./pages/Admin/OrderList.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 
+import FAQ from "./pages/Support/FAQ.jsx";
+import ReturnsAndExchanges from "./pages/Support/ReturnAndExchanges.jsx";
+import ContactUs from "./pages/Support/ContactUs.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -45,6 +49,9 @@ const router = createBrowserRouter(
       <Route path="/shop" element={<Shop />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/help" element={<FAQ />} />
+      <Route path="/returns" element={<ReturnsAndExchanges />} />
+      <Route path="/contact" element={<ContactUs />} />
 
       {/* Authentication Routes */}
       <Route path="/login" element={<Login />} />
