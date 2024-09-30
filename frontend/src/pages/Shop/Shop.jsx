@@ -81,7 +81,7 @@ const Shop = () => {
         {/* Sidebar */}
         <div className="max-w-28 xs:max-w-48 sm:max-w-xs bg-black p-2 sm:p-4">
           {/* Categories Filter */}
-          <h2 className="text-lg font-semibold text-center py-2 bg-gray-100 text-black">
+          <h2 className="text-sm sm:text-lg font-semibold text-center py-2 mt-2">
             Filter by Categories
           </h2>
           <div className="px-1 sm:px-2 py-4 w-full  ">
@@ -105,7 +105,7 @@ const Shop = () => {
           </div>
 
           {/* Brands Filter */}
-          <h2 className="text-lg font-semibold text-center py-2 bg-gray-100 text-black">
+          <h2 className="sm:text-lg font-semibold text-center py-2">
             Filter by Brands
           </h2>
           <div className="px-1 sm:px-2 py-4 rounded-lg">
@@ -129,7 +129,7 @@ const Shop = () => {
           </div>
 
           {/* Price Filter */}
-          <h2 className="text-lg font-semibold text-center py-2 bg-gray-100 text-black">
+          <h2 className="text-lg font-semibold text-center py-2">
             Filter by Price
           </h2>
           <div className="py-4">
