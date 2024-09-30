@@ -10,7 +10,15 @@ const Home = () => {
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
 
   return (
-    <div className="flex justify-center">
+    <div className="">
+      <div className="py-2 px-2 md:py-4 bg-white">
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-black sm:tracking-wide mb-1">
+          Featured Products
+        </h1>
+        <p className="text-xs md:text-lg text-center text-gray-700 font-semibold tracking-wide">
+          Discover our top picks for this season, handpicked just for you!
+        </p>
+      </div>
       <div
         className={`${isLoading ? "h-[100vh] w-full flex flex-col items-center justify-around" : ""}`}
       >
