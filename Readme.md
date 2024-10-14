@@ -2,6 +2,8 @@
 
 Thrifty is a full-featured e-commerce web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides a seamless online shopping experience with a robust user authentication system, comprehensive admin management, and a modern, responsive user interface.
 
+![thrifty](https://github.com/user-attachments/assets/49651e72-6b5a-413f-96b3-5dedd64df0ed)
+
 ## Table of Contents
 
 - [Features](#features)
