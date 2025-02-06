@@ -84,9 +84,9 @@ const loginUser = asyncHandler(async (req, res) => {
   // Return response
   return res.status(200).json({
     _id: existingUser._id,
+    fullName: existingUser.fullName,
     email: existingUser.email,
-    username: existingUser.username,
-    isAdmin: existingUser.isAdmin,
+    profilePic: existingUser.profilePic,
   });
 });
 
